@@ -1,0 +1,127 @@
+body{ padding: 0; margin: 0;}
+.index-body{background-color:#f2f9fd;}
+/*登陆*/
+.panel{background:#fff;}
+form .form-group:last-child{padding-bottom:0;}
+.passcode{position:absolute;right:0;top:0;height:32px;margin:1px;border-left:solid 1px #ddd;text-align:center;line-height:32px;border-radius:0 4px 4px 0;}
+/*后台框架*/
+.admin_logo{position:relative;float:left;width:180px;margin-right:-180px;background:#e6f2fb;text-align:center; }
+.admin_nav{padding-top:15px;background:#e6f2fb;margin-left:180px;}
+.logo{border-bottom:solid 1px #b5cfd9;padding:23px 10px;height: 87px;}
+
+.admin-navbar{border-bottom:solid 5px #09c;padding:0 15px;}
+.admin-nav li{display:inline-block;}
+.admin-nav ul{display:none;}
+.admin-nav ul li{float:none;display:block;}
+.admin-nav ul ul li{list-style:circle;margin-left:15px;}
+.admin-nav .active a{background:#09c;color:#fff;border-radius:4px 4px 0 0;}
+.admin-nav .active ul{display:block;position:fixed;left:0;width:180px;margin-top:41px;}
+.admin-nav .active ul a{background:transparent;color:#333;border-radius:0;}
+.admin-nav .active .active a{background:#e6f2fb;border-top:solid 1px #b5cfd9;border-bottom:solid 1px #b5cfd9;}
+.admin-nav .active .admin-nav-ii li {padding:1px 0;}
+.admin-nav .active .admin-nav-ii li.active {padding:0;}
+.admin_left_btn {height: 40px;line-height: 40px;font-size: 10px; width: 12px;cursor: pointer;	position: absolute; 	
+	left: 168px;top:50%;margin-top: -20px; text-align: center;color: #ffffff; background: #09c;z-index:2;}
+.admin_left_btn_open {z-index: 9999;left: 0;}
+
+.admin-bread{background:#f2f9fd;border-left:solid 1px #b5cfd9;border-bottom:solid 1px #b5cfd9;line-height:20px;}
+.admin-bread .bread{margin-bottom:0;}
+.admin-bread span{float:right;font-size:12px;color:#666;line-height:36px;}
+
+.admin_main{background:#fff;position:fixed;border-left:solid 1px #b5cfd9;right:0;bottom:0;top:87px;left:180px; overflow:auto;overflow: hidden;}
+
+.fullscreen .admin_logo { display: none;}
+.fullscreen .admin_nav { margin-left: 0;}
+.fullscreen .admin_main { left: 0; overflow: hidden;}
+
+/*欢迎使用*/
+.welcome { overflow-x:hidden;padding-top: 30px;}
+.alert{margin-bottom:20px;}
+.admin-panel { padding: 20px;}
+.admin-panel td{line-height:24px;}
+.admin-panel td .button{line-height:16px;}
+.admin-panel .pagination .active{background:#fff;}
+
+/*其他常用样式*/
+.toolbar { float: right;}
+
+/*图标样式*/
+.iconExt{ padding-left: 24px; background-position: 4px center; background-repeat: no-repeat;}
+.iconExt-blank{	
+	background-image:url('../images/icons/blank.gif');}
+.iconExt-add{	
+	background-image:url('../images/icons/edit_add.png');}
+.iconExt-edit{	
+	background-image:url('../images/icons/pencil.png');}
+.iconExt-remove{	
+	background-image:url('../images/icons/edit_remove.png');}
+.iconExt-save{	
+	background-image:url('../images/icons/filesave.png');}
+.iconExt-cut{	
+	background-image:url('../images/icons/cut.png');}
+.iconExt-ok{	
+	background-image:url('../images/icons/ok.png');}
+.iconExt-no{	
+	background-image:url('../images/icons/no.png');}
+.iconExt-cancel{	
+	background-image:url('../images/icons/cancel.png');}
+.iconExt-reload{	
+	background-image:url('../images/icons/reload.png');}
+.iconExt-search{	
+	background-image:url('../images/icons/search.png');}
+.iconExt-print{	
+	background-image:url('../images/icons/print.png');}
+.iconExt-help{	
+	background-image:url('../images/icons/help.png');}
+.iconExt-undo{	
+	background-image:url('../images/icons/undo.png');}
+.iconExt-redo{	
+	background-image:url('../images/icons/redo.png');}
+.iconExt-back{	
+	background-image:url('../images/icons/back.png');}
+.iconExt-sum{	
+	background-image:url('../images/icons/sum.png');}
+.iconExt-tip{	
+	background-image:url('../images/icons/tip.png');}
+.iconExt-filter{	
+	background-image:url('../images/icons/filter.png');}
+.iconExt-mini-add{	
+	background-image:url('../images/icons/mini_add.png');}
+.iconExt-mini-edit{	
+	background-image:url('../images/icons/mini_edit.png');}
+.iconExt-mini-refresh{	
+	background-image:url('../images/icons/mini_refresh.png');}
+.iconExt-large-picture{	
+	background-image:url('../images/icons/large_picture.png');}
+.iconExt-large-clipart{	
+	background-image:url('../images/icons/large_clipart.png');}
+.iconExt-large-shapes{	
+	background-image:url('../images/icons/large_shapes.png');}
+.iconExt-large-smartart{	
+	background-image:url('../images/icons/large_smartart.png');}
+.iconExt-large-chart{	
+	background-image:url('../images/icons/large_chart.png');}
+.iconExt-group_key{	
+	background-image:url('../images/icons/group_key.png');}
+.iconExt-data_config{	
+	background-image:url('../images/icons/data_config.png');}
+.iconExt-member1{	
+	background-image:url('../images/icons/member1.png');}
+.iconExt-member2{	
+	background-image:url('../images/icons/member2.png');}
+.iconExt-member3{	
+	background-image:url('../images/icons/member3.png');}
+.iconExt-config{	
+	background-image:url('../images/icons/config.png');}
+.iconExt-logout{	
+	background-image:url('../images/icons/logout.png');}
+.iconExt-key{	
+	background-image:url('../images/icons/key.png');}
+.iconExt-import{	
+	background-image:url('../images/icons/import.png');}
+.iconExt-export{	
+	background-image:url('../images/icons/export.png');}
+.iconExt-coins{	
+	background-image:url('../images/icons/coins.png');}
+.iconExt-clearup{	
+	background-image:url('../images/icons/clearup.png');}

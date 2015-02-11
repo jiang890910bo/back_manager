@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>${app_name!}</title>
+    <link rel="stylesheet" href="${root}Static/css/pintuer.css">
+    <link rel="stylesheet" href="${root}Static/css/admin.css">
+    <script src="${root}Static/js/jquery.js"></script>
+    <script src="${root}Static/js/pintuer.js"></script>
+    <script src="${root}Static/js/respond.js"></script>
+    <script src="${root}Static/js/admin.js"></script>
+</head>
+
+<body class="index-body">
+<div class="admin_logo">
+    <div class="logo"><a target="mainFrame" href="/" ><img src="${root}Static/images/logo.png" alt="后台管理系统" /></a></div>
+</div>
+<div class="admin_nav">
+    <div class="admin-navbar">
+        <span class="float-right">
+        	<a class="button button-little bg-main" href="${root}Static/http://www.pintuer.com" target="_blank">前台首页</a>
+            <a class="button button-little bg-yellow" href="${root}Static/login.html">注销登录</a>
+        </span>
+        <ul class="nav nav-inline admin-nav">
+            <div class="icon-caret-left admin_left_btn"></div>
+            <!-- @for(nav in tree){ -->
+            <li><a target="${nav.target}" href="javascript:;" class="${nav.icon}"> ${nav.title}</a>
+                <!-- @ if(nav.hasChild==true){ -->                
+                <ul class="admin-nav-ii">
+                    <!-- @for(sub in nav.children){ -->     
+                    <li><a target="${sub.target}" href="${sub.url}"  class="${sub.icon}"> ${sub.title}</a></li>
+                    <!-- @} -->
+                </ul>
+                <!-- @ } -->
+            </li>
+            <!-- @} -->                 
+        </ul>
+    </div>
+    <div class="admin-bread">
+        <span>您好，admin，欢迎您的光临。</span>
+        <ul class="bread">
+            <li><a target="mainFrame" href="${root}Static/index.html" class="icon-home"> 开始</a></li>
+            <li>后台首页</li>
+        </ul>
+    </div>
+</div>
+<div class="admin_main" id="admin_main">
+<iframe name="mainFrame" id="mainFrame" src="welcome" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none;" width="100%" height="233" allowtransparency="true"></iframe>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+window.onresize = function(){
+    document.getElementById('mainFrame').height = $("#admin_main").height();
+}
+document.getElementById('mainFrame').height = $("#admin_main").height();
+var firstNav = $(".admin-nav li").eq(0);
+firstNav.addClass('active')
+$(".admin-nav-ii li:first",firstNav).addClass('active')
+</script>

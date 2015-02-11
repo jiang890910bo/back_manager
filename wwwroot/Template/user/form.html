@@ -1,0 +1,123 @@
+<!-- @ layout("../layout/default.html") { -->
+<div class="admin-panel">
+	<div class="tab">
+		<div class="tab-head">
+			<strong><!-- @if(@data.isNew()){ -->添加<!-- @}else{ -->编辑<!-- @} -->用户</strong>
+			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
+			<ul class="tab-nav">
+			  <li class="active"><a href="#tab-set">用户信息</a></li>			  
+			  <!-- <li><a href="#tab-other">辅助信息</a></li> -->
+			</ul>
+		</div>
+		<div class="tab-body">
+			<div class="tab-panel active" id="tab-set">
+				<form method="post" class="form-x" action="">
+					<div class="form-group">
+						<div class="label"><label for="sitename">用户名</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_account" name="user.account" size="20" placeholder="请填写用户名" data-validate="required:请填写用户名" value="${data.account!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">密码</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_password" name="user.password" size="32" placeholder="请填写密码" 
+						<!-- @if(@data.isNew()){ -->
+						data-validate="required:请填写密码"
+						<!-- @} -->  
+						value=""/>
+						<!-- @if(!@data.isNew()){ -->
+						<div class="input-note">请留空表示无需更改</div>
+						<!-- @} -->
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">中文名</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_cname" name="user.cname" size="10" placeholder="请填写中文名" data-validate="" value="${data.cname!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">英文名</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_ename" name="user.ename" size="50" placeholder="请填写英文名" data-validate="" value="${data.ename!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">是否启用</label></div>
+						<div class="field">
+						<div class="button-group button-group-small radio">
+							<label class="button" id="user_flg_true"><input name="user.flg" value="1"  type="radio"><span class="icon icon-check"></span> 是</label>
+							<label class="button" id="user_flg_false"><input name="user.flg" value="0" type="radio"><span class="icon icon-times"></span> 否</label>
+						</div>
+						<script>
+							$("#user_flg_${data.flg!true}").addClass('active').children('input').attr('checked',true);
+						</script>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">备注</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_remark" name="user.remark" size="1000" placeholder="请填写备注" data-validate="" value="${data.remark!""}"/>
+						</div>
+					</div>
+					
+					
+					
+				<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
+			    </form>
+			</div>
+			<div class="tab-panel" id="tab-other">
+				<form class="form-x">
+				<div class="form-group">
+					<div class="label"><label for="sitename">登录次数</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_login_count" name="user.login_count" size="11" placeholder="登录次数" data-validate="required:请填写登录次数" value="${data.login_count!"0"}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">最后登录时间</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_last_login_time" name="user.last_login_time" size="11" placeholder="最后登录时间" data-validate="" value="${data.last_login_time!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">创建时间</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_create_time" name="user.create_time" size="11" placeholder="创建时间" data-validate="required:请填写创建时间" value="${data.create_time!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">创建者</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_create_user_id" name="user.create_user_id" size="11" placeholder="创建者" data-validate="required:请填写创建者" value="${data.create_user_id!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">更新时间</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_update_time" name="user.update_time" size="11" placeholder="更新时间" data-validate="" value="${data.update_time!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">更新者</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_update_user_id" name="user.update_user_id" size="11" placeholder="更新者" data-validate="" value="${data.update_user_id!""}"/>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- @ } -->

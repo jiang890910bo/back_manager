@@ -1,0 +1,81 @@
+<!-- @ layout("../layout/default.html") { -->
+<div class="admin-panel">
+    <div class="panel">
+        <form method="post" action="save_order">
+            <div class="panel-head">
+                <h3 class="float-left"><b>菜单导航</b></h3>
+                <div class="toolbar">
+                    <a href="nav_create" class="button  button-little bg-blue  icon-plus"> 添加顶部导航</a>
+                    <button class="button  button-little bg-blue icon-unsorted"> 保存排序</button>
+                    <button class="button  button-little bg-red icon-trash-o"> 批量删除</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <table class="table table-hover table-condensed">            
+                <tr>
+                    <th width="30"><input type="checkbox" class="checkall" name="checkall" checkfor="id" /></th>
+                    <th width="10"><!-- 展开按钮 --></th>
+                    <th width="50">顺序</th>
+                    <th width="200">名称</th>
+                    <th>链接</th>
+                    <th width="100">操作</th>
+                </tr>
+                <!-- @ for(nav in test){ -->
+                <tr pid="${nav.pid}">
+                    <td><input type="checkbox" name="id" value="${nav.id}"/></td>
+                    <td>
+                        <!-- @if(nav.hasChild==true){ -->
+                        <a href="javascript:;" onclick="show(this,${nav.id})" class="icon-caret-right"></a>
+                        <!-- @} -->
+                    </td>
+                    <td>
+                        <input type="text" class="input input-small" name="orderV" value="${nav.orderid}">
+                        <input type="hidden" class="input input-small" name="orderK" value="${nav.id}">
+                    </td>
+                    <td><b class="${nav.icon}"></b> ${nav.title} <a href="nav_create/${nav.id}" class="text-blue icon-plus-square"></a></td>
+                    <td>${nav.url}</td>
+                    <td width="100">                        
+                            <a class="button border-blue button-little icon-edit" href="nav_update/${nav.id}"></a> 
+                            <a class="button border-red  button-little icon-trash-o" href="nav_delete/${nav.id}" onclick="{if(confirm('确认删除?')){return true;}return false;}"></a> 
+                    </td>
+                </tr>
+                    <!-- @if(nav.hasChild==true) -->
+                    <!-- @ for(sub in nav.children){ -->
+                <tr pid="${sub.pid}" class="hidden">
+                    <td><input type="checkbox" name="id" value="${sub.id}"/></td>
+                    <td></td>
+                    <td>
+                        <input type="text" class="input input-small" name="orderV" value="${sub.orderid}">
+                        <input type="hidden" class="input input-small" name="orderK" value="${sub.id}">
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b class="${sub.icon}"></b> ${sub.title}</td>
+                    <td>${sub.url}</td>
+                    <td width="100">                        
+                            <a class="button border-blue button-little icon-edit" href="nav_update/${sub.id}"></a> 
+                            <a class="button border-red  button-little icon-trash-o" href="nav_delete/${sub.id}" onclick="{if(confirm('确认删除?')){return true;}return false;}"></a> 
+                    </td>
+                </tr>
+
+                    <!-- @} -->
+
+                    <!-- @ }     -->
+                     
+            </table>
+        </form>        
+    </div>
+</div>
+<script>
+    var show= function (obj,id){
+        cssClass = $(obj).attr("class");
+        if (cssClass=='icon-caret-right'){
+            $(obj).attr("class",'icon-sort-down');
+            $("tr[pid='"+id+"']").removeClass('hidden')
+            console.info($("div[pid='"+id+"']"));
+        }
+        else{
+            $(obj).attr("class",'icon-caret-right');
+            $("tr[pid='"+id+"']").addClass('hidden')
+        }
+    }
+</script>
+<!-- @ } -->

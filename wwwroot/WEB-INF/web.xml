@@ -1,12 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>Paladin</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+	<display-name>Paladin</display-name>
+	<welcome-file-list>
+	  <welcome-file>index.html</welcome-file>
+	  <welcome-file>index.htm</welcome-file>
+	  <welcome-file>index.jsp</welcome-file>
+	  <welcome-file>default.html</welcome-file>
+	  <welcome-file>default.htm</welcome-file>
+	  <welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<!-- >>>>>>>>>>>shiro<<<<<<<<<<<<<< -->
+ 
+	<!-- 
+	<listener>定义了一个ServletContext监听器，当web应用启动的时候同时启动shiro运行环境.
+	默认情况下，监听器会自动查询WEB-INF/shiro.ini作为shiro的运行配置。 
+	-->
+	<listener>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
+	<context-param>
+	    <param-name>shiroConfigLocations</param-name>
+	    <param-value>classpath:shiro.ini</param-value>
+	</context-param>
+	<!-- 
+	<filter>定义了主要的shiro过滤器，该过滤器将过滤应用中所有进入web应用的请求，这样，shrio就能在允许一个请求到达引用之前，
+	执行必要的身份和权限控制操作
+	 -->
+    <filter>
+        <filter-name>ShiroFilter</filter-name>
+        <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ShiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	  
+	<filter>
+	  <filter-name>jfinal</filter-name>
+	  <filter-class>com.jfinal.core.JFinalFilter</filter-class>
+	  <init-param>
+	    <param-name>configClass</param-name>
+	    <param-value>com.cnvp.paladin.core.appConfig</param-value>
+	  </init-param>
+	</filter>
+	<filter-mapping>
+	  <filter-name>jfinal</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

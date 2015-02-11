@@ -1,0 +1,81 @@
+<!-- @ layout("../layout/default.html") { -->
+<div class="admin-panel">
+	<div class="tab">
+		<div class="tab-head">
+			<strong>添加导航</strong>
+			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
+			<ul class="tab-nav">
+			  <li class="active"><a href="#tab-set">导航信息</a></li>
+			  <li ><a href="#tab-icon">选择图标</a></li>
+			</ul>
+		</div>
+		<div class="tab-body">
+			<div class="tab-panel active" id="tab-set">
+				<form method="post" class="form-x" action="">
+					<div class="form-group">
+	            	<div class="label"><label for="sitename">文字</label></div>
+					<div class="field">
+						<input type="text" class="input" id="sysnav_title" name="sysnav.title" size="100" placeholder="文字" data-validate="required:请填写文字" value="${data.title!""}"/>
+					</div>
+					</div>
+					
+					<div class="form-group">
+	            	<div class="label"><label for="sitename">图标</label></div>
+					<div class="field">
+						<div class="input-group">
+							<span class="addon ${data.icon!""}" data="${data.icon!""}" id="sysnav_icon_show"></span>
+					<input type="text" class="input" id="sysnav_icon" name="sysnav.icon" size="20" placeholder="图标" data-validate="" value="${data.icon!""}"/>
+						</div>
+					</div>
+					</div>
+					
+					<div class="form-group">
+	            	<div class="label"><label for="sitename">链接</label></div>
+					<div class="field">
+						<input type="text" class="input" id="sysnav_url" name="sysnav.url" size="100" placeholder="链接" data-validate="required:请填写链接" value="${data.url!""}"/>
+					</div>
+					</div>
+					
+					<div class="form-group">
+	            	<div class="label"><label for="sitename">目标</label></div>
+					<div class="field">
+						<input type="text" class="input" id="sysnav_target" name="sysnav.target" size="20" placeholder="目标" data-validate="required:请填写目标" value="${data.target!"mainFrame"}"/>
+					</div>
+					</div>
+					
+					<div class="form-group">
+	            	<div class="label"><label for="sitename">父级id</label></div>
+					<div class="field">
+						<input type="text" class="input" id="sysnav_pid" name="sysnav.pid" size="11" placeholder="父级id" data-validate="required:请填写父级id" value="${data.pid!"0"}"/>
+
+					</div>
+					</div>
+					<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
+			    </form>
+			</div>
+
+			<div class="tab-panel" id="tab-icon">			
+				<div class="icon_list">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$.get("${root}Static/js/icon.js", function(data){
+
+eval("var list = "+data+";");
+for (var i = 0; i < list.length; i++) {
+	$(".icon_list").append('<div style="min-width:200px" class="margin button '+list[i]+' icon_list_item" data="'+list[i]+'"> '+list[i]+'</div>')
+};
+console.info(list)
+});
+$('.icon_list').delegate('.icon_list_item','click', function(event) {
+	old_icon_class = $("#sysnav_icon").val();
+	new_icon_class = $(this).attr("data");
+	$("#sysnav_icon_show").removeClass(old_icon_class).addClass(new_icon_class);
+	$("#sysnav_icon").val(new_icon_class);
+	$(".tab-nav a").eq(0).trigger('click')
+});
+</script>
+<!-- @ } -->

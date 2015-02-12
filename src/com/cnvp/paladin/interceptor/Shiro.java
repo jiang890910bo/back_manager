@@ -12,14 +12,16 @@ public class Shiro implements Interceptor {
 	public void intercept(ActionInvocation ai) {
 		// 获取Shiro Subject
 		Subject currentUser = SecurityUtils.getSubject();
-		if (!currentUser.isAuthenticated()&&!"/login".equals(ai.getActionKey())) {// 没有认证
+		if (!currentUser.isAuthenticated()) {// 没有认证
 //			DwzRender render = new DwzRender();
 //			render.setStatusCode("301");
 //			render.setMessage("会话超时，请重新登录。");
 //			ai.getController().render(render);
-			System.err.println("会话超时，请重新登录。");
+			System.err.println("会话超时or未登录。");
 			ai.getController().redirect("/login");
-		} else {// 已经认证
+		} else {			
+			ai.invoke();// 授权
+			// 已经认证
 //			if (permissions == null || currentUser.isPermittedAll(permissions)) {
 //				ai.invoke();// 授权
 //			} else {
@@ -30,7 +32,6 @@ public class Shiro implements Interceptor {
 //				ai.getController().render(render);// 没有授权，通过DWZ返回错误信息
 //			}
 		}
-		ai.invoke();
 		
 	}
 

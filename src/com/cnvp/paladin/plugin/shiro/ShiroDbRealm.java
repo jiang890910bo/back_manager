@@ -22,12 +22,15 @@ public class ShiroDbRealm extends AuthorizingRealm{
      
     /**
      * 认证回调函数,登录时调用.
+     * 提取当前用户角色和权限
+     * com.jfaker.framework.security.shiro.ShiroAuthorizingRealm
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         User user = User.dao.set("account", token.getUsername()).findFirstByModel();
+//        System.err.println("ShiroDbRealm::AuthenticationInfo");
         if (user != null) {
-            return new SimpleAuthenticationInfo((PrincipalCollection) user.get("account"), user.get("password"));
+            return new SimpleAuthenticationInfo(user.getInt("id"), user.getStr("password"),user.getStr("cname"));
         } else {
             return null;
         }

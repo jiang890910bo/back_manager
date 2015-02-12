@@ -21,6 +21,12 @@ public class BaseController extends Controller {
 	public void goBack(int step) {
 		renderJS("history.go(" + step + ")");
 	}
+	public void alertAndGoback(String msg) {
+		alertAndGoback(msg,-1);
+	}
+	public void alertAndGoback(String msg,int step) {
+		renderJS("alert('"+msg+"');history.go(" + step + ")");
+	}
 	public void renderJS(String jsContent){
 		renderHtml("<script type=\"text/javascript\">"+jsContent+"</script>");
 	}

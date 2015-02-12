@@ -79,8 +79,8 @@ public class appConfig extends JFinalConfig {
 	 * 配置全局拦截器
 	 */
 	public void configInterceptor(Interceptors me) {
-		me.add(new Global());
 		me.add(new Shiro());
+		me.add(new Global());
 	}
 
 	/**

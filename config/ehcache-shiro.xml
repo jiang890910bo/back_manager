@@ -11,7 +11,7 @@
             diskExpiryThreadIntervalSeconds="120"
             />
  
-    <cache name="myRealm.authorizationCache"
+	<cache name="myRealm.authorizationCache"
            maxElementsInMemory="10000"
            overflowToDisk="true"
            eternal="true"
@@ -19,7 +19,7 @@
            timeToIdleSeconds="0"
            diskPersistent="true"
            diskExpiryThreadIntervalSeconds="600"> 
-    </cache>    
+    </cache>
          
     <cache name="shiro-activeSessionCache"
            maxElementsInMemory="10000"

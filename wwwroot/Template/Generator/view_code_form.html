@@ -2,7 +2,7 @@
 &lt;div class="admin-panel"&gt;
 	&lt;div class="tab"&gt;
 		&lt;div class="tab-head"&gt;
-			&lt;strong&gt;添加${table.comment}&lt;/strong&gt;
+			&lt;strong&gt;&lt;!-- @if(@data.isNew()){ --&gt;添加&lt;!-- @}else{ --&gt;编辑&lt;!-- @} --&gt;${table.comment}&lt;/strong&gt;
 			&lt;span class="tab-more"&gt;&lt;a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"&gt; 返回&lt;/a&gt;&lt;/span&gt;
 			&lt;ul class="tab-nav"&gt;
 			  &lt;li class="active"&gt;&lt;a href="#tab-set"&gt;${table.comment}信息&lt;/a&gt;&lt;/li&gt;

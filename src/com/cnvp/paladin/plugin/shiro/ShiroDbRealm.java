@@ -14,7 +14,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 
-import com.cnvp.paladin.model.User;
+import com.cnvp.paladin.model.SysUser;
 
 public class ShiroDbRealm extends AuthorizingRealm{
  
@@ -27,10 +27,10 @@ public class ShiroDbRealm extends AuthorizingRealm{
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-        User user = User.dao.set("account", token.getUsername()).findFirstByModel();
+        SysUser sysUser = SysUser.dao.set("account", token.getUsername()).findFirstByModel();
 //        System.err.println("ShiroDbRealm::AuthenticationInfo");
-        if (user != null) {
-            return new SimpleAuthenticationInfo(user.getInt("id"), user.getStr("password"),user.getStr("cname"));
+        if (sysUser != null) {
+            return new SimpleAuthenticationInfo(sysUser.getInt("id"), sysUser.getStr("password"),sysUser.getStr("cname"));
         } else {
             return null;
         }

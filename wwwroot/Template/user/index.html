@@ -3,9 +3,9 @@
     <div class="panel">
         <form method="post" action="User/deleteAll">
             <div class="panel-head">
-                <h3 class="float-left"><b>用户列表</b></h3>
+                <h3 class="float-left"><b>用户列表</b> <a href="${root}User/create" class="button  button-little bg-blue  icon-plus"> 添加</a></h3>
                 <div class="toolbar">
-                    <a href="${root}User/create" class="button  button-little bg-blue  icon-plus"> 添加</a>
+                    
                     <button class="button  button-little bg-red icon-trash-o" onclick="{if(confirm('删除后数据不可恢复，确定执行?')){return true;}return false;}"> 批量删除</button>
                 </div>
                 <div class="clearfix"></div>

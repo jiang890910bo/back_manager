@@ -7,16 +7,21 @@ import com.cnvp.paladin.service.GeneratoService;
 import com.jfinal.plugin.activerecord.Record;
 
 public class GeneratorController extends BaseController {
+	
 	public void index() {
-
-	}
-
-	public void view() {
 		List<Record> tables = GeneratoService.getTables();
 		setAttr("tables", tables);
+		setAttr("type", getPara(0));
+		render("tables.html");
+	}	
+	public void model_code(){
+		String tableName = getPara(0);
+		String modelName = getPara(1);
+		List<Record> cols =  GeneratoService.getFields(tableName);
+		setAttr("table", GeneratoService.getTable(tableName));
+		setAttr("modelName", modelName);
+		setAttr("cols", cols);
 	}
-
-	
 	public void view_code(){
 		String tableName = getPara(0);
 		String modelName = getPara(1);

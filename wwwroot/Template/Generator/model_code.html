@@ -1,0 +1,20 @@
+<!-- @ layout("../layout/default.html") { -->
+<div class="admin-panel">
+	<div class="tab">
+		<div class="tab-head">
+			<strong>${table.Name}==>${modelName}</strong>
+			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
+			<ul class="tab-nav">
+			  <li class="active"><a href="#tab-1">模型</a></li>
+			</ul>
+		</div>
+		<div class="tab-body">
+			<div class="tab-panel active" id="tab-1">
+			<pre>
+			<!-- @ include("model_code_normal.html"){} -->
+			</pre>
+			</div>			
+		</div>
+	</div>
+</div>
+<!-- @ } -->

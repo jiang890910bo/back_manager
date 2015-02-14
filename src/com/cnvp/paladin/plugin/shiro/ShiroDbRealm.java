@@ -30,7 +30,7 @@ public class ShiroDbRealm extends AuthorizingRealm{
         SysUser sysUser = SysUser.dao.set("account", token.getUsername()).findFirstByModel();
 //        System.err.println("ShiroDbRealm::AuthenticationInfo");
         if (sysUser != null) {
-            return new SimpleAuthenticationInfo(sysUser.getInt("id"), sysUser.getStr("password"),sysUser.getStr("cname"));
+            return new SimpleAuthenticationInfo(sysUser, sysUser.getStr("password"),sysUser.getStr("cname"));
         } else {
             return null;
         }

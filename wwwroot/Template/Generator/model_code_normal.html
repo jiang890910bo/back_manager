@@ -1,8 +1,8 @@
-&lt;!-- @ layout("../layout/default.html") { --&gt;
+&lt;# layout("../layout/default.html") { &gt;
 &lt;div class="admin-panel"&gt;
 	&lt;div class="tab"&gt;
 		&lt;div class="tab-head"&gt;
-			&lt;strong&gt;&lt;!-- @if(@data.isNew()){ --&gt;添加&lt;!-- @}else{ --&gt;编辑&lt;!-- @} --&gt;${table.comment}&lt;/strong&gt;
+			&lt;strong&gt;&lt;#if(@data.isNew()){ &gt;添加&lt;#}else{ &gt;编辑&lt;#} &gt;${table.comment}&lt;/strong&gt;
 			&lt;span class="tab-more"&gt;&lt;a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"&gt; 返回&lt;/a&gt;&lt;/span&gt;
 			&lt;ul class="tab-nav"&gt;
 			  &lt;li class="active"&gt;&lt;a href="#tab-set"&gt;${table.comment}信息&lt;/a&gt;&lt;/li&gt;
@@ -11,19 +11,19 @@
 		&lt;div class="tab-body"&gt;
 			&lt;div class="tab-panel active" id="tab-set"&gt;
 				&lt;form method="post" class="form-x" action=""&gt;
-<!-- @ for(col in cols){ -->
-<!-- @ 	var model= strutil.toLowerCase(modelName); -->
+<#  for(col in cols){ >
+<#  	var model= strutil.toLowerCase(modelName); >
 					&lt;div class="form-group"&gt;
 						&lt;div class="label"&gt;&lt;label for="sitename"&gt;${col.comment}&lt;/label&gt;&lt;/div&gt;
 						&lt;div class="field"&gt;
-<!-- @ 	switch(col.type){ -->
-<!-- @ 		case "varchar": -->
+<#  	switch(col.type){ >
+<#  		case "varchar": >
 						&lt;input type="text" class="input" id="${model}_${col.field}" name="${model}.${col.field}" size="${col.length}" placeholder="请填写${col.comment}" data-validate="${col.validate}" value="\${data.${col.field}!"${col.Default}"}"/&gt;
-<!-- @ 		break; -->
-<!-- @ 		case "text": -->
+<#  		break; >
+<#  		case "text": >
 						&lt;textarea class="input" rows="5" id="${model}_${col.field}" name="${model}.${col.field}" placeholder="请填写${col.comment}" data-validate="${col.validate}" &gt;1&lt;/textarea&gt;
-<!-- @ 		break; -->
-<!-- @ 		case "tinyint": -->
+<#  		break; >
+<#  		case "tinyint": >
 						&lt;div class="button-group button-group-small radio"&gt;
 							&lt;label class="button" id="${model}_${col.field}_true"&gt;&lt;input name="${model}.${col.field}" value="1"  type="radio"&gt;&lt;span class="icon icon-check"&gt;&lt;/span&gt; 是&lt;/label&gt;
 							&lt;label class="button" id="${model}_${col.field}_false"&gt;&lt;input name="${model}.${col.field}" value="0" type="radio"&gt;&lt;span class="icon icon-times"&gt;&lt;/span&gt; 否&lt;/label&gt;
@@ -31,18 +31,18 @@
 						&lt;script&gt;
 							$("#${model}_${col.field}_\${data.${col.field}!true}").addClass('active').children('input').attr('checked',true);
 						&lt;/script&gt;
-<!-- @		break; -->
-<!-- @		default: -->
+<# 		break; >
+<# 		default: >
 						&lt;input type="text" class="input" id="${model}_${col.field}" name="${model}.${col.field}" size="${col.length}" placeholder="${col.comment}" data-validate="${col.validate}" value="\${data.${col.field}!"${col.Default}"}"/&gt;
-<!-- @ 	} -->
+<#  	} >
 						&lt;/div&gt;
 					&lt;/div&gt;
 					
-<!-- @ } -->
+<#  } >
 				&lt;div class="form-button"&gt;&lt;button class="button bg-main" type="submit"&gt;提交&lt;/button&gt;&lt;/div&gt;
 			    &lt;/form&gt;
 			&lt;/div&gt;
 		&lt;/div&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
-&lt;!-- @ } --&gt;
+&lt;# } &gt;

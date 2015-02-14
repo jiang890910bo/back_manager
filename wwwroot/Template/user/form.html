@@ -1,8 +1,8 @@
-<!-- @ layout("../layout/default.html") { -->
+<#  layout("../layout/default.html") { >
 <div class="admin-panel">
 	<div class="tab">
 		<div class="tab-head">
-			<strong><!-- @if(@data.isNew()){ -->添加<!-- @}else{ -->编辑<!-- @} -->用户</strong>
+			<strong><# if(@data.isNew()){ >添加<#}else{>编辑<#}>用户</strong>
 			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
 			<ul class="tab-nav">
 			  <li class="active"><a href="#tab-set">用户信息</a></li>			  
@@ -23,13 +23,13 @@
 						<div class="label"><label for="sitename">密码</label></div>
 						<div class="field">
 						<input type="text" class="input" id="user_password" name="user.password" size="32" placeholder="请填写密码" 
-						<!-- @if(@data.isNew()){ -->
+						<# if(@data.isNew()){ >
 						data-validate="required:请填写密码"
-						<!-- @} -->  
+						<# } >  
 						value=""/>
-						<!-- @if(!@data.isNew()){ -->
+						<# if(!@data.isNew()){ >
 						<div class="input-note">请留空表示无需更改</div>
-						<!-- @} -->
+						<# } >
 						</div>
 					</div>
 					
@@ -120,4 +120,4 @@
 		</div>
 	</div>
 </div>
-<!-- @ } -->
+<#  } >

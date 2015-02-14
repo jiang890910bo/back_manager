@@ -1,4 +1,4 @@
-<!-- @ layout("../layout/default.html") { -->
+<#  layout("../layout/default.html") { >
 <div class="admin-panel">
     <div class="panel">
         <form method="post" action="User/deleteAll">
@@ -21,7 +21,7 @@
                     <th>登陆次数</th>
                     <th width="100">操作</th>
                 </tr>
-                <!-- @ for(data in @page.getList()){-->
+                <# for(data in @page.getList()){>
                 <tr>
                         <td><input type="checkbox" name="id" value="${data.id}" /></td>
                         <td>${data.account}</td>
@@ -35,12 +35,12 @@
                             <a class="button border-red  button-little icon-trash-o" href="User/delete/${data.id}" onclick="{if(confirm('确认删除?')){return true;}return false;}"></a>
                         </td>
                     </tr>
-                <!-- @ } -->            
+                <#  } >            
             </table>
         </form>		
         <div class="panel-foot text-center">
-        <!-- @ includeFileTemplate("/common/paginate.html",{uri : '', page : page}){}-->            
+        <#  includeFileTemplate("/common/paginate.html",{uri : '', page : page}){}>            
         </div>
     </div>
 </div>
-<!-- @ } -->
+<#  } >

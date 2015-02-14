@@ -1,8 +1,8 @@
-<!-- @ layout("../layout/default.html") { -->
+<#  layout("../layout/default.html") { >
 <div class="admin-panel">
 	<div class="tab">
 		<div class="tab-head">
-			<strong>添加导航</strong>
+			<strong><# if(@data.isNew()){ >添加<#}else{>编辑<#}>导航</strong>
 			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
 			<ul class="tab-nav">
 			  <li class="active"><a href="#tab-set">导航信息</a></li>
@@ -78,4 +78,4 @@ $('.icon_list').delegate('.icon_list_item','click', function(event) {
 	$(".tab-nav a").eq(0).trigger('click')
 });
 </script>
-<!-- @ } -->
+<#  } >

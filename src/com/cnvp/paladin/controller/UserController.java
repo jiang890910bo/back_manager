@@ -10,7 +10,7 @@ public class UserController extends BaseController {
 		setAttr("page", SysUser.dao.paginate(getParaToInt(0, 1), 10));
 	}
 	public void create(){
-		if("POST".equals(getRequest().getMethod())){
+		if(isPost()){
 			SysUser model = getModel(SysUser.class,"user");
 			model.set("create_time", System.currentTimeMillis());
 			model.set("create_user_id", 1);
@@ -22,7 +22,7 @@ public class UserController extends BaseController {
 		render("form.html");
 	}
 	public void update(){
-		if("POST".equals(getRequest().getMethod())){
+		if(isPost()){
 			SysUser model = getModel(SysUser.class,"user");
 			if (StringKit.isBlank(getPara("user.password")))
 				model.set("password", SysUser.dao.findById(getParaToInt()).get("password"));

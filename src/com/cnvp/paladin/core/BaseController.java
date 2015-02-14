@@ -13,7 +13,12 @@ public class BaseController extends Controller {
 	public String getControllerKey() {
 		return this.getAttr("ControllerKey");
 	}
-
+	public boolean isPost(){		
+		if("post".equals(getRequest().getMethod().toLowerCase()))
+			return true;
+		else
+			return false;
+	}
 	public void goBack() {
 		goBack(-1);
 	}

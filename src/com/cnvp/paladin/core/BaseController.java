@@ -6,9 +6,9 @@ import com.jfinal.core.Controller;
  * 用途：controller基类，所有controller必须继承 说明：
  */
 public class BaseController extends Controller {
-	public void index() {
-
-	}
+//	public void index() {
+//
+//	}
 
 	public String getControllerKey() {
 		return this.getAttr("ControllerKey");

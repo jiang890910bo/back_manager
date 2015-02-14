@@ -22,6 +22,14 @@ public class GeneratorController extends BaseController {
 		setAttr("modelName", modelName);
 		setAttr("cols", cols);
 	}
+	public void controller_code(){
+		String tableName = getPara(0);
+		String modelName = getPara(1);
+		List<Record> cols =  GeneratoService.getFields(tableName);
+		setAttr("table", GeneratoService.getTable(tableName));
+		setAttr("modelName", modelName);
+		setAttr("cols", cols);
+	}
 	public void view_code(){
 		String tableName = getPara(0);
 		String modelName = getPara(1);

@@ -52,7 +52,7 @@ public class SystemController extends BaseController {
 		if (SysNav.dao.findById(getParaToInt()).delete()) 
 			redirect(getControllerKey()+"/nav");
 		else
-			renderText("删除失败");
+			alertAndGoback("删除失败");
 	}
 	public void save_order(){
 		String[] vals = getParaValues("orderV");

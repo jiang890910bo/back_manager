@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-部门管理
-</body>
-</html>
+<#  layout("../layout/default.html") { >
+<div class="admin-panel">
+    <div class="panel">
+        <form method="post" action="User/deleteAll">
+            <div class="panel-head">
+                <h3 class="float-left"><b>部门列表</b> <a href="${root}Dept/create" class="button  button-little bg-blue  icon-plus"> 添加</a></h3>
+                <div class="toolbar">
+                    
+                    <button class="button  button-little bg-red icon-trash-o" onclick="{if(confirm('删除后数据不可恢复，确定执行?')){return true;}return false;}"> 批量删除</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <table class="table table-hover table-condensed">            
+                <tr>
+                    <th width="45"><input type="checkbox" class="checkall" name="checkall" checkfor="id" /></th>
+                    <th>账号</th>
+                    <th>中文名</th>
+                    <th>英文名</th>
+                    <th>备注</th>
+                    <th>最后登陆</th>
+                    <th>登陆次数</th>
+                    <th width="100">操作</th>
+                </tr>
+                <# for(data in @page.getList()){>
+                <tr>
+                        <td><input type="checkbox" name="id" value="${data.id}" /></td>
+                        <td>${data.account}</td>
+                        <td>${data.cn_name}</td>
+                        <td>${data.en_name}</td>
+                        <td>${data.remark}</td>
+                        <td>${data.last_login_time,dateFormat="yyyy-MM-dd"}</td>
+                        <td>${data.login_count}</td>
+                        <td>
+                            <a class="button border-blue button-little icon-edit" href="User/update/${data.id}"></a> 
+                            <a class="button border-red  button-little icon-trash-o" href="User/delete/${data.id}" onclick="{if(confirm('确认删除?')){return true;}return false;}"></a>
+                        </td>
+                    </tr>
+                <#  } >            
+            </table>
+        </form>		
+        <div class="panel-foot text-center">
+        <#  includeFileTemplate("/common/paginate.html",{uri : '', page : page}){}>            
+        </div>
+    </div>
+</div>
+<#  } >

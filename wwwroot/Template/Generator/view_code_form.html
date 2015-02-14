@@ -31,8 +31,20 @@
 						&lt;script&gt;
 							$("#${model}_${col.field}_\${data.${col.field}!true}").addClass('active').children('input').attr('checked',true);
 						&lt;/script&gt;
-<# 		break; >
-<# 		default: >
+<# 			break; >
+<#  		case "enum": >
+						<# var opts = strutil.replace(col.Length,"'","");>
+						<# opts =  strutil.split(opts,",");>
+						&lt;div class="button-group button-group-small radio"&gt;
+							<# for(opt in opts){>							
+							&lt;label class="button ${model}_${col.field}" data="${opt}" &gt;&lt;input name="${model}.${col.field}" value="${opt}" type="radio"&gt;&lt;span class="icon icon-check"&gt;&lt;/span&gt; ${opt}&lt;/label&gt;
+							<# }>
+						&lt;/div&gt;
+						&lt;script&gt;
+							$(".${model}_${col.field}[data='\${data.${col.field}!true}']").addClass('active').children('input').attr('checked',true);
+						&lt;/script&gt;
+<# 			break; >
+<# 			default: >
 						&lt;input type="text" class="input" id="${model}_${col.field}" name="${model}.${col.field}" size="${col.length}" placeholder="${col.comment}" data-validate="${col.validate}" value="\${data.${col.field}!"${col.Default}"}"/&gt;
 <#  	} >
 						&lt;/div&gt;

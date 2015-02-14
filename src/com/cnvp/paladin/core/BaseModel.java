@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.cnvp.paladin.kit.StringKit;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.TableMapping;
 
@@ -20,6 +21,15 @@ public class BaseModel<M extends BaseModel> extends Model<M>{
 	}
 	public String getTableName(){
 		return TableMapping.me().getTable(this.getClass()).getName();
+	}
+	public List<M> where(String sqlWhere){
+		String sql = "select * from "+getTableName();
+		if (!StringKit.isBlank(sqlWhere)) 
+			sql+=" where "+sqlWhere;
+		return find(sql);
+	}
+	public List<M> where(String sqlWhere, Object... paras){
+		return find("select * from "+getTableName()+" where "+sqlWhere,paras);
 	}
 	/**
 	 * 根据当前模型字段属性检索数据库

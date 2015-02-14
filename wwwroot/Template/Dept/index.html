@@ -6,7 +6,6 @@
     	<div class="panel-head">
             <h3 class="float-left"><b>部门列表</b> <a href="${root}Dept/create" class="button  button-little bg-blue  icon-plus"> 添加一级部门</a></h3>
             <div class="toolbar">                    
-                <button class="button  button-little bg-red icon-trash-o" onclick="{if(confirm('删除后数据不可恢复，确定执行?')){return true;}return false;}"> 批量删除</button>
             </div>
             <div class="clearfix"></div>
         </div>        
@@ -20,42 +19,58 @@
 </form>
 <script id="deptTpl" type="text/x-jquery-tmpl">
 <ul class="dept-item" deptid="\${ID}" loadflg="0">
-    <li class="dept-item-info {%if HASCHILD==true%}icon-angle-double-right{%/if%}" onclick="toggle(\${ID})">
-        \${CNAME}   <a class="icon-plus-square text-blue hidden" href="${ControllerKey}/create/\${ID}"> </a>
+    <li class="dept-item-info"  {%if HASCHILD==true%}child="1"{%/if%}>
+		<a class="{%if HASCHILD==true%}icon-minus{%/if%}" onclick="toggle(\${ID})" href="javascript:;"></a>
+		<a href="${ControllerKey}/update/\${ID}">\${CNAME}</a>&nbsp;&nbsp;
+		<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${ID}"> </a>
+		<a class="icon-trash-o text-blue hidden" onclick="return checkDel(\${ID})" href="${ControllerKey}/delete/\${ID}"> </a>
     </li>
 </ul>
 </script>
 <script type="text/javascript">
-var toggle = function(id){
-    var item = $(".dept-item[deptid='"+id+"']");
-    var loadflg = $(item).attr('loadflg');
-    if (loadflg=="0")
-        getlist(id);
-    else        
-        $(".dept-item[deptid='"+id+"'] ul").toggle();
-    if ($(".dept-item[deptid='"+id+"'] li:first").hasClass('icon-angle-double-right')) {
-        $(".dept-item[deptid='"+id+"'] li:first").removeClass('icon-angle-double-right');
-        $(".dept-item[deptid='"+id+"'] li:first").addClass('icon-angle-double-down');
-    }else if ($(".dept-item[deptid='"+id+"'] li:first").hasClass('icon-angle-double-down')) {
-        $(".dept-item[deptid='"+id+"'] li:first").removeClass('icon-angle-double-down');
-        $(".dept-item[deptid='"+id+"'] li:first").addClass('icon-angle-double-right');
-    }; 
+var checkDel = function(id){
+	if($(".dept-item[deptid='"+id+"'] ul").size()>0){
+		alert("无法执行：依然含有子项。");
+		return false;
+	}
+	return confirm("确定删除？");
 }
-var getlist = function(pid){
+var toggle = function(id){
+	$(".dept-item[deptid='"+id+"'] ul").toggle();    	
+	$(".dept-item[deptid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-plus");
+	$(".dept-item[deptid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-minus");
+}
+var showChildren = function(data,pid){
+	var children = $.grep(data,function(n,i){return n.PID==pid;})
+	$.each(children, function(i, row){
+		$("#deptTpl").tmpl(row).appendTo("[deptid='"+pid+"']")
+		if(row.HASCHILD==true)
+			showChildren(data,row.ID);
+	});
+}
+$.get("${ControllerKey}/getlist",function(json){
+	showChildren(json.data,0);
+},"JSON");
+$(".panel-body").delegate(".dept-item-info", "mouseover", function(){
+    $("a:gt(1)",this).removeClass('hidden')
+});
+$(".panel-body").delegate(".dept-item-info", "mouseout", function(){
+    $("a:gt(1)",this).addClass('hidden')
+});
+/* var getlist = function(pid){
     if(typeof pid =="undefined") pid = 0;
 	$.get("${ControllerKey}/getlist", {'pid':pid},function(json){
         $("#deptTpl").tmpl(json.data).appendTo("[deptid='"+pid+"']")
-		console.info(json.data[0]);
-
+		console.info(json.data);
+		var test = $.grep(json.data,function(n,i){
+			return n.PID==0;
+		});
+		console.info(test);
+		console.info(json.data);
         $(".dept-item[deptid='"+pid+"']").attr('loadflg',1);
 	},"JSON");
 }
 getlist();
-$(".panel-body").delegate(".dept-item-info", "mouseover", function(){
-    $("a",this).removeClass('hidden')
-});
-$(".panel-body").delegate(".dept-item-info", "mouseout", function(){
-    $("a",this).addClass('hidden')
-});
+ */
 </script>
 <?  } ?>

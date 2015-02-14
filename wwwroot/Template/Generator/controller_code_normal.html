@@ -1,0 +1,42 @@
+<?  	var modelNameLowerCase= strutil.toLowerCase(modelName); ?>
+package com.cnvp.paladin.controller;
+
+import com.cnvp.paladin.core.BaseController;
+import com.cnvp.paladin.model.${modelName};
+
+public class DeptController extends BaseController {
+	public void index(){
+		setAttr("page", ${modelName}.dao.paginate(getParaToInt(0, 1), 10));
+	}
+	public void create(){
+		if(isPost()){
+			if(getModel(${modelName}.class,"${modelNameLowerCase}").save())
+				redirect(getControllerKey());
+				return;
+		}
+		setAttr("data", new ${modelName}());
+	}
+
+	public void update(){
+		if(isPost()){
+			if(getModel(${modelName}.class,"${modelNameLowerCase}").save())
+				redirect(getControllerKey());
+				return;
+		}
+		setAttr("data", ${modelName}.dao.findById(getParaToInt()));
+	}
+	public void delete(){
+		if (${modelName}.dao.findById(getParaToInt()).delete()) 
+			redirect(getControllerKey());
+		else
+			alertAndGoback("删除失败");
+	}
+	public void deleteAll(){
+		Integer[] ids=getParaValuesToInt("id");
+		for (Integer id : ids) {
+			${modelName}.dao.findById(id).delete();
+		}
+		redirect(getControllerKey());
+	}
+	
+}

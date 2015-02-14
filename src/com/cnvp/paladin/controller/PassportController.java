@@ -7,6 +7,7 @@ import org.apache.shiro.subject.Subject;
 
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.interceptor.Global;
+import com.cnvp.paladin.kit.StringKit;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.ClearInterceptor;
 import com.jfinal.aop.ClearLayer;
@@ -18,7 +19,9 @@ public class PassportController extends BaseController {
 	
 	@Before(Global.class)
 	public void login() {
-		
+		String from = getPara("from");
+		if (StringKit.notBlank(from))
+			setAttr("from", from);
 	}
 	public void logout() {
 		Subject subject = SecurityUtils.getSubject();
@@ -31,7 +34,11 @@ public class PassportController extends BaseController {
 	    try {  
 	        //4、登录，即身份验证  
 	        subject.login(token);
-	        redirect("/");
+	        String from = getPara("from");
+	        if (StringKit.isBlank(from))
+	        	redirect("/");
+        	else
+	        	redirect(from);
 	    } catch (AuthenticationException e) {
 	        //5、身份验证失败
 	    	alertAndGoback("用户名或密码错误，请重新登录");

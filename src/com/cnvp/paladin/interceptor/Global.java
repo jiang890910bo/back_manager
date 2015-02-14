@@ -13,6 +13,7 @@ public class Global implements Interceptor {
 		ctrl.setAttr("action",ai.getActionKey());
 		ctrl.setAttr("app_name",PropertyKit.get("app_name"));
 		ctrl.setAttr("ControllerKey",ai.getControllerKey());
+		ctrl.setAttr("ActionKey",ai.getActionKey());
 //		Method m = ai.getMethod();
 //		System.out.println(m.isVarArgs());
 //		JFinal.me().getConstants().setDevMode(PropertyKit.getToBoolean("app_devModel"));

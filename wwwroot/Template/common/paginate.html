@@ -1,4 +1,4 @@
-<!-- @
+<?
     var pageNumber = page.pageNumber;   // 当前页
     var totalPage = page.totalPage;     // 总页数
     var num_display_entries = 10;       // 每次显示多少页
@@ -6,20 +6,9 @@
     var ellipse_text = "...";
     var uri = action+"/";
     if (page.totalRow > page.pageSize) {
--->
-<!--  
-
- <ul class="pagination pagination-group">
-     <li><a href="#">1</a></li>
-     <li class="active"><a href="#">2</a></li>
-     <li><a href="#">3</a></li>
-     <li><a href="#">4</a></li>
-     <li><a href="#">5</a></li>
- </ul>
- <ul class="pagination"><li><a href="#">下一页</a></li></ul>
- -->
+?>
 <ul class="pagination pagination-group">
-<!-- @
+<?
         // 上一页
         if(pageNumber != 1) { 
             printf("<li><a href=\"%s%s\">上一页</a></li>",uri,pageNumber-1);
@@ -98,5 +87,5 @@
             printf("<li class=\"disabled\"><a href=\"\">下一页</a></li>");
         }
     }
--->
+?>
 </ul>

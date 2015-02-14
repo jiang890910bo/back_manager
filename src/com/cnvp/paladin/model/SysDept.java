@@ -9,4 +9,10 @@ public class SysDept extends BaseModel<SysDept> {
 	public Page<SysDept> paginate(int pageNumber, int pageSize) {
 		return paginate(pageNumber, pageSize, "select *", "from "+getTableName()+" order by id asc");
 	}
+	public boolean hasChild(){
+		if (SysDept.dao.set("pid", get("id")).findByModel().size()>0) 
+			return true;
+		else
+			return false;
+	}
 }

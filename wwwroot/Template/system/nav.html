@@ -1,4 +1,4 @@
-<#  layout("../layout/default.html") { >
+<?  layout("../layout/default.html") { ?>
 <div class="admin-panel">
     <div class="panel">
         <form method="post" action="save_order">
@@ -20,13 +20,13 @@
                     <th>链接</th>
                     <th width="100">操作</th>
                 </tr>
-                <#  for(nav in test){ >
+                <?  for(nav in test){ ?>
                 <tr pid="${nav.pid}">
                     <td><input type="checkbox" name="id" value="${nav.id}"/></td>
                     <td>
-                        <# if(nav.hasChild==true){ >
+                        <? if(nav.hasChild==true){ ?>
                         <a href="javascript:;" onclick="show(this,${nav.id})" class="icon-caret-right"></a>
-                        <# } >
+                        <? } ?>
                     </td>
                     <td>
                         <input type="text" class="input input-small" name="orderV" value="${nav.orderid}">
@@ -39,8 +39,8 @@
                             <a class="button border-red  button-little icon-trash-o" href="nav_delete/${nav.id}" onclick="{if(confirm('确认删除?')){return true;}return false;}"></a> 
                     </td>
                 </tr>
-                    <# if(nav.hasChild==true) >
-                    <#  for(sub in nav.children){ >
+                    <? if(nav.hasChild==true) ?>
+                    <?  for(sub in nav.children){ ?>
                 <tr pid="${sub.pid}" class="hidden">
                     <td><input type="checkbox" name="id" value="${sub.id}"/></td>
                     <td></td>
@@ -56,9 +56,9 @@
                     </td>
                 </tr>
 
-                    <# } >
+                    <? } ?>
 
-                    <#  }     >
+                    <?  }     ?>
                      
             </table>
         </form>        
@@ -78,4 +78,4 @@
         }
     }
 </script>
-<#  } >
+<?  } ?>

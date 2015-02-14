@@ -18,7 +18,7 @@ public class Shiro implements Interceptor {
 //			render.setMessage("会话超时，请重新登录。");
 //			ai.getController().render(render);
 			System.err.println("会话超时or未登录。");
-			ai.getController().redirect("/Passport/login");
+			ai.getController().redirect("/Passport/login?from="+ai.getController().getRequest().getRequestURL());
 		} else {			
 			ai.invoke();// 授权
 			// 已经认证

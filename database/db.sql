@@ -24,9 +24,11 @@ CREATE TABLE `cnvp_sys_dept` (
   `desc` varchar(500) DEFAULT NULL COMMENT '描述',
   `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父级Id',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=200205 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cnvp_sys_dept` */
+
+insert  into `cnvp_sys_dept`(`id`,`cname`,`desc`,`pid`) values (1,'杭州捷点',NULL,0),(2,'网络',NULL,1),(3,'技术部',NULL,2),(4,'电商',NULL,1),(5,'商务部',NULL,2),(6,'客服部',NULL,2);
 
 /*Table structure for table `cnvp_sys_nav` */
 
@@ -41,11 +43,11 @@ CREATE TABLE `cnvp_sys_nav` (
   `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
   `orderid` int(11) NOT NULL DEFAULT '10' COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='导航';
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='导航';
 
 /*Data for the table `cnvp_sys_nav` */
 
-insert  into `cnvp_sys_nav`(`id`,`title`,`icon`,`url`,`target`,`pid`,`orderid`) values (1,'开始','icon-home','javascript:;','mainFrame',0,10),(3,'系统','icon-cog','javascript:;','mainFrame',0,10),(4,'用户','icon-user','javascript:;','mainFrame',0,10),(20,'模型生成','icon-code','Generator/model','mainFrame',2,10),(17,'欢迎使用','icon-send','welcome','mainFrame',1,10),(18,'个人资料','icon-user','profile','mainFrame',1,10),(19,'修改密码','icon-key','password','mainFrame',1,10),(2,'开发','icon-codepen','javascript:;','mainFrame',0,10),(15,'12312312','312','3123123','mainFrame',123,10),(21,'视图生成','icon-code','Generator/view','mainFrame',2,10),(22,'控制器生成','icon-code','Generator/controller','mainFrame',2,10),(23,'系统设置','icon-desktop','System','mainFrame',3,1),(24,'导航菜单','icon-th-list','System/nav','mainFrame',3,3),(26,'文件管理','icon-file','System/file','mainFrame',3,4),(25,'权限配置','icon-asterisk','System/permission','mainFrame',3,5),(27,'日志查询','icon-angle-double-right','System/log','mainFrame',3,6),(28,'用户列表','icon-user','User','mainFrame',4,10),(29,'添加用户','icon-plus','User/create','mainFrame',4,10),(30,'角色列表','icon-group','UserGroup','mainFrame',4,10),(31,'添加角色','icon-plus','UserGroup/create','mainFrame',4,10),(32,'用户管理','icon-user','User','mainFrame',3,2);
+insert  into `cnvp_sys_nav`(`id`,`title`,`icon`,`url`,`target`,`pid`,`orderid`) values (1,'开始','icon-home','javascript:;','mainFrame',0,10),(3,'系统','icon-cog','javascript:;','mainFrame',0,10),(33,'部门管理','icon-building','/Dept','mainFrame',3,3),(20,'模型生成','icon-code','Generator/model','mainFrame',2,10),(17,'欢迎使用','icon-send','welcome','mainFrame',1,10),(18,'个人资料','icon-user','profile','mainFrame',1,10),(19,'修改密码','icon-key','password','mainFrame',1,10),(2,'开发','icon-codepen','javascript:;','mainFrame',0,10),(15,'12312312','312','3123123','mainFrame',123,10),(21,'视图生成','icon-code','Generator/view','mainFrame',2,10),(22,'控制器生成','icon-code','Generator/controller','mainFrame',2,10),(23,'系统设置','icon-desktop','System','mainFrame',3,1),(24,'导航菜单','icon-th-list','System/nav','mainFrame',3,4),(26,'文件管理','icon-file','System/file','mainFrame',3,5),(25,'权限配置','icon-asterisk','System/permission','mainFrame',3,6),(27,'日志查询','icon-angle-double-right','System/log','mainFrame',3,7),(32,'用户管理','icon-user','User','mainFrame',3,2);
 
 /*Table structure for table `cnvp_sys_user` */
 
@@ -55,8 +57,10 @@ CREATE TABLE `cnvp_sys_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '账号',
   `account` varchar(20) NOT NULL COMMENT '用户名',
   `password` varchar(32) NOT NULL COMMENT '密码',
+  `sex` enum('男','女') DEFAULT NULL COMMENT '性别',
   `cname` varchar(10) DEFAULT NULL COMMENT '中文名',
   `ename` varchar(50) DEFAULT NULL COMMENT '英文名',
+  `mobile` varchar(20) DEFAULT NULL COMMENT '手机',
   `flg` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否启用',
   `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
   `login_count` int(11) NOT NULL DEFAULT '0' COMMENT '登录次数',
@@ -70,7 +74,7 @@ CREATE TABLE `cnvp_sys_user` (
 
 /*Data for the table `cnvp_sys_user` */
 
-insert  into `cnvp_sys_user`(`id`,`account`,`password`,`cname`,`ename`,`flg`,`remark`,`login_count`,`last_login_time`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'superadmin','a8f5f167f44f4964e6c998dee827110c','超级管理员','michael.z',1,'',60,1413779275,0,1,1406045498,4),(4,'admin','a8f5f167f44f4964e6c998dee827110c','测试管理员','michaelzx',1,'',2,1406045477,0,1,1406043400,1);
+insert  into `cnvp_sys_user`(`id`,`account`,`password`,`sex`,`cname`,`ename`,`mobile`,`flg`,`remark`,`login_count`,`last_login_time`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'superadmin','a8f5f167f44f4964e6c998dee827110c','男','超级管理员','michael.z','15990061612',1,'',60,1413779275,0,1,1406045498,4),(4,'admin','4297f44b13955235245b2497399d7a93','男','章宵','mic','15990061612',1,NULL,2,1406045477,0,1,1423886783558,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

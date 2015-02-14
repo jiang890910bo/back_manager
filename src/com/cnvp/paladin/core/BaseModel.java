@@ -15,7 +15,9 @@ public class BaseModel<M extends BaseModel> extends Model<M>{
 		else
 			return false;		
 	}
-	
+	public Map<String, Object> getAttrs() {
+		return super.getAttrs();
+	}
 	public String getTableName(){
 		return TableMapping.me().getTable(this.getClass()).getName();
 	}

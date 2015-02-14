@@ -5,19 +5,13 @@
 			<strong>${table.Name}==>${modelName}</strong>
 			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
 			<ul class="tab-nav">
-			  <li class="active"><a href="#tab-1">表单</a></li>
-			  <li><a href="#tab-2">列表</a></li>
+			  <li class="active"><a href="#tab-1">控制器</a></li>
 			</ul>
 		</div>
 		<div class="tab-body">
 			<div class="tab-panel active" id="tab-1">
 			<pre>
-			<?  include("view_code_form.html"){} ?>
-			</pre>
-			</div>
-			<div class="tab-panel" id="tab-2">		
-			<pre>	
-			<?  include("view_code_index.html"){} ?>
+			<?  include("controller_code_normal.html"){} ?>
 			</pre>
 			</div>
 		</div>

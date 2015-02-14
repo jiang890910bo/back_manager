@@ -1,4 +1,4 @@
-<#  layout("../layout/default.html") { >
+<?  layout("../layout/default.html") { ?>
 <div class="admin-panel">
     <div class="panel">
         <form method="post">            
@@ -13,8 +13,8 @@
                     <th>大小</th>
                     <th>操作</th>
                 </tr>
-                <# for(table in tables){ >
-				<#  var fields = @table.getColumns();				 >
+                <? for(table in tables){ ?>
+				<?  var fields = @table.getColumns();				 ?>
 				<tr>
 					<td>${fields.name}</td>
 					<td>=></td>
@@ -25,9 +25,9 @@
 					<td>${fileSize(fields.data_length)}</td>					
                     <td><a class="button border-blue button-little icon-code" href="${type}_code/${fields.name}-${fields.modelname}"> 预览代码</a></td>
 				</tr>
-				<# }          >
+				<? }          ?>
             </table>
         </form>        
     </div>
 </div>
-<#  } >
+<?  } ?>

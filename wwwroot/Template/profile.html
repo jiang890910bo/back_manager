@@ -1,0 +1,50 @@
+<#  layout("layout/default.html") { >
+<div class="admin-panel">
+	<div class="tab">
+		<div class="tab-head">
+			<strong class="tab-perfix"></strong>
+			<ul class="tab-nav">
+			  <li class="active"><a href="#tab-set">个人资料</a></li>			  
+			  <!-- <li><a href="#tab-other">辅助信息</a></li> -->
+			</ul>
+		</div>
+		<div class="tab-body">
+			<div class="tab-panel active" id="tab-set">
+				<form method="post" class="form-x" action="">	
+					<div class="form-group">
+						<div class="label"><label for="sitename">中文名</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_cname" name="user.cname" size="10" placeholder="请填写中文名" data-validate="" value="${data.cname!""}"/>
+						</div>
+					</div>					
+					<div class="form-group">
+						<div class="label"><label for="sitename">英文名</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_ename" name="user.ename" size="50" placeholder="请填写英文名" data-validate="" value="${data.ename!""}"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label"><label for="sitename">性别</label></div>
+						<div class="field">
+						<div class="button-group button-group-small radio">
+							<label class="button sysuser_sex" data="男" ><input name="user.sex" value="男" type="radio"><span class="icon icon-check"></span> 男</label>
+							<label class="button sysuser_sex" data="女" ><input name="user.sex" value="女" type="radio"><span class="icon icon-check"></span> 女</label>
+						</div>
+						<script>
+							$(".sysuser_sex[data='${data.sex!true}']").addClass('active').children('input').attr('checked',true);
+						</script>
+						</div>
+					</div>		
+					<div class="form-group">
+						<div class="label"><label for="sitename">手机</label></div>
+						<div class="field">
+						<input type="text" class="input" id="user_mobile" name="user.mobile" size="20" placeholder="请填写手机" data-validate="" value="${data.mobile!""}"/>
+						</div>
+					</div>
+				<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
+			    </form>
+			</div>
+		</div>
+	</div>
+</div>
+<#  } >

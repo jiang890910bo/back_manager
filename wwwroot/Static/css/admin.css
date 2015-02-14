@@ -17,6 +17,7 @@ form .form-group:last-child{padding-bottom:0;}
 .admin-nav .active a{background:#09c;color:#fff;border-radius:4px 4px 0 0;}
 .admin-nav .active ul{display:block;position:fixed;left:0;width:180px;margin-top:41px;}
 .admin-nav .active ul a{background:transparent;color:#333;border-radius:0;}
+.admin-nav .active ul a:before{width:16px;}
 .admin-nav .active .active a{background:#e6f2fb;border-top:solid 1px #b5cfd9;border-bottom:solid 1px #b5cfd9;}
 .admin-nav .active .admin-nav-ii li {padding:1px 0;}
 .admin-nav .active .admin-nav-ii li.active {padding:0;}

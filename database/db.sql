@@ -24,11 +24,11 @@ CREATE TABLE `cnvp_sys_dept` (
   `desc` varchar(500) DEFAULT NULL COMMENT '描述',
   `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父级Id',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cnvp_sys_dept` */
 
-insert  into `cnvp_sys_dept`(`id`,`cname`,`desc`,`pid`) values (1,'杭州捷点',NULL,0),(2,'网络',NULL,1),(14,'技术部',NULL,2),(4,'电商',NULL,1),(8,'客服部',NULL,2),(9,'商务部',NULL,2);
+insert  into `cnvp_sys_dept`(`id`,`cname`,`desc`,`pid`) values (1,'杭州捷点',NULL,0),(16,'电商',NULL,1),(14,'技术部',NULL,15),(15,'科技',NULL,1),(8,'客服部',NULL,15),(9,'商务部',NULL,15),(17,'A部门',NULL,16),(18,'B部门',NULL,16);
 
 /*Table structure for table `cnvp_sys_nav` */
 
@@ -60,6 +60,7 @@ CREATE TABLE `cnvp_sys_user` (
   `sex` enum('男','女') DEFAULT NULL COMMENT '性别',
   `cname` varchar(10) DEFAULT NULL COMMENT '中文名',
   `ename` varchar(50) DEFAULT NULL COMMENT '英文名',
+  `dept_id` int(11) DEFAULT NULL COMMENT '所在部门',
   `mobile` varchar(20) DEFAULT NULL COMMENT '手机',
   `flg` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否启用',
   `remark` varchar(1000) DEFAULT NULL COMMENT '备注',
@@ -70,11 +71,11 @@ CREATE TABLE `cnvp_sys_user` (
   `update_time` bigint(13) DEFAULT NULL COMMENT '更新时间',
   `update_user_id` int(11) DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用户';
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='用户';
 
 /*Data for the table `cnvp_sys_user` */
 
-insert  into `cnvp_sys_user`(`id`,`account`,`password`,`sex`,`cname`,`ename`,`mobile`,`flg`,`remark`,`login_count`,`last_login_time`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'superadmin','a8f5f167f44f4964e6c998dee827110c','男','超级管理员-章宵','michael.z','15990061612',1,'',60,1413779275,0,1,1406045498,4),(4,'admin','4297f44b13955235245b2497399d7a93','男','章宵','mic','15990061612',1,NULL,2,1406045477,0,1,1423886783558,1);
+insert  into `cnvp_sys_user`(`id`,`account`,`password`,`sex`,`cname`,`ename`,`dept_id`,`mobile`,`flg`,`remark`,`login_count`,`last_login_time`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'superadmin','a8f5f167f44f4964e6c998dee827110c','男','超级管理员-章宵','michael.z',14,'15990061612',1,NULL,60,1413779275,0,1,1424186729469,1),(4,'admin','4297f44b13955235245b2497399d7a93','男','章宵','mic',NULL,'15990061612',1,NULL,2,1406045477,0,1,1423886783558,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

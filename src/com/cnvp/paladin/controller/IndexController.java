@@ -7,9 +7,13 @@ import org.apache.shiro.SecurityUtils;
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.kit.PropertyKit;
 import com.cnvp.paladin.kit.StringKit;
+import com.cnvp.paladin.kit.tree.TreeKit;
+import com.cnvp.paladin.model.SysDept;
 import com.cnvp.paladin.model.SysNav;
 import com.cnvp.paladin.model.SysUser;
 import com.cnvp.paladin.service.NavService;
+import com.jfinal.aop.ClearInterceptor;
+import com.jfinal.aop.ClearLayer;
 import com.jfinal.kit.EncryptionKit;
 
 public class IndexController extends BaseController {
@@ -39,18 +43,6 @@ public class IndexController extends BaseController {
 				.update();
 				alertAndGoback("密码修改成功");
 			}
-				
-//			else{
-//				String psw = model.getStr("password");
-//				model.set("password",EncryptionKit.md5Encrypt(psw));				
-//			}
-//			model
-//			.set("id", getParaToInt())
-//			.set("update_time", System.currentTimeMillis())
-//			.set("update_user_id", 1);
-//			if(model.update())
-//				redirect(getControllerKey());
-//			return;
 		}
 	}
 	public void profile() {
@@ -65,5 +57,13 @@ public class IndexController extends BaseController {
 	public void closed() {
 		setAttr("app_remark", PropertyKit.get("app_remark"));
 		render("common/close.html");
+	}
+	@ClearInterceptor(ClearLayer.ALL)
+	public void test(){
+		List<SysDept> deptModels = new SysDept().findByModel();		
+		TreeKit deptTree = new TreeKit();
+		deptTree.importModels(deptModels);
+		deptTree.getSelectMap();
+		renderNull();
 	}
 }

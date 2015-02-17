@@ -2,6 +2,8 @@ package com.cnvp.paladin.controller;
 
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.kit.StringKit;
+import com.cnvp.paladin.kit.tree.TreeKit;
+import com.cnvp.paladin.model.SysDept;
 import com.cnvp.paladin.model.SysUser;
 import com.jfinal.kit.EncryptionKit;
 
@@ -12,12 +14,17 @@ public class UserController extends BaseController {
 	public void create(){
 		if(isPost()){
 			SysUser model = getModel(SysUser.class,"user");
+			String psw = model.getStr("password");
+			model.set("password",EncryptionKit.md5Encrypt(psw));	
 			model.set("create_time", System.currentTimeMillis());
 			model.set("create_user_id", 1);
 			if(model.save())
 				redirect(getControllerKey());
 				return;
 		}
+		TreeKit deptTree = new TreeKit();
+		deptTree.importModels(new SysDept().findByModel());
+		setAttr("depts",deptTree.getSelectMap());
 		setAttr("data", new SysUser());
 		render("form.html");
 	}
@@ -38,6 +45,9 @@ public class UserController extends BaseController {
 				redirect(getControllerKey());
 			return;
 		}
+		TreeKit deptTree = new TreeKit();
+		deptTree.importModels(new SysDept().findByModel());
+		setAttr("depts",deptTree.getSelectMap());
 		setAttr("data",SysUser.dao.findById(getParaToInt()) );
 		render("form.html");
 	}

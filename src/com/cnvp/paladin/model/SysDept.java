@@ -15,4 +15,7 @@ public class SysDept extends BaseModel<SysDept> {
 		else
 			return false;
 	}
+	public void getSelect(){
+		
+	}
 }

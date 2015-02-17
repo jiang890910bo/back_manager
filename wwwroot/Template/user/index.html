@@ -16,6 +16,7 @@
                     <th>账号</th>
                     <th>中文名</th>
                     <th>英文名</th>
+                    <th>所在部门</th>
                     <th>备注</th>
                     <th>最后登陆</th>
                     <th>登陆次数</th>
@@ -27,6 +28,7 @@
                         <td>${data.account}</td>
                         <td>${data.cn_name}</td>
                         <td>${data.en_name}</td>
+                        <td>${@data.getDeptName()}</td>
                         <td>${data.remark}</td>
                         <td>${data.last_login_time,dateFormat="yyyy-MM-dd"}</td>
                         <td>${data.login_count}</td>

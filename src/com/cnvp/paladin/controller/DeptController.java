@@ -14,7 +14,6 @@ public class DeptController extends BaseController {
 		setAttr("page", SysDept.dao.paginate(getParaToInt(0, 1), 10));
 	}
 	public void getlist(){
-//		Integer pid = getParaToInt("pid", 0);
 		Map<String, Object> json =  new HashMap<String, Object>();
 		List<SysDept> data = SysDept.dao.where("");
 		for (int i = 0; i < data.size(); i++) {

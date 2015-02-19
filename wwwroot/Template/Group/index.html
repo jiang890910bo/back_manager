@@ -1,0 +1,77 @@
+<?  layout("../layout/default.html") { ?>
+<script type="text/javascript" src="${root}Static/js/jquery.tmpl.js"></script>
+<form method="post" action="123123213/deleteAll">
+<div class="admin-panel">		
+    <div class="panel">
+    	<div class="panel-head">
+            <h3 class="float-left"><b>角色列表</b> <a href="${root}Group/create" class="button  button-little bg-blue  icon-plus"> 添加角色</a></h3>
+            <div class="toolbar">                    
+            </div>
+            <div class="clearfix"></div>
+        </div>        
+		<div class="panel-body" gid="0">
+		</div>
+        <div class="panel-foot text-center">
+        <?  includeFileTemplate("/common/paginate.html",{uri : '', page : page}){}?>            
+        </div>
+    </div>
+</div>
+</form>
+<script id="groupTpl" type="text/x-jquery-tmpl">
+<ul class="dept-item" gid="\${ID}" loadflg="0">
+    <li class="dept-item-info"  {%if HASCHILD==true%}child="1"{%/if%}>
+		<a class="{%if HASCHILD==true%}icon-minus{%/if%}" onclick="toggle(\${ID})" href="javascript:;"></a>
+		<a href="${ControllerKey}/update/\${ID}">\${CNAME}</a>&nbsp;&nbsp;
+		<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${ID}"> </a>
+		<a class="icon-trash-o text-red hidden" onclick="return checkDel(\${ID})" href="${ControllerKey}/delete/\${ID}"> </a>
+    </li>
+</ul>
+</script>
+<script type="text/javascript">
+var checkDel = function(id){
+	if($(".dept-item[gid='"+id+"'] ul").size()>0){
+		alert("无法执行：依然含有子项。");
+		return false;
+	}
+	return confirm("确定删除？");
+}
+var toggle = function(id){
+	$(".dept-item[gid='"+id+"'] ul").toggle();    	
+	$(".dept-item[gid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-plus");
+	$(".dept-item[gid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-minus");
+}
+var showChildren = function(data,pid){
+	var children = $.grep(data,function(n,i){return n.PID==pid;})
+	//console.info(children);
+	$.each(children, function(i, row){
+		$("#groupTpl").tmpl(row).appendTo("[gid='"+pid+"']")
+		if(row.HASCHILD==true)
+			showChildren(data,row.ID);
+	});
+}
+$.get("${ControllerKey}/getlist",function(json){
+	showChildren(json.data,0);
+},"JSON");
+$(".panel-body").delegate(".dept-item-info", "mouseover", function(){
+    $("a:gt(1)",this).removeClass('hidden')
+});
+$(".panel-body").delegate(".dept-item-info", "mouseout", function(){
+    $("a:gt(1)",this).addClass('hidden')
+});
+/* var getlist = function(pid){
+    if(typeof pid =="undefined") pid = 0;
+	$.get("${ControllerKey}/getlist", {'pid':pid},function(json){
+        $("#groupTpl").tmpl(json.data).appendTo("[gid='"+pid+"']")
+		console.info(json.data);
+		var test = $.grep(json.data,function(n,i){
+			return n.PID==0;
+		});
+		console.info(test);
+		console.info(json.data);
+        $(".dept-item[gid='"+pid+"']").attr('loadflg',1);
+	},"JSON");
+}
+getlist();
+ */
+</script>
+<?  } ?>

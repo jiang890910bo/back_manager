@@ -1,5 +1,7 @@
 package com.cnvp.paladin.kit;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
@@ -9,6 +11,18 @@ import com.jfinal.kit.StrKit;
 
 public class StringKit extends StrKit{
 	
+	public static String urlDecode(String value){
+		String result = null;
+		try {
+			result = URLDecoder.decode(value,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	/** 
+	 * 表名转模型名
+	 */
 	public static String tableName_2_modelName(String tableName) {
 		String[] tableNameArr = tableName.replace(ConfigKit.get("jdbc.dbPrefix"), "").split("_");
 		StringBuilder modelName = new StringBuilder();
@@ -16,11 +30,21 @@ public class StringKit extends StrKit{
 			modelName.append(firstCharToUpperCase(tableNameArr[j]));
 		return modelName.toString();
 	}
+	/** 
+	 * 模型名转表名
+	 */
 	public static String modelName_2_tableName(String modelName) {
 		String tableName = modelName.replaceAll("[A-Z]", "_$0");
 		tableName = tableName.substring(1,tableName.length()).toLowerCase();
 		return ConfigKit.get("jdbc.dbPrefix") + tableName;
 	}
+	
+	/**
+	 * 从数据库字段类型，提取类型和长度
+	 * 例如 varchar(20)
+	 * @param typeFromDb
+	 * @return varchar 20
+	 */
 	public static String[] getFieldTypeLength(String typeFromDb){
 		Pattern p = Pattern.compile("(\\w+)\\((.+)\\)");
 		Matcher m = p.matcher(typeFromDb);

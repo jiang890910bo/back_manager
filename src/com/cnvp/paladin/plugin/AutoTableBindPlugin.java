@@ -41,6 +41,10 @@ public class AutoTableBindPlugin extends ActiveRecordPlugin {
 						} else {
 							this.addMapping(tb.name(), modelClass);
 						}
+					}else{
+						if (StrKit.notBlank(tb.pk())) {
+							this.addMapping(tableName(modelClass), tb.pk(), modelClass);
+						}
 					}
 				}
 			}

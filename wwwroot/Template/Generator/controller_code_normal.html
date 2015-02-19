@@ -1,10 +1,10 @@
-<?  	var modelNameLowerCase= strutil.toLowerCase(modelName); ?>
+<? var modelNameLowerCase= strutil.toLowerCase(modelName); ?>
 package com.cnvp.paladin.controller;
 
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.model.${modelName};
 
-public class DeptController extends BaseController {
+public class ${modelName}Controller extends BaseController {
 	public void index(){
 		setAttr("page", ${modelName}.dao.paginate(getParaToInt(0, 1), 10));
 	}
@@ -19,7 +19,7 @@ public class DeptController extends BaseController {
 
 	public void update(){
 		if(isPost()){
-			if(getModel(${modelName}.class,"${modelNameLowerCase}").save())
+			if(getModel(${modelName}.class,"${modelNameLowerCase}").set("id",getParaToInt()).update())
 				redirect(getControllerKey());
 				return;
 		}

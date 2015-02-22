@@ -22,7 +22,7 @@
     <li class="dept-item-info"  {%if HASCHILD==true%}child="1"{%/if%}>
 		<a class="{%if HASCHILD==true%}icon-minus{%/if%}" onclick="toggle(\${ID})" href="javascript:;"></a>
 		<a href="${ControllerKey}/update/\${ID}">\${CNAME}</a>&nbsp;&nbsp;
-		<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${ID}"> </a>
+		<!--<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${ID}"> </a>-->
 		<a class="icon-trash-o text-red hidden" onclick="return checkDel(\${ID})" href="${ControllerKey}/delete/\${ID}"> </a>
     </li>
 </ul>

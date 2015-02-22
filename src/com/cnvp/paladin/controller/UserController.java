@@ -4,7 +4,9 @@ import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.kit.StringKit;
 import com.cnvp.paladin.kit.tree.TreeKit;
 import com.cnvp.paladin.model.SysDept;
+import com.cnvp.paladin.model.SysRole;
 import com.cnvp.paladin.model.SysUser;
+import com.cnvp.paladin.model.SysUserRole;
 import com.jfinal.kit.EncryptionKit;
 
 public class UserController extends BaseController {
@@ -18,12 +20,20 @@ public class UserController extends BaseController {
 			model.set("password",EncryptionKit.md5Encrypt(psw));	
 			model.set("create_time", System.currentTimeMillis());
 			model.set("create_user_id", 1);
-			if(model.save())
+			if(model.save()){
+				model.deleteAllRoles();
+				String[] role_ids = getParaValues("roles");
+				if(role_ids!=null)
+				for (String role_id : role_ids)
+					new SysUserRole().set("user_id", model.getInt("id")).set("role_id", role_id).save();
 				redirect(getControllerKey());
 				return;
+			}
 		}
 		TreeKit deptTree = new TreeKit();
 		deptTree.importModels(new SysDept().findByModel());
+		//所有角色数据
+		setAttr("allroles",SysRole.dao.findAll());
 		setAttr("depts",deptTree.getSelectMap());
 		setAttr("data", new SysUser());
 		render("form.html");
@@ -37,18 +47,28 @@ public class UserController extends BaseController {
 				String psw = model.getStr("password");
 				model.set("password",EncryptionKit.md5Encrypt(psw));				
 			}
-			model
-			.set("id", getParaToInt())
-			.set("update_time", System.currentTimeMillis())
-			.set("update_user_id", 1);
-			if(model.update())
+			model.set("id", getParaToInt()).set("update_time", System.currentTimeMillis()).set("update_user_id", 1);
+			if(model.update()){
+				model.deleteAllRoles();
+				String[] role_ids = getParaValues("roles");
+				if(role_ids!=null)
+				for (String role_id : role_ids)
+					new SysUserRole().set("user_id", model.getInt("id")).set("role_id", role_id).save();
 				redirect(getControllerKey());
+			}
 			return;
 		}
+		//当前用户数据
+		SysUser user = SysUser.dao.findById(getParaToInt());
+		setAttr("data",user);
+		//部门select数据
 		TreeKit deptTree = new TreeKit();
 		deptTree.importModels(new SysDept().findByModel());
 		setAttr("depts",deptTree.getSelectMap());
-		setAttr("data",SysUser.dao.findById(getParaToInt()) );
+		//所有角色数据
+		setAttr("allroles",SysRole.dao.findAll());
+		//用户现有角色数据
+		setAttr("useroles",user.getRoles());
 		render("form.html");
 	}
 	public void delete(){
@@ -66,6 +86,7 @@ public class UserController extends BaseController {
 		for (Integer id : ids) {
 			SysUser.dao.findById(id).delete();
 //			System.out.println(id);
-		}redirect(getControllerKey());
+		}
+		redirect(getControllerKey());
 	}
 }

@@ -5,13 +5,14 @@
 			<strong><? if(@data.isNew()){ ?>添加<?}else{?>编辑<?}?>用户</strong>
 			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
 			<ul class="tab-nav">
-			  <li class="active"><a href="#tab-set">用户信息</a></li>			  
+			  <li class="active"><a href="#tab-set">用户信息</a></li>	
+			  <li ><a href="#tab-role">角色配置</a></li>			  
 			  <!-- <li><a href="#tab-other">辅助信息</a></li> -->
 			</ul>
 		</div>
 		<div class="tab-body">
+			<form method="post" class="form-x" action="">
 			<div class="tab-panel active" id="tab-set">
-				<form method="post" class="form-x" action="">
 					<div class="form-group">
 						<div class="label"><label for="sitename">用户名</label></div>
 						<div class="field">
@@ -81,8 +82,31 @@
 					
 					
 				<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
-			    </form>
 			</div>
+			<div class="tab-panel" id="tab-role">
+		    	<div class="form-group">
+						<div class="label"><label for="sitename">选择角色</label></div>
+						<div class="field">		
+							<? for(role in allroles){ ?>
+							<div class="button-group checkbox">
+								<label class="button" id="role_${role.id}">
+									<input name="roles" value="${role.id}" type="checkbox">
+									<span class="icon icon-check"></span> 
+									${role.cname}
+								</label>
+							</div>
+							<? } ?>				
+		    	 			
+						</div>
+					</div>
+				<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
+				<script type="text/javascript">
+					<? for(role in useroles!){ ?>
+					$("#role_${role.role_id}").addClass("active").children("input").attr("checked",true);
+					<? }?>
+				</script>
+		    </div>
+		    </form>
 			<div class="tab-panel" id="tab-other">
 				<form class="form-x">
 				<div class="form-group">

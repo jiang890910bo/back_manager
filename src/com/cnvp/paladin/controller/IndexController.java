@@ -7,13 +7,12 @@ import org.apache.shiro.SecurityUtils;
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.kit.PropertyKit;
 import com.cnvp.paladin.kit.StringKit;
-import com.cnvp.paladin.kit.tree.TreeKit;
-import com.cnvp.paladin.model.SysDept;
 import com.cnvp.paladin.model.SysNav;
 import com.cnvp.paladin.model.SysUser;
 import com.cnvp.paladin.service.NavService;
 import com.jfinal.aop.ClearInterceptor;
 import com.jfinal.aop.ClearLayer;
+import com.jfinal.core.JFinal;
 import com.jfinal.kit.EncryptionKit;
 
 public class IndexController extends BaseController {
@@ -60,10 +59,14 @@ public class IndexController extends BaseController {
 	}
 	@ClearInterceptor(ClearLayer.ALL)
 	public void test(){
-		List<SysDept> deptModels = new SysDept().findByModel();		
-		TreeKit deptTree = new TreeKit();
-		deptTree.importModels(deptModels);
-		deptTree.getSelectMap();
-		renderNull();
+		List<String> actionKeys = JFinal.me().getAllActionKeys();
+		for (String ak : actionKeys) {
+			System.out.println(ak);
+		}
+//		List<SysDept> deptModels = new SysDept().findByModel();		
+//		TreeKit deptTree = new TreeKit();
+//		deptTree.importModels(deptModels);
+//		deptTree.getSelectMap();
+//		renderNull();
 	}
 }

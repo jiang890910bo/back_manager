@@ -1,5 +1,8 @@
 package com.cnvp.paladin.model;
 
+import java.util.Collection;
+import java.util.List;
+
 import com.cnvp.paladin.core.BaseModel;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -17,5 +20,17 @@ public class SysUser extends BaseModel<SysUser> {
 		else{
 			return dept.getStr("cname");
 		}
+	}
+	public int deleteAllRoles(){
+		return SysUserRole.dao.deleteAllByUserId(getInt("id"));
+	}
+	public List<SysUserRole> getRoles(){
+		return SysUserRole.dao.findByUserId(getInt("id"));
+	}
+	public Collection<String> getRoleNameList(){
+		//TODO 获取当前用户的角色列表
+//		Integer userID = get("id");
+//		List<SysGroup> groups = SysGroup.dao.where(" id in (?) ");
+		return null;
 	}
 }

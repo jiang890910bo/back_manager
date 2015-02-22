@@ -20,6 +20,11 @@ public class Shiro implements Interceptor {
 			System.err.println("会话超时or未登录。");
 			ai.getController().redirect("/Passport/login?from="+ai.getController().getRequest().getRequestURL());
 		} else {			
+			if (currentUser.isPermittedAll("permissions")) {
+				System.err.println("授权通过");
+			}else{
+				System.err.println("授权");
+			}
 			ai.invoke();// 授权
 			// 已经认证
 //			if (permissions == null || currentUser.isPermittedAll(permissions)) {

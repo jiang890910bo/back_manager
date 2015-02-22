@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import com.jfinal.core.JFinal;
+
 
 /**
  * 配置文件app.properties所有配置
@@ -23,6 +25,12 @@ public class ConfigKit {
 			config.put(key,val);
 		}
 		 properties.putAll(config);
+	}
+	public static boolean isDevMode(){
+		return JFinal.me().getConstants().getDevMode();
+	}
+	public static String getDbPrefix(){
+		return get("jdbc.dbPrefix");
 	}
 	public static String get(String key){
 		return (String)config.get(key);

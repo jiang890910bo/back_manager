@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.cnvp.paladin.kit.ConfigKit;
 import com.cnvp.paladin.kit.StringKit;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.TableMapping;
 
@@ -21,6 +23,30 @@ public class BaseModel<M extends BaseModel> extends Model<M>{
 	}
 	public String getTableName(){
 		return TableMapping.me().getTable(this.getClass()).getName();
+	}
+	public String getDbPerfix(){
+		return ConfigKit.getDbPrefix();
+	}
+	public List<M> findAll(){
+		return find("select * from "+getTableName());
+	}
+	//TODO findAll 待完善暂时无法正常非使用
+	public List<M> findAll(MysqlBuilder sqlBuilder){
+		sqlBuilder.tableName = getTableName();
+		if (sqlBuilder.params.size()==0) 
+			return find(sqlBuilder.buildSql());
+		else			
+			return find(sqlBuilder.buildSql(),sqlBuilder.params);
+	}
+	//TODO deleteAll 待完善暂时无法正常非使用
+	public Integer deleteAll(MysqlBuilder sqlBuilder){
+		sqlBuilder.optName = "delete";
+		sqlBuilder.tableName = getTableName();
+		System.out.println(sqlBuilder.buildSql());
+		if (sqlBuilder.params.size()==0) 
+			return Db.update(sqlBuilder.buildSql());
+		else			
+			return Db.update(sqlBuilder.buildSql(),sqlBuilder.params);
 	}
 	public List<M> where(String sqlWhere){
 		String sql = "select * from "+getTableName();

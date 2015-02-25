@@ -4,7 +4,7 @@
 <div class="admin-panel">		
     <div class="panel">
     	<div class="panel-head">
-            <h3 class="float-left"><b>角色列表</b> <a href="${root}Group/create" class="button  button-little bg-blue  icon-plus"> 添加角色</a></h3>
+            <h3 class="float-left"><b>角色列表</b> <a href="${root}Role/create" class="button  button-little bg-blue  icon-plus"> 添加角色</a></h3>
             <div class="toolbar">                    
             </div>
             <div class="clearfix"></div>
@@ -17,7 +17,7 @@
     </div>
 </div>
 </form>
-<script id="groupTpl" type="text/x-jquery-tmpl">
+<script id="RoleTpl" type="text/x-jquery-tmpl">
 <ul class="dept-item" gid="\${ID}" loadflg="0">
     <li class="dept-item-info"  {%if HASCHILD==true%}child="1"{%/if%}>
 		<a class="{%if HASCHILD==true%}icon-minus{%/if%}" onclick="toggle(\${ID})" href="javascript:;"></a>
@@ -44,7 +44,7 @@ var showChildren = function(data,pid){
 	var children = $.grep(data,function(n,i){return n.PID==pid;})
 	//console.info(children);
 	$.each(children, function(i, row){
-		$("#groupTpl").tmpl(row).appendTo("[gid='"+pid+"']")
+		$("#RoleTpl").tmpl(row).appendTo("[gid='"+pid+"']")
 		if(row.HASCHILD==true)
 			showChildren(data,row.ID);
 	});
@@ -61,7 +61,7 @@ $(".panel-body").delegate(".dept-item-info", "mouseout", function(){
 /* var getlist = function(pid){
     if(typeof pid =="undefined") pid = 0;
 	$.get("${ControllerKey}/getlist", {'pid':pid},function(json){
-        $("#groupTpl").tmpl(json.data).appendTo("[gid='"+pid+"']")
+        $("#RoleTpl").tmpl(json.data).appendTo("[gid='"+pid+"']")
 		console.info(json.data);
 		var test = $.grep(json.data,function(n,i){
 			return n.PID==0;

@@ -10,6 +10,17 @@ public class Shiro implements Interceptor {
 
 	@Override
 	public void intercept(ActionInvocation ai) {
+//		System.out.println(ai.getController().getClass().getName()+":"+ai.getMethodName());
+//
+//		System.out.println(ai.getActionKey());
+//		for (String actionKey : JFinal.me().getAllActionKeys()) {
+//			System.err.println(actionKey);
+//		}
+		/* TODO 继续完善权限控制体系
+		 * 1、按照“权限代码”构建权限目录树
+		 * 2、针对固定的权限，添加actionKey
+		 * 3、shiro拦截器中，根据actionKey在数据库中查找“权限代码”，并进行验证
+		 * */
 		// 获取Shiro Subject
 		Subject currentUser = SecurityUtils.getSubject();
 		if (!currentUser.isAuthenticated()) {// 没有认证

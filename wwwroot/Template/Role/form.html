@@ -1,0 +1,34 @@
+<?  layout("../layout/default.html") { ?>
+<div class="admin-panel">
+	<div class="tab">
+		<div class="tab-head">
+			<strong><? if(@data.isNew()){ ?>添加<? }else{ ?>编辑<?} ?></strong>
+			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
+			<ul class="tab-nav">
+			  <li class="active"><a href="#tab-set">信息</a></li>
+			</ul>
+		</div>
+		<div class="tab-body">
+			<div class="tab-panel active" id="tab-set">
+				<form method="post" class="form-x" action="">
+					<div class="form-group">
+						<div class="label"><label for="sitename">角色名称</label></div>
+						<div class="field">
+						<input type="text" class="input" id="sysgroup_cname" name="sysgroup.cname" size="20" placeholder="请填写角色名称" data-validate="required:请填写角色名称" value="${data.cname!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">父级Id</label></div>
+						<div class="field">
+						<input type="text" class="input" id="sysgroup_pid" name="sysgroup.pid" size="11" placeholder="父级Id" data-validate="required:请填写父级Id" value="${data.pid!"0"}"/>
+						</div>
+					</div>
+					
+				<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
+			    </form>
+			</div>
+		</div>
+	</div>
+</div>
+<?  } ?>		

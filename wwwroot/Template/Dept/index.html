@@ -20,7 +20,7 @@
 <script id="deptTpl" type="text/x-jquery-tmpl">
 <ul class="dept-item" deptid="\${ID}" loadflg="0">
     <li class="dept-item-info"  {%if HASCHILD==true%}child="1"{%/if%}>
-		<a class="{%if HASCHILD==true%}icon-minus{%/if%}" onclick="toggle(\${ID})" href="javascript:;"></a>
+		<a class="{%if HASCHILD==true%}icon-angle-down{%/if%}" onclick="toggle(\${ID})" href="javascript:;"></a>
 		<a href="${ControllerKey}/update/\${ID}">\${CNAME}</a>&nbsp;&nbsp;
 		<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${ID}"> </a>
 		<a class="icon-trash-o text-red hidden" onclick="return checkDel(\${ID})" href="${ControllerKey}/delete/\${ID}"> </a>
@@ -37,8 +37,8 @@ var checkDel = function(id){
 }
 var toggle = function(id){
 	$(".dept-item[deptid='"+id+"'] ul").toggle();    	
-	$(".dept-item[deptid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-plus");
-	$(".dept-item[deptid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-minus");
+	$(".dept-item[deptid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-caret-right");
+	$(".dept-item[deptid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-angle-down");
 }
 var showChildren = function(data,pid){
 	var children = $.grep(data,function(n,i){return n.PID==pid;})

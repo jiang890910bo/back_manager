@@ -7,7 +7,7 @@ import java.util.Map;
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.model.SysRole;
 
-public class GroupController extends BaseController {
+public class RoleController extends BaseController {
 	public void index(){
 		setAttr("page", SysRole.dao.paginate(getParaToInt(0, 1), 10));
 	}

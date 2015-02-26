@@ -8,6 +8,8 @@ import com.cnvp.paladin.kit.ConfigKit;
 import com.cnvp.paladin.kit.StringKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Table;
 import com.jfinal.plugin.activerecord.TableMapping;
 
 @SuppressWarnings({ "serial", "rawtypes" })
@@ -21,11 +23,24 @@ public class BaseModel<M extends BaseModel> extends Model<M>{
 	public Map<String, Object> getAttrs() {
 		return super.getAttrs();
 	}
+	public Table getTable(){
+		return TableMapping.me().getTable(this.getClass());
+	}
 	public String getTableName(){
-		return TableMapping.me().getTable(this.getClass()).getName();
+		return getTable().getName();
 	}
 	public String getDbPerfix(){
 		return ConfigKit.getDbPrefix();
+	}
+	public boolean exists(String whereSql,Object... args){
+		return exists("id",whereSql,args);
+	}
+	public boolean exists(String pk,String whereSql,Object... args){
+		Long count = Db.queryLong("select count("+ pk+") from "+getTableName() +" where "+whereSql,args);
+		if (count==0)
+			return false;
+		else
+			return true;
 	}
 	public List<M> findAll(){
 		return find("select * from "+getTableName());
@@ -92,6 +107,9 @@ public class BaseModel<M extends BaseModel> extends Model<M>{
 		sql.append(" order by "+order);
 		List<M> result = find(sql.toString(), vals.toArray());		
 		return result.size() > 0 ? result.get(0) : null;
+	}
+	public Page<M> paginate(int pageNumber, int pageSize) {
+		return paginate(pageNumber, pageSize, "select *", "from "+getTableName()+" order by id asc");
 	}
 //	List<M> result = find(sql, NULL_PARA_ARRAY);
 //	return result.size() > 0 ? result.get(0) : null;

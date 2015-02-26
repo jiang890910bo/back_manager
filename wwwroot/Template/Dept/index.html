@@ -18,12 +18,12 @@
 </div>
 </form>
 <script id="deptTpl" type="text/x-jquery-tmpl">
-<ul class="dept-item" deptid="\${ID}" loadflg="0">
-    <li class="dept-item-info"  {%if HASCHILD==true%}child="1"{%/if%}>
-		<a class="{%if HASCHILD==true%}icon-angle-down{%/if%}" onclick="toggle(\${ID})" href="javascript:;"></a>
-		<a href="${ControllerKey}/update/\${ID}">\${CNAME}</a>&nbsp;&nbsp;
-		<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${ID}"> </a>
-		<a class="icon-trash-o text-red hidden" onclick="return checkDel(\${ID})" href="${ControllerKey}/delete/\${ID}"> </a>
+<ul class="dept-item" deptid="\${id}" loadflg="0">
+    <li class="dept-item-info"  {%if haschild==true%}child="1"{%/if%}>
+		<a class="{%if haschild==true%}icon-angle-down{%/if%}" onclick="toggle(\${id})" href="javascript:;"></a>
+		<a href="${ControllerKey}/update/\${id}">\${cname}</a>&nbsp;&nbsp;
+		<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${id}"> </a>
+		<a class="icon-trash-o text-red hidden" onclick="return checkDel(\${id})" href="${ControllerKey}/delete/\${id}"> </a>
     </li>
 </ul>
 </script>
@@ -41,11 +41,11 @@ var toggle = function(id){
 	$(".dept-item[deptid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-angle-down");
 }
 var showChildren = function(data,pid){
-	var children = $.grep(data,function(n,i){return n.PID==pid;})
+	var children = $.grep(data,function(n,i){return n.pid==pid;})
 	$.each(children, function(i, row){
 		$("#deptTpl").tmpl(row).appendTo("[deptid='"+pid+"']")
-		if(row.HASCHILD==true)
-			showChildren(data,row.ID);
+		if(row.haschild==true)
+			showChildren(data,row.id);
 	});
 }
 $.get("${ControllerKey}/getlist",function(json){
@@ -57,20 +57,5 @@ $(".panel-body").delegate(".dept-item-info", "mouseover", function(){
 $(".panel-body").delegate(".dept-item-info", "mouseout", function(){
     $("a:gt(1)",this).addClass('hidden')
 });
-/* var getlist = function(pid){
-    if(typeof pid =="undefined") pid = 0;
-	$.get("${ControllerKey}/getlist", {'pid':pid},function(json){
-        $("#deptTpl").tmpl(json.data).appendTo("[deptid='"+pid+"']")
-		console.info(json.data);
-		var test = $.grep(json.data,function(n,i){
-			return n.PID==0;
-		});
-		console.info(test);
-		console.info(json.data);
-        $(".dept-item[deptid='"+pid+"']").attr('loadflg',1);
-	},"JSON");
-}
-getlist();
- */
 </script>
 <?  } ?>

@@ -67,7 +67,7 @@ public class appConfig extends JFinalConfig {
 		//添加自动绑定model与表插件
 		AutoTableBindPlugin autoTableBindPlugin = new AutoTableBindPlugin(dp, TableNameStyle.LOWER_UNDERLINE);
 		autoTableBindPlugin.setShowSql(true);
-		autoTableBindPlugin.setContainerFactory(new CaseInsensitiveContainerFactory());
+		autoTableBindPlugin.setContainerFactory(new CaseInsensitiveContainerFactory(true));
 		me.add(autoTableBindPlugin);
 //		me.add(new SqlInXmlPlugin());
 

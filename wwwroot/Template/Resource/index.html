@@ -1,34 +1,105 @@
 <?  layout("../layout/default.html") { ?>
+<link rel="stylesheet" href="${root}Static/js/ztree/css/zTreeStyle/zTreeStyle.css"  type="text/css">
+<script type="text/javascript" src="${root}Static/js/ztree/js/jquery.ztree.all-3.5.min.js"></script>
+<div class="admin-panel">
+	<div class="panel">
+		<div class="panel-head">
+			<h3 class="float-left">
+				<b>资源管理</b> <a href="${root}Resource/create"
+					class="button  button-little bg-blue  icon-plus"> 添加分组</a>
+			</h3>
+			<div class="toolbar"></div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="panel">
+			<div id="treeDemo" class="ztree"></div>
+		</div>
 
-<link rel="stylesheet" href="${root}Static/js/jstree/themes/default/style.min.css" />
-<div id="jstree">
-<ul>
-  <li>Root node 1
-    <ul>
-      <li id="child_node_1">Child node 1</li>
-      <li>Child node 2</li>
-    </ul>
-  </li>
-  <li>Root node 2</li>
-</ul>
+	</div>
 </div>
-<button>demo button</button>
-
 <script src="${root}Static/js/jstree/jstree.min.js"></script>
-<script>
-$(function () {
-// 6 create an instance when the DOM is ready
-$('#jstree').jstree();
-// 7 bind to events triggered on the tree
-$('#jstree').on("changed.jstree", function (e, data) {
-  console.log(data.selected);
-});
-// 8 interact with the tree - either way is OK
-$('button').on('click', function () {
-  $('#jstree').jstree(true).select_node('child_node_1');
-  $('#jstree').jstree('select_node', 'child_node_1');
-  $.jstree.reference('#jstree').select_node('child_node_1');
-});
-});
+<script type="text/javascript">
+
+  var demoMsg = {
+      async: "Loading asynchronous, please wait a moment and then click...",
+      expandAllOver: "Expansion Completed.",
+      asyncAllOver: "Asynchronously loading Completed.",
+      asyncAll: "Asynchronously loading Completed, no need to reload it again.",
+      expandAll: "Asynchronously loading completed, please use expandAll method."
+  }
+	var setting = {
+		async : {
+			enable : true,
+			url : "Resource/getlist",
+			autoParam : [ "id"],
+			type : "get"
+		},
+		callback : {
+			beforeAsync : beforeAsync,
+			onAsyncSuccess : onAsyncSuccess,
+			onAsyncError : onAsyncError
+		}
+	};
+
+  var curStatus = "init", loading  = false, asyncForAll = false;
+	function beforeAsync() {
+		loading = true;
+	}
+
+	function onAsyncSuccess(event, treeId, treeNode, msg) {
+    loading = false;
+		if (curStatus == "expand") {
+			expandNodes(treeNode.children);
+		} 
+
+		if (loading = false) {
+			if (curStatus != "init" && curStatus != "")
+				asyncForAll = true;
+			curStatus = "";
+      expandAll();
+    }
+	}
+
+	function onAsyncError(event, treeId, treeNode, XMLHttpRequest, textStatus,errorThrown) {
+		loading = false
+		if (!loading) {
+			curStatus = "";
+			if (treeNode != null)
+				asyncForAll = true;
+		}
+	}
+
+	function expandAll() {
+		if (!check()) {
+			return;
+		}
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		if (asyncForAll) {
+			zTree.expandAll(true);
+		} else {
+			expandNodes(zTree.getNodes());
+			if (!goAsync) {
+				curStatus = "";
+			}
+		}
+	}
+  function expandNodes(nodes) {
+      if (!nodes) return;
+      curStatus = "expand";
+      var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+      for (var i=0, l=nodes.length; i<l; i++) {
+        zTree.expandNode(nodes[i], true, false, false);
+        if (nodes[i].isParent && nodes[i].zAsync)
+          expandNodes(nodes[i].children);
+        else
+          goAsync = true;
+      }
+    }
+	function check() {
+		return loading;
+	}
+	$(function() {
+		$.fn.zTree.init($("#treeDemo"), setting);
+	});
 </script>
 <?  } ?>

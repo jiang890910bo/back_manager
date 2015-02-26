@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.cnvp.paladin.core.BaseModel;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 
 @SuppressWarnings("serial")
@@ -28,9 +29,9 @@ public class SysUser extends BaseModel<SysUser> {
 		return SysUserRole.dao.findByUserId(getInt("id"));
 	}
 	public Collection<String> getRoleNameList(){
-		//TODO 获取当前用户的角色列表
-//		Integer userID = get("id");
-//		List<SysGroup> groups = SysGroup.dao.where(" id in (?) ");
-		return null;
+		List<String> r = Db.queryColumn("select cname from "+ getDbPerfix() +"sys_role r "
+				+ "left join "+ getDbPerfix() +"sys_user_role ur on r.id=ur.role_id "
+				+ "where ur.userid=?", getInt("id"));
+		return r;
 	}
 }

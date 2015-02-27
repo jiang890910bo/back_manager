@@ -1,0 +1,78 @@
+<?  layout("../layout/default.html") { ?>
+<div class="admin-panel">
+	<div class="tab">
+		<div class="tab-head">
+			<strong><? if(@data.isNew()){ ?>添加<? }else{ ?>编辑<?} ?></strong>
+			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
+			<ul class="tab-nav">
+			  <li class="active"><a href="#tab-set">信息</a></li>
+			</ul>
+		</div>
+		<div class="tab-body">
+			<div class="tab-panel active" id="tab-set">
+				<form method="post" class="form-x" action="">
+					<div class="form-group">
+						<div class="label"><label for="sitename">父级Id</label></div>
+						<div class="field">
+						<input type="text" class="input" id="sysres_pid" name="sysres.pid" size="11" placeholder="父级Id" data-validate="required:请填写父级Id" value="${data.pid!"0"}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">名称</label></div>
+						<div class="field">
+						<input type="text" class="input" id="sysres_cname" name="sysres.cname" size="50" placeholder="请填写名称" data-validate="required:请填写名称" value="${data.cname!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">权限识别码</label></div>
+						<div class="field">
+							<div class="input-group">
+							<span class="addon strong"><strong>${data.parent_code!"根节点"}：</strong></span>
+							<input type="text" class="input" id="sysres_code" name="sysres.code" size="50" placeholder="请填写权限识别码" data-validate="required:请填写权限识别码,english:只能填写英文" value="${data.code!""}"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">描述</label></div>
+						<div class="field">
+						<input type="text" class="input" id="sysres_des" name="sysres.des" size="200" placeholder="请填写描述" data-validate="" value="${data.des!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">actionKey</label></div>
+						<div class="field">
+						<input type="text" class="input" id="sysres_ak" name="sysres.ak" size="200" placeholder="请填写actionKey" data-validate="" value="${data.ak!""}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">排序</label></div>
+						<div class="field">
+						<input type="text" class="input" id="sysres_seq" name="sysres.seq" size="11" placeholder="排序" data-validate="" value="${data.seq!"10"}"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="label"><label for="sitename">1、actionKey；</label></div>
+						<div class="field">
+						<div class="button-group button-group-small radio">
+							<label class="button" id="sysres_type_true"><input name="sysres.type" value="1"  type="radio"><span class="icon icon-check"></span> 是</label>
+							<label class="button" id="sysres_type_false"><input name="sysres.type" value="0" type="radio"><span class="icon icon-times"></span> 否</label>
+						</div>
+						<script>
+							$("#sysres_type_${data.type!true}").addClass('active').children('input').attr('checked',true);
+						</script>
+						</div>
+					</div>
+					
+				<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
+			    </form>
+			</div>
+		</div>
+	</div>
+</div>
+<?  } ?>		

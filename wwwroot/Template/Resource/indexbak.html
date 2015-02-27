@@ -1,0 +1,70 @@
+<?  layout("../layout/default.html") { ?>
+
+<link rel="stylesheet" href="${root}Static/js/jstree/themes/default/style.min.css" />
+<div class="admin-panel">   
+    <div class="panel">
+      <div class="panel-head">
+            <h3 class="float-left"><b>资源管理</b> <a href="${root}Resource/create" class="button  button-little bg-blue  icon-plus"> 添加分组</a></h3>
+            <div class="toolbar">                    
+            </div>
+            <div class="clearfix"></div>
+        </div>        
+      <div class="panel">
+        <div id="jstree"></div>
+      </div>
+        
+    </div>
+</div>
+<script src="${root}Static/js/jstree/jstree.min.js"></script>
+<script>
+$(function () {
+  // 6 create an instance when the DOM is ready
+  $("#jstree").jstree({
+    "core" : {
+      "multiple" : false,
+      "animation" : 0,
+      'data':{
+          'url':function(node){
+              return node.id === '#'? '${root}Resource/getlist':'${root}Resource/getlist/'+node.id;
+          }
+      },
+      'themes' : {
+        'responsive' : true
+      }
+
+    }, 
+    "contextmenu":{
+  	"items":{
+  		"create":{
+  			'label':'创建子节点',
+  			'icon':'icon-plus',
+  			"action": function (data) {
+  			  var inst = $.jstree.reference(data.reference),
+  			  node = inst.get_node(data.reference); 
+  			  location.href="${root}Resource/create/"+node.id;
+  			}
+  		
+  		},		
+  		"update":{
+  			'label':'编辑该节点',
+  			'icon':'icon-edit',
+  			'action': function (data) {
+  			  var inst = $.jstree.reference(data.reference),
+  			  node = inst.get_node(data.reference); 
+  			  location.href="${root}Resource/update/"+node.id;
+  			}		
+  		}
+  	}
+    },
+    "plugins" : [ "contextmenu" ]
+  })
+  .bind("loaded.jstree", function (event, data) { 
+    data.inst.open_all(-1);
+    // -1 opens all nodes in the container
+  })
+// .on("changed.jstree", function (e, data) {
+//   console.log(data.selected);
+// });
+});
+</script>
+<?  } ?>

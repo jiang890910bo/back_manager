@@ -12,7 +12,7 @@ MySQL - 5.6.19 : Database - cjf
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-USE `cjf`;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`cjf` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 /*Table structure for table `cnvp_sys_dept` */
 
@@ -24,7 +24,7 @@ CREATE TABLE `cnvp_sys_dept` (
   `desc` varchar(500) DEFAULT NULL COMMENT '描述',
   `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父级Id',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cnvp_sys_dept` */
 
@@ -61,11 +61,13 @@ CREATE TABLE `cnvp_sys_res` (
   `des` varchar(200) DEFAULT NULL COMMENT '描述',
   `ak` varchar(200) DEFAULT NULL COMMENT 'actionKey',
   `seq` int(11) DEFAULT '10' COMMENT '排序',
-  `type` tinyint(1) NOT NULL COMMENT '1 功能 2 权限',
+  `type` tinyint(1) DEFAULT NULL COMMENT '1、actionKey；',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cnvp_sys_res` */
+
+insert  into `cnvp_sys_res`(`id`,`pid`,`cname`,`code`,`des`,`ak`,`seq`,`type`) values (1,0,'开始','start','开始',NULL,10,1),(2,0,'系统','system',NULL,NULL,10,1),(3,2,'系统设置','config',NULL,NULL,10,1);
 
 /*Table structure for table `cnvp_sys_role` */
 

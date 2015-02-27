@@ -18,12 +18,12 @@
 </div>
 </form>
 <script id="RoleTpl" type="text/x-jquery-tmpl">
-<ul class="dept-item" gid="\${ID}" loadflg="0">
-    <li class="dept-item-info"  {%if HASCHILD==true%}child="1"{%/if%}>
-		<a class="{%if HASCHILD==true%}icon-minus{%/if%}" onclick="toggle(\${ID})" href="javascript:;"></a>
-		<a href="${ControllerKey}/update/\${ID}">\${CNAME}</a>&nbsp;&nbsp;
-		<!--<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${ID}"> </a>-->
-		<a class="icon-trash-o text-red hidden" onclick="return checkDel(\${ID})" href="${ControllerKey}/delete/\${ID}"> </a>
+<ul class="dept-item" gid="\${id}" loadflg="0">
+    <li class="dept-item-info"  {%if haschild==true%}child="1"{%/if%}>
+		<a class="{%if haschild==true%}icon-minus{%/if%}" onclick="toggle(\${id})" href="javascript:;"></a>
+		<a href="${ControllerKey}/update/\${id}">\${cname}</a>&nbsp;&nbsp;
+		<!--<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${id}"> </a>-->
+		<a class="icon-trash-o text-red hidden" onclick="return checkDel(\${id})" href="${ControllerKey}/delete/\${id}"> </a>
     </li>
 </ul>
 </script>
@@ -41,11 +41,11 @@ var toggle = function(id){
 	$(".dept-item[gid='"+id+"'] li:first[child='1']").children("a:first").toggleClass("icon-minus");
 }
 var showChildren = function(data,pid){
-	var children = $.grep(data,function(n,i){return n.PID==pid;})
+	var children = $.grep(data,function(n,i){return n.pid==pid;})
 	//console.info(children);
 	$.each(children, function(i, row){
 		$("#RoleTpl").tmpl(row).appendTo("[gid='"+pid+"']")
-		if(row.HASCHILD==true)
+		if(row.haschild==true)
 			showChildren(data,row.ID);
 	});
 }
@@ -64,7 +64,7 @@ $(".panel-body").delegate(".dept-item-info", "mouseout", function(){
         $("#RoleTpl").tmpl(json.data).appendTo("[gid='"+pid+"']")
 		console.info(json.data);
 		var test = $.grep(json.data,function(n,i){
-			return n.PID==0;
+			return n.pid==0;
 		});
 		console.info(test);
 		console.info(json.data);

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.model.SysRes;
+import com.jfinal.kit.JsonKit;
 
 public class Resource extends BaseController {
 	public void index(){
@@ -16,9 +17,15 @@ public class Resource extends BaseController {
 	public void create(){
 		Integer pid = getParaToInt(0,0);
 		if(isPost()){
-			if(getModel(SysRes.class,"sysres").save())
-				redirect(getControllerKey());
+			SysRes model =getModel(SysRes.class,"sysres");
+			if(getModel(SysRes.class,"sysres").save()){
+				Map<String, Object> r = new HashMap<String, Object>();
+				r.put("success", true);
+				//TODO 无法获取添加后的主键
+				r.put("data", model);
+				renderJavascript(JsonKit.toJson(r));
 				return;
+			}
 		}
 		setAttr("data", new SysRes().set("pid", pid).addParentCode());
 		render("form.html");
@@ -26,9 +33,14 @@ public class Resource extends BaseController {
 	public void update(){
 		Integer id = getParaToInt(0);
 		if(isPost()){
-			if(getModel(SysRes.class,"sysres").set("id",id).update())
-				redirect(getControllerKey());
+			SysRes model = getModel(SysRes.class,"sysres").set("id",id);
+			if(model.update()){
+				Map<String, Object> r = new HashMap<String, Object>();
+				r.put("success", true);
+				r.put("data", model);
+				renderJavascript(JsonKit.toJson(r));
 				return;
+			}				
 		}
 		setAttr("data", SysRes.dao.findById(id).addParentCode());
 		render("form.html");
@@ -43,7 +55,7 @@ public class Resource extends BaseController {
 			Map<String, Object> node = new HashMap<String, Object>();
 			node.put("id",model.get("id").toString());
 			node.put("isParent",model.hasChild());
-			node.put("name",model.get("cname").toString());			
+			node.put("name",model.get("cname").toString()+"["+model.get("code").toString()+"]");			
 			nodes.add(node);
 		}
 		renderJson(nodes);

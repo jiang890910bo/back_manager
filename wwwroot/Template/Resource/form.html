@@ -1,16 +1,40 @@
 <?  layout("../layout/default.html") { ?>
+<script src="${root}Static/js/jquery.form.js"></script>
+<script>
+var ajaxSubmit = function(){
+	$('#AjaxForm').ajaxSubmit({  
+	    dataType: "json",  
+	    success: function(json) {
+	    	if (json.success) {
+				var treeObj = parent.$.fn.zTree.getZTreeObj('treex');				
+				<? if(@data.isNew()==false){ ?>
+				var node = treeObj.getNodeByTId('treex_'+json.data.id);
+				node.name = json.data.cname+'['+json.data.code+']';
+				treeObj.updateNode(node);
+				<?} ?>
+				parent.$('.dialogx-mask').remove();
+				parent.$('.dialogx-win').remove();
+	    	};
+	            isSubmit = false;  
+	        obj.removeAttr("disabled");  
+	        obj.attr({"value":"提交"});  
+        }   
+	}); 
+	return false; 
+}
+</script>
 <div class="admin-panel">
 	<div class="tab">
 		<div class="tab-head">
 			<strong><? if(@data.isNew()){ ?>添加<? }else{ ?>编辑<?} ?></strong>
-			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
+			<!-- <span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span> -->
 			<ul class="tab-nav">
 			  <li class="active"><a href="#tab-set">信息</a></li>
 			</ul>
 		</div>
 		<div class="tab-body">
 			<div class="tab-panel active" id="tab-set">
-				<form method="post" class="form-x" action="">
+				<form method="post" class="form-x" action="" onsubmit="return ajaxSubmit();" id="AjaxForm">
 					<div class="form-group">
 						<div class="label"><label for="sitename">父级Id</label></div>
 						<div class="field">
@@ -69,10 +93,13 @@
 						</div>
 					</div>
 					
-				<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
+				<div class="form-button"><button class="button bg-main" type="submit" >提交</button></div>
 			    </form>
 			</div>
 		</div>
 	</div>
 </div>
 <?  } ?>		
+<script>
+	
+</script>

@@ -63,11 +63,11 @@ CREATE TABLE `cnvp_sys_res` (
   `seq` int(11) DEFAULT '10' COMMENT '排序',
   `type` tinyint(1) DEFAULT NULL COMMENT '1、actionKey；',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cnvp_sys_res` */
 
-insert  into `cnvp_sys_res`(`id`,`pid`,`cname`,`code`,`des`,`ak`,`seq`,`type`) values (1,0,'开始','start','开始',NULL,10,1),(2,0,'系统','system',NULL,NULL,10,1),(3,2,'系统设置','config',NULL,NULL,10,1);
+insert  into `cnvp_sys_res`(`id`,`pid`,`cname`,`code`,`des`,`ak`,`seq`,`type`) values (1,0,'开始','start','开始',NULL,10,1),(2,0,'系统','system',NULL,NULL,10,1),(3,2,'系统设置','config',NULL,NULL,10,1),(4,2,'211111111111','aaaaaaaaaaaaaaaaaa',NULL,NULL,10,1),(5,2,'bbbb','vvvv',NULL,NULL,10,1),(6,2,'bbbb','vvvv',NULL,NULL,10,1),(7,2,'bbbbbb','aaaaaa',NULL,NULL,10,1),(8,2,'234234234','asf',NULL,NULL,10,1);
 
 /*Table structure for table `cnvp_sys_role` */
 

@@ -14,11 +14,27 @@ import com.jfinal.plugin.activerecord.TableMapping;
 
 @SuppressWarnings({ "serial", "rawtypes" })
 public class BaseModel<M extends BaseModel> extends Model<M>{
-	public boolean isNew(){
-		if(getAttrs().size()==0)
-			return true;
+	private Integer isNew = 1;
+	protected void setIsNew(boolean flg){
+		if(flg)
+			this.isNew = 1;
 		else
-			return false;		
+			this.isNew = 0;
+	}
+	public boolean isNew(){
+		if(this.isNew == 1){
+			return true;
+		}else if(this.isNew == 0){
+			return false;
+		}else
+			return false;
+	}
+	public List<M> find(String sql, Object... paras) {
+		List<M> r = super.find(sql, paras);
+		for (M m : r) {
+			m.setIsNew(false);
+		}
+		return r;
 	}
 	public Map<String, Object> getAttrs() {
 		return super.getAttrs();

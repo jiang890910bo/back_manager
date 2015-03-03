@@ -223,6 +223,19 @@ $(function(){
 		e.addClass("active");
 		$(detail).addClass("active");
 	};
+	$('.dialogs-delegate').delegate('.dialogs','click', function() {
+		var e=$(this);
+		var trigger=e.attr("data-toggle");
+		;if (trigger=="hover"){
+			e.mouseover(function(){
+				$showdialogs(e);
+			});
+		}else if(trigger=="click"){
+			e.click(function(){
+				$showdialogs(e);
+			});
+		}
+	});
 	$('.dialogs').each(function(){
 		var e=$(this);
 		var trigger=e.attr("data-toggle");
@@ -253,7 +266,7 @@ $(function(){
 		if(getid!=null){detail=detail+$(getid).html();}
 		if(data!=null){detail=detail+$.ajax({url:data,async:false}).responseText;}
 		detail=detail+'</div>';
-		
+		console.info(detail);
 		var win=$(detail);
 		win.find(".dialog").addClass("open");
 		$("body").append(win);

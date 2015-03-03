@@ -12,94 +12,53 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="panel">
-			<div id="treeDemo" class="ztree"></div>
+			<div id="treex" class="ztree dialogs-delegate"></div>
 		</div>
 
 	</div>
 </div>
 <script src="${root}Static/js/jstree/jstree.min.js"></script>
 <script type="text/javascript">
-
-  var demoMsg = {
-      async: "Loading asynchronous, please wait a moment and then click...",
-      expandAllOver: "Expansion Completed.",
-      asyncAllOver: "Asynchronously loading Completed.",
-      asyncAll: "Asynchronously loading Completed, no need to reload it again.",
-      expandAll: "Asynchronously loading completed, please use expandAll method."
-  }
+	var IDMark_Switch = "_switch",
+	IDMark_Icon = "_ico",
+	IDMark_Span = "_span",
+	IDMark_Input = "_input",
+	IDMark_Check = "_check",
+	IDMark_Edit = "_edit",
+	IDMark_Remove = "_remove",
+	IDMark_Ul = "_ul",
+	IDMark_A = "_a";
 	var setting = {
 		async : {
 			enable : true,
-			url : "Resource/getlist",
-			autoParam : [ "id"],
+			url : "${root}Resource/getlist",
+			autoParam : ["id"],
 			type : "get"
 		},
-		callback : {
-			beforeAsync : beforeAsync,
-			onAsyncSuccess : onAsyncSuccess,
-			onAsyncError : onAsyncError
+		view: {
+			addHoverDom: addHoverDom,
+			removeHoverDom: removeHoverDom
 		}
 	};
-
-  var curStatus = "init", loading  = false, asyncForAll = false;
-	function beforeAsync() {
-		loading = true;
+	function addHoverDom(treeId, treeNode) {
+		if (treeNode.parentNode && treeNode.parentNode.id!=1) return;
+		if ($("#ext_"+treeNode.id).length>0) return;
+		var aObj = $("#" + treeNode.tId + IDMark_A);
+		Str = '<span id="ext_'+treeNode.id+'">';
+		Str +=' <a  class="icon-plus text-blue dialogx" data-toggle="click" data-title="添加子栏目" data-width="800px" data-height="450px" data-mask="1" data-url="${root}Resource/create/'+treeNode.id+'"></a>';
+		Str +=' <a  class="icon-edit text-blue dialogx" data-toggle="click" data-title="编辑" data-width="800px" data-height="450px" data-mask="1" data-url="${root}Resource/update/'+treeNode.id+'"></a>';
+		Str +=' <a  class="icon-trash-o text-blue"></a>';
+		Str += '</span>';
+		aObj.after(Str);
 	}
-
-	function onAsyncSuccess(event, treeId, treeNode, msg) {
-    loading = false;
-		if (curStatus == "expand") {
-			expandNodes(treeNode.children);
-		} 
-
-		if (loading = false) {
-			if (curStatus != "init" && curStatus != "")
-				asyncForAll = true;
-			curStatus = "";
-      expandAll();
-    }
-	}
-
-	function onAsyncError(event, treeId, treeNode, XMLHttpRequest, textStatus,errorThrown) {
-		loading = false
-		if (!loading) {
-			curStatus = "";
-			if (treeNode != null)
-				asyncForAll = true;
-		}
-	}
-
-	function expandAll() {
-		if (!check()) {
-			return;
-		}
-		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-		if (asyncForAll) {
-			zTree.expandAll(true);
-		} else {
-			expandNodes(zTree.getNodes());
-			if (!goAsync) {
-				curStatus = "";
-			}
-		}
-	}
-  function expandNodes(nodes) {
-      if (!nodes) return;
-      curStatus = "expand";
-      var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-      for (var i=0, l=nodes.length; i<l; i++) {
-        zTree.expandNode(nodes[i], true, false, false);
-        if (nodes[i].isParent && nodes[i].zAsync)
-          expandNodes(nodes[i].children);
-        else
-          goAsync = true;
-      }
-    }
-	function check() {
-		return loading;
+	function removeHoverDom(treeId, treeNode) {
+		//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
+		$("#ext_"+treeNode.id).unbind().remove();
+		$("#ext_" +treeNode.id).unbind().remove();
 	}
 	$(function() {
-		$.fn.zTree.init($("#treeDemo"), setting);
+		$.fn.zTree.init($("#treex"), setting);
 	});
 </script>
 <?  } ?>
+

@@ -1,6 +1,7 @@
 package com.cnvp.paladin.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ public class SysRes extends BaseModel<SysRes> {
 		if(attrs.get("id")!=null&&!this.hasParent())
 			return this;
 		List<String> codes = getParentCodes(getInt("pid"));
+		if(codes.size()==0) return this;
 		StringBuilder codeStr = new StringBuilder();
 		for (int i = 0; i < codes.size(); i++) {
 			if (i!=0)
@@ -32,7 +34,7 @@ public class SysRes extends BaseModel<SysRes> {
 	public List<String> getParentCodes(Integer pid){
 		List<String> codes = new ArrayList<String>();
 		SysRes parent = SysRes.dao.findById(pid);
-		if(parent==null) return null;
+		if(parent==null) return codes;
 		codes.add(0,parent.getStr("code"));
 		if(parent.hasParent())
 			getParentCode(parent.getInt("pid"),codes);
@@ -44,6 +46,16 @@ public class SysRes extends BaseModel<SysRes> {
 		codes.add(0,parent.getStr("code"));
 		if(parent.hasParent())		
 			getParentCode(parent.getInt("pid"),codes);
+	}
+	public Map<String, Object> toNodeData(){
+		Map<String, Object> node = new HashMap<String, Object>();
+		node.put("id",get("id").toString());
+		node.put("isParent",hasChild());
+		node.put("cname",get("cname").toString());
+		node.put("cname",get("code").toString());
+		node.put("name",get("cname").toString()+" [<font color=\"blue\">"+get("code").toString()+"</font>] ");
+		node.put("pid",get("pid").toString());
+		return node;
 	}
 }
 	

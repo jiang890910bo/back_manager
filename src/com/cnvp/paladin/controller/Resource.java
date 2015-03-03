@@ -18,11 +18,10 @@ public class Resource extends BaseController {
 		Integer pid = getParaToInt(0,0);
 		if(isPost()){
 			SysRes model =getModel(SysRes.class,"sysres");
-			if(getModel(SysRes.class,"sysres").save()){
+			if(model.save()){
 				Map<String, Object> r = new HashMap<String, Object>();
 				r.put("success", true);
-				//TODO 无法获取添加后的主键
-				r.put("data", model);
+				r.put("data", model.toNodeData());
 				renderJavascript(JsonKit.toJson(r));
 				return;
 			}
@@ -37,7 +36,7 @@ public class Resource extends BaseController {
 			if(model.update()){
 				Map<String, Object> r = new HashMap<String, Object>();
 				r.put("success", true);
-				r.put("data", model);
+				r.put("data", model.toNodeData());
 				renderJavascript(JsonKit.toJson(r));
 				return;
 			}				
@@ -45,18 +44,31 @@ public class Resource extends BaseController {
 		setAttr("data", SysRes.dao.findById(id).addParentCode());
 		render("form.html");
 	}
+	public void delete(){
+		int id = getParaToInt();
+		if (SysRes.dao.findById(id).delete()){
+			Map<String, Object> r = new HashMap<String, Object>();
+			r.put("success", true);
+			r.put("data", new HashMap<String, Object>().put("id", id));
+			renderJavascript(JsonKit.toJson(r));
+			return;
+		}
+		else{
+			Map<String, Object> r = new HashMap<String, Object>();
+			r.put("success", false);
+			r.put("msg", "删除失败");
+			renderJavascript(JsonKit.toJson(r));
+			return;
+		}
+	}
 	public void getlist(){
 		Integer pid = getParaToInt("id",0);
 		List<SysRes> models= SysRes.dao.where("pid=?",pid);
 		List<Map<String,Object>> nodes = new ArrayList<Map<String,Object>>();
 		Iterator<SysRes> it = models.iterator();
 		while (it.hasNext()) {
-			SysRes model = it.next();
-			Map<String, Object> node = new HashMap<String, Object>();
-			node.put("id",model.get("id").toString());
-			node.put("isParent",model.hasChild());
-			node.put("name",model.get("cname").toString()+"["+model.get("code").toString()+"]");			
-			nodes.add(node);
+			SysRes model = it.next();			
+			nodes.add(model.toNodeData());
 		}
 		renderJson(nodes);
 	}

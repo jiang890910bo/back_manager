@@ -4,9 +4,9 @@
 <div class="admin-panel">
 	<div class="panel">
 		<div class="panel-head">
-			<h3 class="float-left">
-				<b>资源管理</b> <a href="${root}Resource/create"
-					class="button  button-little bg-blue  icon-plus"> 添加分组</a>
+			<h3 class="float-left dialogs-delegate">
+				<b>资源管理</b> <a href="javascript:;" data-toggle="click" data-title="添加子栏目" data-width="800px" data-height="450px" data-mask="1" data-url="${root}Resource/create/0"
+					class="button  button-little bg-blue  icon-plus dialogx"> 添加分组</a>
 			</h3>
 			<div class="toolbar"></div>
 			<div class="clearfix"></div>
@@ -37,19 +37,34 @@
 		},
 		view: {
 			addHoverDom: addHoverDom,
-			removeHoverDom: removeHoverDom
+			removeHoverDom: removeHoverDom,
+			nameIsHTML: true
 		}
 	};
+	var delNode= function(id){
+		var treeObj = $.fn.zTree.getZTreeObj('treex');
+		var node = treeObj.getNodeByParam("id", id, null);
+		if(node==null) return;
+		if(node.isParent) {alert("当前节点还有子节点，无法删除！");return;}
+		if(!confirm("确定删除？")) return;	
+		$.post('${root}Resource/delete/'+ id, function(json){
+			if (json.success) {
+					treeObj.removeNode(node);
+			}else{
+				alert('删除失败');
+			}
+		},'JSON');
+	}
 	function addHoverDom(treeId, treeNode) {
 		if (treeNode.parentNode && treeNode.parentNode.id!=1) return;
 		if ($("#ext_"+treeNode.id).length>0) return;
 		var aObj = $("#" + treeNode.tId + IDMark_A);
-		Str = '<span id="ext_'+treeNode.id+'">';
-		Str +=' <a  class="icon-plus text-blue dialogx" data-toggle="click" data-title="添加子栏目" data-width="800px" data-height="450px" data-mask="1" data-url="${root}Resource/create/'+treeNode.id+'"></a>';
-		Str +=' <a  class="icon-edit text-blue dialogx" data-toggle="click" data-title="编辑" data-width="800px" data-height="450px" data-mask="1" data-url="${root}Resource/update/'+treeNode.id+'"></a>';
-		Str +=' <a  class="icon-trash-o text-blue"></a>';
-		Str += '</span>';
-		aObj.after(Str);
+		Str = '<span id="ext_'+treeNode.id+'" class="tree_btns">';
+		Str +='<span  class="margin-small icon-plus text-blue dialogx" data-toggle="click" data-title="添加子栏目" data-width="800px" data-height="450px" data-mask="1" data-url="${root}Resource/create/'+treeNode.id+'"></span>';
+		Str +='<span  class="margin-small icon-edit text-blue dialogx" data-toggle="click" data-title="编辑" data-width="800px" data-height="450px" data-mask="1" data-url="${root}Resource/update/'+treeNode.id+'"></span>';
+		Str +='<span  class="margin-small icon-trash-o text-blue" onclick="javascript:delNode('+treeNode.id+')"></span>';
+		Str +='</span>';
+		aObj.append(Str);
 	}
 	function removeHoverDom(treeId, treeNode) {
 		//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;

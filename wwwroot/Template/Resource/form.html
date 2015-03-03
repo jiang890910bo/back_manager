@@ -8,9 +8,14 @@ var ajaxSubmit = function(){
 	    	if (json.success) {
 				var treeObj = parent.$.fn.zTree.getZTreeObj('treex');				
 				<? if(@data.isNew()==false){ ?>
-				var node = treeObj.getNodeByTId('treex_'+json.data.id);
-				node.name = json.data.cname+'['+json.data.code+']';
-				treeObj.updateNode(node);
+				var node = treeObj.getNodeByParam("id", json.data.id, null);
+				if(node!=null){					
+					node.name = json.data.cname+'['+json.data.code+']';
+					treeObj.updateNode(node);
+				}
+				<?}else{ ?>				
+				var node = treeObj.getNodeByParam("id", json.data.pid, null);
+				treeObj.addNodes(node, json.data);
 				<?} ?>
 				parent.$('.dialogx-mask').remove();
 				parent.$('.dialogx-win').remove();

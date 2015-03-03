@@ -69,8 +69,7 @@ $(function(){
 		
 		var x=parseInt($(window).width()-$win.outerWidth())/2;		
 		var y=parseInt($(window).height()-$win.outerHeight())/2;
-
-		if (y<=10){y="10"}
+		if(y<0) y=0;
 		$win.css("left",x);
 		$win.css("top",y);
 		$win.find(".dialog-close,.close").bind('click',function(){

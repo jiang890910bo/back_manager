@@ -58,20 +58,5 @@ $(".panel-body").delegate(".dept-item-info", "mouseover", function(){
 $(".panel-body").delegate(".dept-item-info", "mouseout", function(){
     $("a:gt(1)",this).addClass('hidden')
 });
-/* var getlist = function(pid){
-    if(typeof pid =="undefined") pid = 0;
-	$.get("${ControllerKey}/getlist", {'pid':pid},function(json){
-        $("#RoleTpl").tmpl(json.data).appendTo("[gid='"+pid+"']")
-		console.info(json.data);
-		var test = $.grep(json.data,function(n,i){
-			return n.pid==0;
-		});
-		console.info(test);
-		console.info(json.data);
-        $(".dept-item[gid='"+pid+"']").attr('loadflg',1);
-	},"JSON");
-}
-getlist();
- */
 </script>
 <?  } ?>

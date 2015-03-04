@@ -4,6 +4,21 @@
 var ajaxSubmit = function(){
 	$('#AjaxForm').ajaxSubmit({  
 	    dataType: "json",  
+	    beforeSubmit:function(_arr,_from,_options){
+	    	var _type = $.grep( _arr, function(n,i){
+		    	return n.name=='sysres.type';
+			});
+			if(_type.length==1) _type = _type[0].value;
+	    	var _ak = $.grep( _arr, function(n,i){
+		    	return n.name=='sysres.ak';
+			});
+			if(_ak.length==1) _ak = _ak[0].value;
+			if(_type=="1"&&_ak==""){
+				alert("请选择ActionKey");
+	    		return false;
+			}else
+				return true;
+	    },
 	    success: function(json) {
 	    	if (json.success) {
 				var treeObj = parent.$.fn.zTree.getZTreeObj('treex');				
@@ -65,7 +80,18 @@ var ajaxSubmit = function(){
 						<input type="text" class="input" id="sysres_des" name="sysres.des" size="200" placeholder="请填写描述" data-validate="" value="${data.des!""}"/>
 						</div>
 					</div>
-					
+					<div class="form-group">
+						<div class="label"><label for="sitename">类型</label></div>
+						<div class="field">
+						<div class="button-group button-group-small radio">
+							<label class="button" id="sysres_type_0"><input name="sysres.type" value="0"  type="radio"><span class="icon icon-check"></span> 无</label>
+							<label class="button" id="sysres_type_1"><input name="sysres.type" value="1" type="radio"><span class="icon icon-check"></span> ActionKey</label>
+						</div>
+						<script>
+							$("#sysres_type_${data.type!0}").addClass('active').children('input').attr('checked',true);
+						</script>
+						</div>
+					</div>
 					<div class="form-group">
 						<div class="label"><label for="sitename">actionKey</label></div>
 						<div class="field">
@@ -88,18 +114,7 @@ var ajaxSubmit = function(){
 						</div>
 					</div>
 					
-					<div class="form-group">
-						<div class="label"><label for="sitename">1、actionKey；</label></div>
-						<div class="field">
-						<div class="button-group button-group-small radio">
-							<label class="button" id="sysres_type_true"><input name="sysres.type" value="1"  type="radio"><span class="icon icon-check"></span> 是</label>
-							<label class="button" id="sysres_type_false"><input name="sysres.type" value="0" type="radio"><span class="icon icon-times"></span> 否</label>
-						</div>
-						<script>
-							$("#sysres_type_${data.type!true}").addClass('active').children('input').attr('checked',true);
-						</script>
-						</div>
-					</div>
+					
 					
 				<div class="form-button"><button class="button bg-main" type="submit" >提交</button></div>
 			    </form>

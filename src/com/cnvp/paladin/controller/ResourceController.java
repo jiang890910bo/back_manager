@@ -8,9 +8,10 @@ import java.util.Map;
 
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.model.SysRes;
+import com.jfinal.core.JFinal;
 import com.jfinal.kit.JsonKit;
 
-public class Resource extends BaseController {
+public class ResourceController extends BaseController {
 	//TODO 完善资源表单高级配置：actionKey选择、类型选择等……
 	public void index(){
 		render("index.html");
@@ -27,6 +28,7 @@ public class Resource extends BaseController {
 				return;
 			}
 		}
+		setAttr("aks", JFinal.me().getAllActionKeys());
 		setAttr("data", new SysRes().set("pid", pid).addParentCode());
 		render("form.html");
 	}
@@ -42,6 +44,7 @@ public class Resource extends BaseController {
 				return;
 			}				
 		}
+		setAttr("aks", JFinal.me().getAllActionKeys());
 		setAttr("data", SysRes.dao.findById(id).addParentCode());
 		render("form.html");
 	}
@@ -72,5 +75,16 @@ public class Resource extends BaseController {
 			nodes.add(model.toNodeData());
 		}
 		renderJson(nodes);
+	}
+	public void refresh(){
+		List<SysRes> reslist = SysRes.dao.findAll();
+		Iterator<SysRes> it = reslist.iterator();
+		while (it.hasNext()) {
+			SysRes model = it.next();
+			model.addParentCode();
+			model.set("code_route", model.get("parent_code")+":"+model.get("code"));
+			model.update();
+		}
+		redirect(getControllerKey());
 	}
 }

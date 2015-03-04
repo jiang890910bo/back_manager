@@ -53,7 +53,12 @@ public class SysRes extends BaseModel<SysRes> {
 		node.put("isParent",hasChild());
 		node.put("cname",get("cname").toString());
 		node.put("cname",get("code").toString());
-		node.put("name",get("cname").toString()+" [<font color=\"blue\">"+get("code").toString()+"</font>] ");
+		String name = "<font color=\"blue\">"+get("cname").toString()+"</font>";
+		if(get("code")!=null)
+			name+=" [<font color=\"red\">"+get("code").toString()+"</font>] ";
+		if(get("ak")!=null)
+			name+=" ["+(get("ak")==null?"":get("ak"))+"] ";		
+		node.put("name",name);
 		node.put("pid",get("pid").toString());
 		return node;
 	}

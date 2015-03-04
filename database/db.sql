@@ -12,7 +12,7 @@ MySQL - 5.6.19 : Database - cjf
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-USE `cjf`;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`cjf` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 /*Table structure for table `cnvp_sys_dept` */
 
@@ -58,16 +58,17 @@ CREATE TABLE `cnvp_sys_res` (
   `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父级Id',
   `cname` varchar(50) NOT NULL COMMENT '名称',
   `code` varchar(50) NOT NULL COMMENT '权限识别码',
+  `code_route` varchar(500) DEFAULT NULL COMMENT '权限路径',
   `des` varchar(200) DEFAULT NULL COMMENT '描述',
   `ak` varchar(200) DEFAULT NULL COMMENT 'actionKey',
   `seq` int(11) DEFAULT '10' COMMENT '排序',
   `type` tinyint(1) DEFAULT NULL COMMENT '1、actionKey；',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cnvp_sys_res` */
 
-insert  into `cnvp_sys_res`(`id`,`pid`,`cname`,`code`,`des`,`ak`,`seq`,`type`) values (1,0,'开始','start','开始',NULL,10,1),(2,0,'系统','system',NULL,NULL,10,1),(3,2,'系统设置','config',NULL,NULL,10,1);
+insert  into `cnvp_sys_res`(`id`,`pid`,`cname`,`code`,`code_route`,`des`,`ak`,`seq`,`type`) values (1,0,'开始','start','null:start','开始',NULL,10,1),(2,0,'系统','system','null:system',NULL,NULL,10,1),(3,2,'系统设置','config','system:config',NULL,'/System',10,1),(47,2,'组织机构','dept','system:dept',NULL,NULL,10,1),(48,47,'首页','index','system:dept:index',NULL,'/Dept',10,1),(49,47,'抽取json数据','getlist','system:dept:getlist',NULL,'/Dept/getlist',10,1),(50,47,'创建','create','system:dept:create',NULL,'/Dept/create',10,1),(51,47,'更新','update','system:dept:update',NULL,'/Dept/update',10,1),(52,47,'删除','delete','system:dept:delete',NULL,'/Dept/delete',10,1),(53,2,'用户管理','user','system:user',NULL,NULL,10,1),(54,53,'列表','index','system:user:index',NULL,'/User',10,1),(55,53,'添加','create','system:user:create',NULL,'/User/create',10,1),(56,53,'修改','update','system:user:update',NULL,'/User/update',10,1),(57,53,'删除','delete','system:user:delete',NULL,'/User/delete',10,1),(58,53,'批量删除','deleteall','system:user:deleteall',NULL,'/User/deleteAll',10,1),(59,2,'角色管理','role','system:role',NULL,NULL,10,1),(60,59,'列表','index','system:role:index',NULL,'/Role',10,1),(61,59,'添加','create','system:role:create',NULL,'/Role/create',10,1),(62,59,'更新','update','system:role:update',NULL,'/Role/update',10,1),(63,59,'删除','delete','system:role:delete',NULL,'/Role/delete',10,1),(64,59,'批量删除','deleteAll','system:role:deleteAll',NULL,'/Role/deleteAll',10,1),(65,59,'抽取JSON数据','getlist','system:role:getlist',NULL,'/Role/getlist',10,1),(66,2,'资源管理','res','system:res',NULL,NULL,10,1),(67,66,'首页','index','system:res:index',NULL,'/Resource',10,1),(68,66,'添加','create','system:res:create',NULL,'/Role/create',10,1),(69,66,'更新','update','system:res:update',NULL,'/Resource/update',10,1),(70,66,'删除','delete','system:res:delete',NULL,'/Resource/delete',10,1),(71,66,'抽取JSON数据','getlist','system:res:getlist',NULL,'/Resource/getlist',10,1),(72,2,'导航管理','sysnav','system:sysnav',NULL,NULL,10,1),(73,72,'首页','index','system:sysnav:index',NULL,'/System/nav',10,1),(74,72,'添加','create','system:sysnav:create',NULL,'/System/nav_create',10,1),(75,72,'更新','update','system:sysnav:update',NULL,'/System/nav_update',10,1),(76,72,'删除','delete','system:sysnav:delete',NULL,'/System/nav_delete',10,1),(77,72,'保存排序','saveorder','system:sysnav:saveorder',NULL,'/System/save_order',10,1),(78,1,'欢迎使用','welcome','start:welcome',NULL,'/welcome',10,1),(79,1,'个人资料','profile','start:profile',NULL,'/profile',10,1),(80,1,'修改密码','password','start:password',NULL,'/password',10,1),(81,0,'开发','dev','null:dev',NULL,NULL,10,1),(82,81,'首页','index','dev:index',NULL,'/Generator',10,1),(83,81,'模型代码','model','dev:model',NULL,'/Generator/model_code',10,1),(84,81,'控制器代码','controller','dev:controller',NULL,'/Generator/controller_code',10,1),(85,81,'视图代码','view','dev:view',NULL,'/Generator/view_code',10,1);
 
 /*Table structure for table `cnvp_sys_role` */
 

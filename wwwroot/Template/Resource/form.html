@@ -9,8 +9,8 @@ var ajaxSubmit = function(){
 				var treeObj = parent.$.fn.zTree.getZTreeObj('treex');				
 				<? if(@data.isNew()==false){ ?>
 				var node = treeObj.getNodeByParam("id", json.data.id, null);
-				if(node!=null){					
-					node.name = json.data.cname+'['+json.data.code+']';
+				if(node!=null){	
+					node.name = json.data.name
 					treeObj.updateNode(node);
 				}
 				<?}else{ ?>				
@@ -40,13 +40,8 @@ var ajaxSubmit = function(){
 		<div class="tab-body">
 			<div class="tab-panel active" id="tab-set">
 				<form method="post" class="form-x" action="" onsubmit="return ajaxSubmit();" id="AjaxForm">
-					<div class="form-group">
-						<div class="label"><label for="sitename">父级Id</label></div>
-						<div class="field">
-						<input type="text" class="input" id="sysres_pid" name="sysres.pid" size="11" placeholder="父级Id" data-validate="required:请填写父级Id" value="${data.pid!"0"}"/>
-						</div>
-					</div>
-					
+					<input type="hidden" id="sysres_pid" name="sysres.pid"  value="${data.pid!"0"}"/>
+									
 					<div class="form-group">
 						<div class="label"><label for="sitename">名称</label></div>
 						<div class="field">
@@ -74,7 +69,15 @@ var ajaxSubmit = function(){
 					<div class="form-group">
 						<div class="label"><label for="sitename">actionKey</label></div>
 						<div class="field">
-						<input type="text" class="input" id="sysres_ak" name="sysres.ak" size="200" placeholder="请填写actionKey" data-validate="" value="${data.ak!""}"/>
+							<select class="input" id="sysres_ak" name="sysres.ak">
+								<option value="">请选择actionKey</option>
+								<? for(ak in aks){?>								
+								<option>${ak}</option>
+								<?}?>
+							</select>
+							<script>
+								$("#sysres_ak").val('${data.ak!""}');
+							</script>
 						</div>
 					</div>
 					

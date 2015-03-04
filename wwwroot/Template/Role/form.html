@@ -1,15 +1,18 @@
 <?  layout("../layout/default.html") { ?>
+<link rel="stylesheet" href="${root}Static/js/ztree/css/zTreeStyle/zTreeStyle.css"  type="text/css">
+<script type="text/javascript" src="${root}Static/js/ztree/js/jquery.ztree.all-3.5.min.js"></script>
 <div class="admin-panel">
 	<div class="tab">
 		<div class="tab-head">
 			<strong><? if(@data.isNew()){ ?>添加<? }else{ ?>编辑<?} ?></strong>
 			<span class="tab-more"><a href="javascript:history.go(-1)" class="button  button-little bg-blue  icon-step-backward"> 返回</a></span>
 			<ul class="tab-nav">
-			  <li class="active"><a href="#tab-set">信息</a></li>
+			  <li><a href="#tab-set">信息</a></li>
+			  <li class="active"><a href="#tab-res">配置资源权限</a></li>
 			</ul>
 		</div>
 		<div class="tab-body">
-			<div class="tab-panel active" id="tab-set">
+			<div class="tab-panel " id="tab-set">
 				<form method="post" class="form-x" action="">
 					<div class="form-group">
 						<div class="label"><label for="sitename">角色名称</label></div>
@@ -28,7 +31,74 @@
 				<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
 			    </form>
 			</div>
+			<div class="tab-panel active" id="tab-res">
+				<button onclick="selectAll(false)" class="button  button-little bg-blue">清空</button>
+				<button onclick="selectAll(true)" class="button  button-little bg-blue">全选</button>
+				<div id="treex" class="ztree dialogs-delegate"></div>
+			</div>
 		</div>
 	</div>
 </div>
-<?  } ?>		
+<?  } ?>	
+<script src="${root}Static/js/jstree/jstree.min.js"></script>
+<script type="text/javascript">	
+	var res = 	${res};
+	var selectAll = function(flg){
+		$.post('${root}Role/set_res_all/${data.id}', {checked:flg},function(data){
+			res = data;
+			var treeObj = $.fn.zTree.getZTreeObj("treex");
+			treeObj.reAsyncChildNodes(null, "refresh");
+		},'JSON');
+	}
+	var  filter = function(node) {
+		cs = node.getCheckStatus();
+			return (cs.checked);
+	}
+	function zTreeBeforeCheck(treeId, treeNode) {
+		return false;
+	};
+	var getnodes = function(){
+		var treeObj = $.fn.zTree.getZTreeObj("treex");
+		var nodes =  treeObj.getNodesByFilter(filter); 
+	}
+	var zTreeOnCheck = function(event, treeId, treeNode) {				
+		$.post('${root}Role/set_res/${data.id}-'+treeNode.id, {checked:treeNode.checked});
+	};
+	var zTreeOnAsyncSuccess = function(event, treeId, treeNode, msg) {	
+		var treeObj = $.fn.zTree.getZTreeObj(treeId);
+		var pid;
+		if(typeof treeNode =='undefined' || treeNode==null) 
+			pid = 0;
+		else
+			pid = treeNode.id;
+		var cnodes = treeObj.getNodesByParam("pid", pid, null);  
+		for (var i = 0; i < cnodes.length; i++) {		
+			if ($.inArray(cnodes[i].id, res)!=-1) {
+				treeObj.checkNode(cnodes[i], true, true);
+			};
+			
+		};
+	};
+	var setting = {
+		callback: {
+			onAsyncSuccess: zTreeOnAsyncSuccess,
+			onCheck: zTreeOnCheck
+		},
+		check: {
+			enable: true,
+			chkboxType: { "Y": "", "N": "" }
+		},
+		async : {
+			enable : true,
+			url : "${root}Resource/getlist",
+			autoParam : ["id"],
+			type : "get"
+		},		
+		view: {
+			nameIsHTML: true
+		}
+	};
+	$(function() {
+		$.fn.zTree.init($("#treex"), setting);
+	});
+</script>

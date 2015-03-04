@@ -1,21 +1,19 @@
 package com.cnvp.paladin.interceptor;
 
+import java.util.List;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
+import com.cnvp.paladin.model.SysRes;
+import com.cnvp.paladin.model.SysUser;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
 
 public class Shiro implements Interceptor {
 
 	@Override
-	public void intercept(ActionInvocation ai) {
-//		System.out.println(ai.getController().getClass().getName()+":"+ai.getMethodName());
-//
-//		System.out.println(ai.getActionKey());
-//		for (String actionKey : JFinal.me().getAllActionKeys()) {
-//			System.err.println(actionKey);
-//		}
+	public void intercept(ActionInvocation ai) {		
 		/* TODO 继续完善权限控制体系
 		 * 1、按照“权限代码”构建权限目录树
 		 * 2、针对固定的权限，添加actionKey
@@ -23,30 +21,28 @@ public class Shiro implements Interceptor {
 		 * */
 		// 获取Shiro Subject
 		Subject currentUser = SecurityUtils.getSubject();
-		if (!currentUser.isAuthenticated()) {// 没有认证
-//			DwzRender render = new DwzRender();
-//			render.setStatusCode("301");
-//			render.setMessage("会话超时，请重新登录。");
-//			ai.getController().render(render);
-			System.err.println("会话超时or未登录。");
+		if (!currentUser.isAuthenticated()) {
+			// 判断是否登陆
+			System.err.println("会话超时or未登录");
 			ai.getController().redirect("/Passport/login?from="+ai.getController().getRequest().getRequestURL());
-		} else {			
-			if (currentUser.isPermittedAll("permissions")) {
-				System.err.println("授权通过");
+		} else {
+			SysUser user = (SysUser) currentUser.getPrincipal();
+			// 根据ak读取权限代码
+			String code_route = null;
+			List<SysRes> res = SysRes.dao.where("ak=?",ai.getActionKey());
+			if (res.size()==1)
+				code_route = res.get(0).getStr("code_route");
+			//进行权限判断
+			if(user.getStr("account").equals("superadmin")){
+				ai.invoke();
+			}else if(code_route==null){
+				ai.getController().renderText(ai.getActionKey()+"由于该ActionKey未被配置到系统资源中，故默认没有权限");
+			}else if(currentUser.isPermitted(code_route)){
+				ai.invoke();
 			}else{
-				System.err.println("授权");
+				ai.getController().renderText("未授权，请联系管理员");
 			}
-			ai.invoke();// 授权
-			// 已经认证
-//			if (permissions == null || currentUser.isPermittedAll(permissions)) {
-//				ai.invoke();// 授权
-//			} else {
-//				// ai.getController().render("/401.html");
-//				DwzRender render = new DwzRender();
-//				render.setStatusCode("301");
-//				render.setMessage("该功能没有授权，请重新登录。");
-//				ai.getController().render(render);// 没有授权，通过DWZ返回错误信息
-//			}
+			return;
 		}
 		
 	}

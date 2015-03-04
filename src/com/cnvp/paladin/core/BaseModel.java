@@ -70,14 +70,14 @@ public class BaseModel<M extends BaseModel> extends Model<M>{
 			return find(sqlBuilder.buildSql(),sqlBuilder.params);
 	}
 	//TODO deleteAll 待完善暂时无法正常非使用
-	public Integer deleteAll(MysqlBuilder sqlBuilder){
-		sqlBuilder.optName = "delete";
-		sqlBuilder.tableName = getTableName();
-		System.out.println(sqlBuilder.buildSql());
-		if (sqlBuilder.params.size()==0) 
-			return Db.update(sqlBuilder.buildSql());
-		else			
-			return Db.update(sqlBuilder.buildSql(),sqlBuilder.params);
+	public Integer deleteAll(){		
+		return Db.update("delete from "+ getTableName());
+	}
+	public Integer deleteAll(String sqlWhere){		
+		return Db.update("delete from "+ getTableName()+" where " + sqlWhere);
+	}
+	public Integer deleteAll(String sqlWhere, Object... paras){		
+		return Db.update("delete from "+ getTableName()+" where " + sqlWhere,paras);
 	}
 	public List<M> where(String sqlWhere){
 		String sql = "select * from "+getTableName();

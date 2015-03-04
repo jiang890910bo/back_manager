@@ -50,26 +50,17 @@ public class ShiroDbRealm extends AuthorizingRealm{
     		if (JFinal.me().getConstants().getDevMode())
     			System.err.println("错误：用户不是唯一");
     		return null;
+    	}if(user.size()==0){
+    		if (JFinal.me().getConstants().getDevMode())
+    			System.err.println("错误：无法找到用户");
+    		return null;
     	}
     	SysUser userInDb = user.get(0);
     	SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
     	//TODO 根据用户获取角色=>根据角色获取权限
-//    	info.addRoles(userInDb.getRoleNameList());
-//    	for (String rn : principals.getRealmNames() ) {
-//		}
-//        String loginName = (String) principals.fromRealm(getName()).iterator().next();
-//        User user = User.dao.set("account", loginName).findFirstByModel();
-//        if (user != null) {
-//            SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//            info.addRoles(user.getRoleNameList());
-//            for (Role role : user.getRoleList()) {
-//                info.addStringPermissions(role.getPermissionNameList());
-//            }
-//            return info;
-//        } else {
-//            return null;
-//        }
-    	return null;
+    	List<String> code_routes = userInDb.getRes();
+    	info.addStringPermissions(code_routes);
+    	return info;
     }
  
     /**

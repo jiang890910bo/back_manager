@@ -16,7 +16,10 @@ var ajaxSubmit = function(){
 			if(_type=="1"&&_ak==""){
 				alert("请选择ActionKey");
 	    		return false;
-			}else
+			}else if(_type=="0"&&_ak!=""){
+				alert("请勿选择ActionKey");
+	    		return false;
+			}
 				return true;
 	    },
 	    success: function(json) {

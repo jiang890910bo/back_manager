@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.model.SysRole;
+import com.cnvp.paladin.model.SysRoleRes;
+import com.jfinal.kit.JsonKit;
 
 public class RoleController extends BaseController {
 	public void index(){
@@ -39,7 +41,9 @@ public class RoleController extends BaseController {
 				redirect(getControllerKey());
 				return;
 		}
-		setAttr("data", SysRole.dao.findById(getParaToInt(0)));
+		SysRole model = SysRole.dao.findById(getParaToInt(0));
+		setAttr("data", model);
+		setAttr("res", JsonKit.toJson(model.getResidList()));
 		render("form.html");
 	}
 	public void delete(){
@@ -55,6 +59,32 @@ public class RoleController extends BaseController {
 		}
 		redirect(getControllerKey());
 	}
-	
+	public void set_res(){
+		int role_id = getParaToInt(0);
+		int res_id = getParaToInt(1);
+		boolean  flg = getParaToBoolean("checked");
+		if (flg) {
+			SysRoleRes rr = new SysRoleRes().set("role_id", role_id).set("res_id",res_id);
+			if (rr.findByModel().size()==0) 
+				rr.save();
+		}else{
+			//删除
+			SysRoleRes rr = new SysRoleRes().set("role_id", role_id).set("res_id",res_id).findFirstByModel();
+			if(rr!=null) rr.delete();
+		}
+		Map<String, Object> r = new HashMap<String, Object>();
+		r.put("success", true);
+		renderJavascript(JsonKit.toJson(r));
+		return;
+				
+	}
+	public void set_res_all(){
+		int role_id = getParaToInt(0);
+		boolean flg = getParaToBoolean("checked");
+		SysRole.dao.checkAll(role_id, flg);
+		
+		SysRole model = SysRole.dao.findById(role_id);
+		renderJavascript(JsonKit.toJson(model.getResidList()));
+	}
 }
 			

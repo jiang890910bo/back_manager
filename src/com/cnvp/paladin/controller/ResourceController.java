@@ -67,7 +67,7 @@ public class ResourceController extends BaseController {
 	}
 	public void getlist(){
 		Integer pid = getParaToInt("id",0);
-		List<SysRes> models= SysRes.dao.where("pid=?",pid);
+		List<SysRes> models= SysRes.dao.where("pid=? order by seq",pid);
 		List<Map<String,Object>> nodes = new ArrayList<Map<String,Object>>();
 		Iterator<SysRes> it = models.iterator();
 		while (it.hasNext()) {
@@ -82,7 +82,13 @@ public class ResourceController extends BaseController {
 		while (it.hasNext()) {
 			SysRes model = it.next();
 			model.addParentCode();
-			model.set("code_route", model.get("parent_code")+":"+model.get("code"));
+			String parent_code = model.get("parent_code");
+			String code_route;
+			if (parent_code==null)
+				code_route = model.get("code");
+			else
+				code_route = parent_code + ":" +model.get("code");
+			model.set("code_route", code_route);
 			model.update();
 		}
 		redirect(getControllerKey());

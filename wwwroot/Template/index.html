@@ -27,15 +27,21 @@
         <ul class="nav nav-inline admin-nav">
             <div class="icon-caret-left admin_left_btn"></div>
             <?for(nav in tree){ ?>
+            <? if(shiro.hasPermission(@nav.getRes().get("code_route"))){?>
+            	
+			
             <li><a target="${nav.target}" href="javascript:;" class="${nav.icon}"> ${nav.title}</a>
                 <? if(nav.hasChild==true){ ?>                
                 <ul class="admin-nav-ii">
-                    <?for(sub in nav.children){ ?>     
-                    <li><a target="${sub.target}" href="${sub.url}"  class="${sub.icon}"> ${sub.title}</a></li>
+                    <?for(sub in nav.children){ ?>
+	            		<? if(@sub.getRes().get("code_route")!=null)if(shiro.hasPermission(@sub.getRes().get("code_route"))){?>
+	                    <li><a target="${sub.target}" href="<? isEmpty(sub.url)==false?print(sub.url):print(@sub.getRes().get("ak")); ?>"  class="${sub.icon}"> ${sub.title}</a></li>
+	                    <?} ?>
                     <?} ?>
                 </ul>
                 <? } ?>
             </li>
+            <?}?>
             <?} ?>                 
         </ul>
     </div>

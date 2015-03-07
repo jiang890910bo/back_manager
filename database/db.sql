@@ -38,16 +38,17 @@ CREATE TABLE `cnvp_sys_nav` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '系统id',
   `title` varchar(100) NOT NULL COMMENT '文字',
   `icon` varchar(50) DEFAULT NULL COMMENT '图标',
-  `url` varchar(100) NOT NULL COMMENT '链接',
+  `url` varchar(100) DEFAULT NULL COMMENT '链接',
   `target` varchar(20) NOT NULL DEFAULT 'mainFrame' COMMENT '目标',
   `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
   `orderid` int(11) NOT NULL DEFAULT '10' COMMENT '排序',
+  `res_id` int(11) NOT NULL DEFAULT '0' COMMENT '资源Id',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COMMENT='导航';
 
 /*Data for the table `cnvp_sys_nav` */
 
-insert  into `cnvp_sys_nav`(`id`,`title`,`icon`,`url`,`target`,`pid`,`orderid`) values (1,'开始','icon-home','javascript:;','mainFrame',0,10),(3,'系统','icon-cog','javascript:;','mainFrame',0,10),(33,'组织结构','icon-sitemap','/Dept','mainFrame',3,2),(20,'模型生成','icon-code','Generator/model','mainFrame',2,10),(17,'欢迎使用','icon-send','welcome','mainFrame',1,10),(18,'个人资料','icon-user','profile','mainFrame',1,10),(19,'修改密码','icon-key','password','mainFrame',1,10),(2,'开发','icon-codepen','javascript:;','mainFrame',0,10),(15,'12312312','312','3123123','mainFrame',123,10),(21,'视图生成','icon-code','Generator/view','mainFrame',2,10),(22,'控制器生成','icon-code','Generator/controller','mainFrame',2,10),(23,'系统设置','icon-desktop','System','mainFrame',3,1),(24,'导航菜单','icon-th-list','System/nav','mainFrame',3,6),(26,'文件管理','icon-file','System/file','mainFrame',3,7),(25,'权限配置','icon-asterisk','System/permission','mainFrame',3,8),(27,'日志查询','icon-angle-double-right','System/log','mainFrame',3,9),(32,'用户管理','icon-user','User','mainFrame',3,3),(34,'角色管理','icon-group','Role','mainFrame',3,4),(35,'资源管理','icon-unlock-alt','Resource','mainFrame',3,5);
+insert  into `cnvp_sys_nav`(`id`,`title`,`icon`,`url`,`target`,`pid`,`orderid`,`res_id`) values (1,'开始','icon-home',NULL,'mainFrame',0,10,81),(3,'系统','icon-cog',NULL,'mainFrame',0,10,2),(33,'组织结构','icon-sitemap',NULL,'mainFrame',3,2,48),(20,'模型生成','icon-code','Generator/model','mainFrame',2,10,82),(17,'欢迎使用','icon-send',NULL,'mainFrame',1,10,78),(18,'个人资料','icon-user',NULL,'mainFrame',1,10,79),(19,'修改密码','icon-key',NULL,'mainFrame',1,10,80),(2,'开发','icon-codepen',NULL,'mainFrame',0,10,81),(15,'12312312','312',NULL,'mainFrame',123,10,0),(21,'视图生成','icon-code','Generator/view','mainFrame',2,10,82),(22,'控制器生成','icon-code','Generator/controller','mainFrame',2,10,73),(23,'系统设置','icon-desktop',NULL,'mainFrame',3,1,3),(24,'导航菜单','icon-th-list',NULL,'mainFrame',3,6,73),(26,'文件管理','icon-file',NULL,'mainFrame',3,7,0),(25,'权限配置','icon-asterisk',NULL,'mainFrame',3,8,0),(27,'日志查询','icon-angle-double-right',NULL,'mainFrame',3,9,0),(32,'用户管理','icon-user',NULL,'mainFrame',3,3,54),(34,'角色管理','icon-group',NULL,'mainFrame',3,4,60),(35,'资源管理','icon-unlock-alt',NULL,'mainFrame',3,5,67);
 
 /*Table structure for table `cnvp_sys_res` */
 
@@ -94,11 +95,11 @@ CREATE TABLE `cnvp_sys_role_res` (
   `role_id` int(11) DEFAULT NULL,
   `res_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1328 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1330 DEFAULT CHARSET=utf8;
 
 /*Data for the table `cnvp_sys_role_res` */
 
-insert  into `cnvp_sys_role_res`(`id`,`role_id`,`res_id`) values (1322,4,86),(1321,4,85),(1320,4,84),(1319,4,83),(1318,4,82),(1317,4,81),(1316,4,80),(1315,4,79),(1314,4,78),(1313,4,77),(1312,4,76),(1311,4,75),(1310,4,74),(1309,4,73),(1308,4,72),(1307,4,71),(1306,4,70),(1305,4,69),(1304,4,68),(1303,4,67),(1302,4,66),(1301,4,65),(1300,4,64),(1299,4,63),(1298,4,62),(1297,4,61),(1296,4,60),(1295,4,59),(1294,4,58),(1293,4,57),(1292,4,56),(1291,4,55),(1290,4,54),(1289,4,53),(1288,4,52),(1287,4,51),(1286,4,50),(1285,4,49),(1284,4,48),(1283,4,47),(1282,4,3),(1281,4,2),(1280,4,1),(1327,1,47),(1326,1,1),(1325,1,87),(1324,4,87);
+insert  into `cnvp_sys_role_res`(`id`,`role_id`,`res_id`) values (1322,4,86),(1321,4,85),(1320,4,84),(1319,4,83),(1318,4,82),(1317,4,81),(1316,4,80),(1315,4,79),(1314,4,78),(1313,4,77),(1312,4,76),(1311,4,75),(1310,4,74),(1309,4,73),(1308,4,72),(1307,4,71),(1306,4,70),(1305,4,69),(1304,4,68),(1303,4,67),(1302,4,66),(1301,4,65),(1300,4,64),(1299,4,63),(1298,4,62),(1297,4,61),(1296,4,60),(1295,4,59),(1294,4,58),(1293,4,57),(1292,4,56),(1291,4,55),(1290,4,54),(1289,4,53),(1288,4,52),(1287,4,51),(1286,4,50),(1285,4,49),(1284,4,48),(1283,4,47),(1282,4,3),(1281,4,2),(1280,4,1),(1329,1,87),(1328,1,1),(1324,4,87);
 
 /*Table structure for table `cnvp_sys_user` */
 
@@ -122,11 +123,11 @@ CREATE TABLE `cnvp_sys_user` (
   `update_time` bigint(13) DEFAULT NULL COMMENT '更新时间',
   `update_user_id` int(11) DEFAULT NULL COMMENT '更新者',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='用户';
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户';
 
 /*Data for the table `cnvp_sys_user` */
 
-insert  into `cnvp_sys_user`(`id`,`account`,`password`,`sex`,`cname`,`ename`,`dept_id`,`mobile`,`flg`,`remark`,`login_count`,`last_login_time`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'superadmin','a8f5f167f44f4964e6c998dee827110c','男','超级管理员-章宵','michael.z',14,'15990061612',1,NULL,60,1413779275,0,1,1425458171011,1),(4,'admin','a8f5f167f44f4964e6c998dee827110c','男','章宵','mic',1,'15990061612',1,NULL,2,1406045477,0,1,1425461391895,1);
+insert  into `cnvp_sys_user`(`id`,`account`,`password`,`sex`,`cname`,`ename`,`dept_id`,`mobile`,`flg`,`remark`,`login_count`,`last_login_time`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'superadmin','a8f5f167f44f4964e6c998dee827110c','男','超级管理员-章宵','michael.z',14,'15990061612',1,NULL,60,1413779275,0,1,1425458171011,1),(9,'200057','a8f5f167f44f4964e6c998dee827110c','男','章宵','Michael',14,'15990061612',1,NULL,0,NULL,1425707342830,1,1425708238621,1);
 
 /*Table structure for table `cnvp_sys_user_role` */
 
@@ -140,7 +141,7 @@ CREATE TABLE `cnvp_sys_user_role` (
 
 /*Data for the table `cnvp_sys_user_role` */
 
-insert  into `cnvp_sys_user_role`(`user_id`,`role_id`) values (1,1),(1,4),(4,1),(9,1),(9,4),(10,1),(11,1),(11,4),(12,1),(13,1),(14,1),(15,1),(16,1),(18,1);
+insert  into `cnvp_sys_user_role`(`user_id`,`role_id`) values (1,1),(1,4),(4,1),(9,1),(10,1),(10,4);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -1,6 +1,7 @@
 package com.cnvp.paladin.interceptor;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -28,10 +29,8 @@ public class Shiro implements Interceptor {
 		} else {
 			SysUser user = (SysUser) currentUser.getPrincipal();
 			// 根据ak读取权限代码
-			String code_route = null;
-			List<SysRes> res = SysRes.dao.where("ak=?",ai.getActionKey());
-			if (res.size()==1)
-				code_route = res.get(0).getStr("code_route");
+			Map<String,String> ak_coderoutes = SysRes.dao.getAk_CodeRoutes();
+			String code_route = ak_coderoutes.get(ai.getActionKey());			
 			//进行权限判断
 			if(user.getStr("account").equals("superadmin")){
 				ai.invoke();

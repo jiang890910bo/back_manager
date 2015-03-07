@@ -2,10 +2,12 @@ package com.cnvp.paladin.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.cnvp.paladin.core.BaseModel;
+import com.jfinal.plugin.ehcache.CacheKit;
 
 @SuppressWarnings("serial")
 public class SysRes extends BaseModel<SysRes> {
@@ -61,6 +63,22 @@ public class SysRes extends BaseModel<SysRes> {
 		node.put("name",name);
 		node.put("pid",get("pid").toString());
 		return node;
+	}
+//	<ak,code_route>
+	public Map<String,String> getAk_CodeRoutes(){
+		
+		Map<String,String> ak_coderoutes = CacheKit.get("system", "ak_coderoutes");
+		if (ak_coderoutes==null) {
+			ak_coderoutes = new HashMap<String, String>();
+			List<SysRes> res = SysRes.dao.where("ak is not null and ak<>''");
+			Iterator<SysRes> it = res.iterator();
+			while (it.hasNext()) {
+				SysRes sysRes = (SysRes) it.next();
+				ak_coderoutes.put(sysRes.getStr("ak"), sysRes.getStr("code_route"));
+			}
+			CacheKit.put("system", "ak_coderoutes", ak_coderoutes);
+		}
+		return ak_coderoutes;
 	}
 }
 	

@@ -9,7 +9,24 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.beetl.core.GroupTemplate;
 
-public class BeetlShiro {
+import com.cnvp.paladin.model.SysUser;
+
+public class BeetlShiro {	 
+    /**
+     * 获取系统用户
+     */
+	public SysUser getUser() {
+    	SysUser principal = null; 
+    	principal = getSubject().getPrincipals().oneByType(SysUser.class);
+        return principal;
+    }
+    public Object getUser(String attrName) {
+    	SysUser user = getUser();
+    	if (user==null)
+    		return null;
+    	else
+    		return user.get(attrName);
+    }
     /**
      * The guest tag
      * 

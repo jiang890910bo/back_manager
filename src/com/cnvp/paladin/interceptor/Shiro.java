@@ -1,6 +1,5 @@
 package com.cnvp.paladin.interceptor;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;

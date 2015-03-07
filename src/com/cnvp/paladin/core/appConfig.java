@@ -1,5 +1,7 @@
 package com.cnvp.paladin.core;
 
+import org.beetl.core.GroupTemplate;
+
 import com.alibaba.druid.filter.stat.StatFilter;
 //import com.cnvp.handler.RewriteHandler;
 import com.cnvp.paladin.handler.CookieHandler;
@@ -13,6 +15,7 @@ import com.cnvp.paladin.plugin.AutoTableBindPlugin;
 import com.cnvp.paladin.plugin.TableNameStyle;
 import com.cnvp.paladin.utils.AutoRoutes;
 import com.cnvp.paladin.utils.beetl.BeetlRenderFactory;
+import com.cnvp.paladin.utils.beetl.BeetlShiro;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -34,7 +37,8 @@ public class appConfig extends JFinalConfig {
 		//beetl集成
 		me.setMainRenderFactory(new BeetlRenderFactory());	
 		//可对beetl设置共享变量
-//		GroupTemplate groupTemplate=BeetlRenderFactory.groupTemplate;	
+//		GroupTemplate gt=BeetlRenderFactory.groupTemplate;
+//		gt.registerFunctionPackage("shiro", BeetlShiro.class);
 //		Map<String,Object> shared = new HashMap<String,Object>();
 //		shared.put("key","value");
 //		groupTemplate.setSharedVars(shared);

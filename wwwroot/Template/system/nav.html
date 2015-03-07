@@ -17,6 +17,7 @@
                     <th width="10"><!-- 展开按钮 --></th>
                     <th width="50">顺序</th>
                     <th width="200">名称</th>
+                    <th>资源</th>
                     <th>链接</th>
                     <th width="100">操作</th>
                 </tr>
@@ -25,7 +26,7 @@
                     <td><input type="checkbox" name="id" value="${nav.id}"/></td>
                     <td>
                         <? if(nav.hasChild==true){ ?>
-                        <a href="javascript:;" onclick="show(this,${nav.id})" class="icon-caret-right"></a>
+                        <a href="javascript:;" onclick="show(this,${nav.id})" class="icon-caret-down"></a>
                         <? } ?>
                     </td>
                     <td>
@@ -33,7 +34,17 @@
                         <input type="hidden" class="input input-small" name="orderK" value="${nav.id}">
                     </td>
                     <td><b class="${nav.icon}"></b> ${nav.title} <a href="nav_create/${nav.id}" class="text-blue icon-plus-square"></a></td>
-                    <td>${nav.url}</td>
+                    <td>【<? code_route=@nav.getRes().get("code_route");
+							isEmpty(code_route)?print("<b class='text-red'>尚未配置</b>"):print(code_route);
+						?>】
+					</td>
+					<td>
+						<?
+							url = nav.url;
+							ak = @nav.getRes().get("ak");
+							isEmpty(url)==false?print(url):print(ak);
+						?>
+					</td>
                     <td width="100">                        
                             <a class="button border-blue button-little icon-edit" href="nav_update/${nav.id}"></a> 
                             <a class="button border-red  button-little icon-trash-o" href="nav_delete/${nav.id}" onclick="{if(confirm('确认删除?')){return true;}return false;}"></a> 
@@ -41,7 +52,7 @@
                 </tr>
                     <? if(nav.hasChild==true) ?>
                     <?  for(sub in nav.children){ ?>
-                <tr pid="${sub.pid}" class="hidden">
+                <tr pid="${sub.pid}">
                     <td><input type="checkbox" name="id" value="${sub.id}"/></td>
                     <td></td>
                     <td>
@@ -49,7 +60,16 @@
                         <input type="hidden" class="input input-small" name="orderK" value="${sub.id}">
                     </td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b class="${sub.icon}"></b> ${sub.title}</td>
-                    <td>${sub.url}</td>
+                    <td>【<? code_route=@sub.getRes().get("code_route");
+							isEmpty(code_route)?print("<b class='text-red'>尚未配置</b>"):print(code_route);
+						?>】
+					</td>
+					<td><?
+							url = sub.url;
+							ak = @sub.getRes().get("ak");
+							isEmpty(url)==false?print(url):print(ak);
+						?>
+						</td>
                     <td width="100">                        
                             <a class="button border-blue button-little icon-edit" href="nav_update/${sub.id}"></a> 
                             <a class="button border-red  button-little icon-trash-o" href="nav_delete/${sub.id}" onclick="{if(confirm('确认删除?')){return true;}return false;}"></a> 

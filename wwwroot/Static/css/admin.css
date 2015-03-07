@@ -52,6 +52,7 @@ form .form-group:last-child{padding-bottom:0;}
 
 .ztree li span.tree_btns span { padding-left: 5px;}
 
+ul.ztree {margin-top: 10px;border: 1px solid #cccccc;background: #ffffff;width:220px;height:300px;overflow-y:scroll;overflow-x:auto;}
 
 /*图标样式*/
 .iconExt{ padding-left: 24px; background-position: 4px center; background-repeat: no-repeat;}

@@ -1,4 +1,6 @@
 <?  layout("../layout/default.html") { ?>
+<link rel="stylesheet" href="${root}Static/js/ztree/css/zTreeStyle/zTreeStyle.css"  type="text/css">
+<script type="text/javascript" src="${root}Static/js/ztree/js/jquery.ztree.all-3.5.min.js"></script>
 <div class="admin-panel">
 	<div class="tab">
 		<div class="tab-head">
@@ -11,7 +13,8 @@
 		</div>
 		<div class="tab-body">
 			<div class="tab-panel active" id="tab-set">
-				<form method="post" class="form-x" action="">
+				<form method="post" class="form-x" action="">					
+					<input type="hidden" id="sysnav_pid" name="sysnav.pid" value="${data.pid!"0"}"/>
 					<div class="form-group">
 	            	<div class="label"><label for="sitename">文字</label></div>
 					<div class="field">
@@ -28,11 +31,20 @@
 						</div>
 					</div>
 					</div>
-					
+					<div class="form-group">
+		            	<div class="label"><label for="sitename">所属资源</label></div>
+						<div class="field">
+							<div class="input-inline clearfix">							
+							<input type="text" class="input input-auto" id="res_name" size="50" readonly="readonly" placeholder="请选择" />
+							<input type="hidden" id="res_id" name="sysnav.res_id" value="${data.res_id!"0"}"/>
+							<a class="button" id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
+							</div>
+						</div>
+					</div>
 					<div class="form-group">
 	            	<div class="label"><label for="sitename">链接</label></div>
 					<div class="field">
-						<input type="text" class="input" id="sysnav_url" name="sysnav.url" size="100" placeholder="链接" data-validate="required:请填写链接" value="${data.url!""}"/>
+						<input type="text" class="input" id="sysnav_url" name="sysnav.url" size="100" placeholder="链接" value="${data.url!""}"/>
 					</div>
 					</div>
 					
@@ -41,15 +53,7 @@
 					<div class="field">
 						<input type="text" class="input" id="sysnav_target" name="sysnav.target" size="20" placeholder="目标" data-validate="required:请填写目标" value="${data.target!"mainFrame"}"/>
 					</div>
-					</div>
-					
-					<div class="form-group">
-	            	<div class="label"><label for="sitename">父级id</label></div>
-					<div class="field">
-						<input type="text" class="input" id="sysnav_pid" name="sysnav.pid" size="11" placeholder="父级id" data-validate="required:请填写父级id" value="${data.pid!"0"}"/>
-
-					</div>
-					</div>
+					</div>					
 					<div class="form-button"><button class="button bg-main" type="submit">提交</button></div>
 			    </form>
 			</div>
@@ -68,7 +72,6 @@ eval("var list = "+data+";");
 for (var i = 0; i < list.length; i++) {
 	$(".icon_list").append('<div style="min-width:200px" class="margin button '+list[i]+' icon_list_item" data="'+list[i]+'"> '+list[i]+'</div>')
 };
-console.info(list)
 });
 $('.icon_list').delegate('.icon_list_item','click', function(event) {
 	old_icon_class = $("#sysnav_icon").val();
@@ -78,4 +81,63 @@ $('.icon_list').delegate('.icon_list_item','click', function(event) {
 	$(".tab-nav a").eq(0).trigger('click')
 });
 </script>
+<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+	<ul id="treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
+</div>
 <?  } ?>
+<script type="text/javascript">
+		var setting = {
+			view: {
+				dblClickExpand: false
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				onClick: onClick
+			}
+		};
+		
+		function onClick(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			nodes = zTree.getSelectedNodes();
+			if (nodes.length ==1) {
+				node = nodes[0];			
+				$("#res_name").attr("value", '【'+node.name+'】'+node.code_route);
+				$("#res_id").attr("value", node.id);
+			}
+			hideMenu();
+		}
+
+		function showMenu() {
+			var resObj = $("#res_name");
+			var cityOffset = $("#res_name").offset();
+			$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + resObj.outerHeight() + "px"}).slideDown("fast");
+			$("#menuContent .ztree").width(resObj.width());
+			$("body").bind("mousedown", onBodyDown);
+		}
+		function hideMenu() {
+			$("#menuContent").fadeOut("fast");
+			$("body").unbind("mousedown", onBodyDown);
+		}
+		function onBodyDown(event) {
+			if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+				hideMenu();
+			}
+		}
+		$(document).ready(function(){
+			$.get("${root}System/getres", function(nodes){
+				var treeObj = $.fn.zTree.init($("#treeDemo"), setting, nodes);
+				<?if(data.res_id!=0){?>
+				var node = treeObj.getNodeByParam("id", ${data.res_id}, null);
+				if (node!=null) {
+					$("#res_name").attr("value", '【'+node.name+'】'+node.code_route);
+					$("#res_id").attr("value", node.id);
+				}
+				<?}?>
+			},'JSON');
+		});
+
+</script>

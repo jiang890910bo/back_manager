@@ -6,8 +6,7 @@ import com.cnvp.paladin.model.SysNav;
 
 public class NavService {
 	public static List<SysNav> getTreeMap(int pid) {
-		;
-		List<SysNav> rows = SysNav.dao.set("pid", pid).findByModel("orderid asc");
+		List<SysNav> rows = new SysNav().set("pid", pid).findByModel("orderid asc");
 		if (!rows.isEmpty()) {
 			for (int i = 0; i < rows.size(); i++) {
 				List<SysNav> sub = getChildren(new Integer(rows.get(i)
@@ -24,7 +23,7 @@ public class NavService {
 	}
 
 	public static List<SysNav> getChildren(int pid) {
-		List<SysNav> rows = SysNav.dao.set("pid", pid).findByModel("orderid asc");
+		List<SysNav> rows = new SysNav().set("pid", pid).findByModel("orderid asc");
 		if (!rows.isEmpty()) {
 			for (int i = 0; i < rows.size(); i++) {
 				List<SysNav> sub = getChildren(new Integer(rows.get(i)

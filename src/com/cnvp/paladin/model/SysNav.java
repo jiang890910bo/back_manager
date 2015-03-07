@@ -12,4 +12,16 @@ public class SysNav extends BaseModel<SysNav> {
 	public Page<SysNav> paginate(int pageNumber, int pageSize) {
 		return paginate(pageNumber, pageSize, "select *", "from cnvp_sys_nav order by id asc");
 	}
+	private SysRes res = null;
+	public SysRes getRes(){
+		if (this.res==null) {
+			Integer res_id = getInt("res_id");
+			SysRes res = SysRes.dao.findById(res_id);
+			if (res==null)
+				this.res = new SysRes();
+			else
+				this.res = res;
+		}
+		return this.res;
+	}
 }

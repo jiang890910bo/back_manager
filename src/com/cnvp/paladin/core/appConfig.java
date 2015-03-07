@@ -1,7 +1,5 @@
 package com.cnvp.paladin.core;
 
-import org.beetl.core.GroupTemplate;
-
 import com.alibaba.druid.filter.stat.StatFilter;
 //import com.cnvp.handler.RewriteHandler;
 import com.cnvp.paladin.handler.CookieHandler;
@@ -15,7 +13,6 @@ import com.cnvp.paladin.plugin.AutoTableBindPlugin;
 import com.cnvp.paladin.plugin.TableNameStyle;
 import com.cnvp.paladin.utils.AutoRoutes;
 import com.cnvp.paladin.utils.beetl.BeetlRenderFactory;
-import com.cnvp.paladin.utils.beetl.BeetlShiro;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;

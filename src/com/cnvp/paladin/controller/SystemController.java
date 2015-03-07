@@ -1,12 +1,18 @@
 package com.cnvp.paladin.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.kit.PropertyKit;
 import com.cnvp.paladin.kit.StringKit;
 import com.cnvp.paladin.model.SysNav;
+import com.cnvp.paladin.model.SysRes;
 import com.cnvp.paladin.service.NavService;
+import com.jfinal.kit.JsonKit;
 
 public class SystemController extends BaseController {
 	public void index(){
@@ -61,5 +67,24 @@ public class SystemController extends BaseController {
 			SysNav.dao.findById(Integer.parseInt(keys[i])).set("orderid", Integer.parseInt(vals[i])).update();
 		}
 		redirect(getControllerKey()+"/nav");
+	}
+	public void getres() {
+		List<SysRes> res = SysRes.dao.findAll();
+		List<Map<String,Object>> r = new ArrayList<Map<String,Object>>();
+		Iterator<SysRes> it = res.iterator();
+		while (it.hasNext()) {
+			Map<String,Object> row = new HashMap<String, Object>();
+			SysRes sysRes = (SysRes) it.next();
+			row.put("id", sysRes.get("id"));
+			row.put("pId", sysRes.get("pid"));
+			row.put("name", sysRes.get("cname"));
+			row.put("code_route", sysRes.get("code_route"));
+			row.put("seq", sysRes.get("seq"));
+			if (sysRes.hasChild()) {
+				row.put("open", true);
+			}
+			r.add(row);
+		}
+		renderJavascript(JsonKit.toJson(r));
 	}
 }

@@ -12,6 +12,7 @@
             </div>
             <table class="table table-hover table-condensed">            
                 <tr>
+                	<th>ID</th>
                     <th width="45"><input type="checkbox" class="checkall" name="checkall" checkfor="id" /></th>
                     <th>账号</th>
                     <th>中文名</th>
@@ -24,10 +25,11 @@
                 </tr>
                 <? for(data in @page.getList()){?>
                 <tr>
+                		<td>${data.id}</td>
                         <td><input type="checkbox" name="id" value="${data.id}" /></td>
                         <td>${data.account}</td>
-                        <td>${data.cn_name}</td>
-                        <td>${data.en_name}</td>
+                        <td>${data.cname}</td>
+                        <td>${data.ename}</td>
                         <td>${@data.getDeptName()}</td>
                         <td>${data.remark}</td>
                         <td>${data.last_login_time,dateFormat="yyyy-MM-dd"}</td>

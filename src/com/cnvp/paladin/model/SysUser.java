@@ -6,9 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.cnvp.paladin.core.BaseModel;
+import com.jfinal.plugin.activerecord.ActiveRecordException;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+import com.jfinal.plugin.activerecord.Table;
 
 @SuppressWarnings("serial")
 public class SysUser extends BaseModel<SysUser> {
@@ -24,6 +26,10 @@ public class SysUser extends BaseModel<SysUser> {
 		else{
 			return dept.getStr("cname");
 		}
+	}
+	public boolean delete() {
+		SysUserRole.dao.deleteAll("user_id=?", getInt("id"));
+		return super.delete();
 	}
 	public int deleteAllRoles(){
 		return SysUserRole.dao.deleteAllByUserId(getInt("id"));

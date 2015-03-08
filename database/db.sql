@@ -12,7 +12,7 @@ MySQL - 5.6.19 : Database - cjf
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`cjf` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `cjf`;
 
 /*Table structure for table `cnvp_sys_dept` */
 
@@ -48,7 +48,7 @@ CREATE TABLE `cnvp_sys_nav` (
 
 /*Data for the table `cnvp_sys_nav` */
 
-insert  into `cnvp_sys_nav`(`id`,`title`,`icon`,`url`,`target`,`pid`,`orderid`,`res_id`) values (1,'开始','icon-home',NULL,'mainFrame',0,10,81),(3,'系统','icon-cog',NULL,'mainFrame',0,10,2),(33,'组织结构','icon-sitemap',NULL,'mainFrame',3,2,48),(20,'模型生成','icon-code','Generator/model','mainFrame',2,10,82),(17,'欢迎使用','icon-send',NULL,'mainFrame',1,10,78),(18,'个人资料','icon-user',NULL,'mainFrame',1,10,79),(19,'修改密码','icon-key',NULL,'mainFrame',1,10,80),(2,'开发','icon-codepen',NULL,'mainFrame',0,10,81),(15,'12312312','312',NULL,'mainFrame',123,10,0),(21,'视图生成','icon-code','Generator/view','mainFrame',2,10,82),(22,'控制器生成','icon-code','Generator/controller','mainFrame',2,10,73),(23,'系统设置','icon-desktop',NULL,'mainFrame',3,1,3),(24,'导航菜单','icon-th-list',NULL,'mainFrame',3,6,73),(26,'文件管理','icon-file',NULL,'mainFrame',3,7,0),(25,'权限配置','icon-asterisk',NULL,'mainFrame',3,8,0),(27,'日志查询','icon-angle-double-right',NULL,'mainFrame',3,9,0),(32,'用户管理','icon-user',NULL,'mainFrame',3,3,54),(34,'角色管理','icon-group',NULL,'mainFrame',3,4,60),(35,'资源管理','icon-unlock-alt',NULL,'mainFrame',3,5,67);
+insert  into `cnvp_sys_nav`(`id`,`title`,`icon`,`url`,`target`,`pid`,`orderid`,`res_id`) values (1,'开始','icon-home',NULL,'mainFrame',0,10,1),(3,'系统','icon-cog',NULL,'mainFrame',0,10,2),(33,'组织结构','icon-sitemap',NULL,'mainFrame',3,2,48),(20,'模型生成','icon-code','Generator/model','mainFrame',2,10,82),(17,'欢迎使用','icon-send',NULL,'mainFrame',1,10,78),(18,'个人资料','icon-user',NULL,'mainFrame',1,10,79),(19,'修改密码','icon-key',NULL,'mainFrame',1,10,80),(2,'开发','icon-codepen',NULL,'mainFrame',0,10,81),(15,'12312312','312',NULL,'mainFrame',123,10,0),(21,'视图生成','icon-code','Generator/view','mainFrame',2,10,82),(22,'控制器生成','icon-code','Generator/controller','mainFrame',2,10,73),(23,'系统设置','icon-desktop',NULL,'mainFrame',3,1,3),(24,'导航菜单','icon-th-list',NULL,'mainFrame',3,6,73),(26,'文件管理','icon-file',NULL,'mainFrame',3,7,0),(25,'权限配置','icon-asterisk',NULL,'mainFrame',3,8,0),(27,'日志查询','icon-angle-double-right',NULL,'mainFrame',3,9,0),(32,'用户管理','icon-user',NULL,'mainFrame',3,3,54),(34,'角色管理','icon-group',NULL,'mainFrame',3,4,60),(35,'资源管理','icon-unlock-alt',NULL,'mainFrame',3,5,67);
 
 /*Table structure for table `cnvp_sys_res` */
 
@@ -127,7 +127,7 @@ CREATE TABLE `cnvp_sys_user` (
 
 /*Data for the table `cnvp_sys_user` */
 
-insert  into `cnvp_sys_user`(`id`,`account`,`password`,`sex`,`cname`,`ename`,`dept_id`,`mobile`,`flg`,`remark`,`login_count`,`last_login_time`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'superadmin','a8f5f167f44f4964e6c998dee827110c','男','超级管理员-章宵','michael.z',14,'15990061612',1,NULL,60,1413779275,0,1,1425458171011,1),(9,'200057','a8f5f167f44f4964e6c998dee827110c','男','章宵','Michael',14,'15990061612',1,NULL,0,NULL,1425707342830,1,1425708238621,1);
+insert  into `cnvp_sys_user`(`id`,`account`,`password`,`sex`,`cname`,`ename`,`dept_id`,`mobile`,`flg`,`remark`,`login_count`,`last_login_time`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'superadmin','a8f5f167f44f4964e6c998dee827110c','男','超级管理员-章宵','michael.z',14,'15990061612',1,NULL,60,1413779275,0,1,1425458171011,1),(9,'200057','a8f5f167f44f4964e6c998dee827110c','男','章宵','Michael',14,'15990061612',1,NULL,0,NULL,1425707342830,1,1425783657455,1);
 
 /*Table structure for table `cnvp_sys_user_role` */
 

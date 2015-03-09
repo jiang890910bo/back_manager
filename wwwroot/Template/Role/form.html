@@ -1,6 +1,6 @@
 <?  layout("../layout/default.html") { ?>
-<link rel="stylesheet" href="${root}Static/js/ztree/css/zTreeStyle/zTreeStyle.css"  type="text/css">
-<script type="text/javascript" src="${root}Static/js/ztree/js/jquery.ztree.all-3.5.min.js"></script>
+<link rel="stylesheet" href="${root}/Static/js/ztree/css/zTreeStyle/zTreeStyle.css"  type="text/css">
+<script type="text/javascript" src="${root}/Static/js/ztree/js/jquery.ztree.all-3.5.min.js"></script>
 <div class="admin-panel">
 	<div class="tab">
 		<div class="tab-head">
@@ -40,11 +40,11 @@
 	</div>
 </div>
 <?  } ?>	
-<script src="${root}Static/js/jstree/jstree.min.js"></script>
+<script src="${root}/Static/js/jstree/jstree.min.js"></script>
 <script type="text/javascript">	
 	var res = 	${res};
 	var selectAll = function(flg){
-		$.post('${root}Role/set_res_all/${data.id}', {checked:flg},function(data){
+		$.post('${root}/Role/set_res_all/${data.id}', {checked:flg},function(data){
 			res = data;
 			var treeObj = $.fn.zTree.getZTreeObj("treex");
 			treeObj.reAsyncChildNodes(null, "refresh");
@@ -62,7 +62,7 @@
 		var nodes =  treeObj.getNodesByFilter(filter); 
 	}
 	var zTreeOnCheck = function(event, treeId, treeNode) {				
-		$.post('${root}Role/set_res/${data.id}-'+treeNode.id, {checked:treeNode.checked});
+		$.post('${root}/Role/set_res/${data.id}-'+treeNode.id, {checked:treeNode.checked});
 	};
 	var zTreeOnAsyncSuccess = function(event, treeId, treeNode, msg) {	
 		var treeObj = $.fn.zTree.getZTreeObj(treeId);
@@ -90,7 +90,7 @@
 		},
 		async : {
 			enable : true,
-			url : "${root}Resource/getlist",
+			url : "${root}/Resource/getlist",
 			autoParam : ["id"],
 			type : "get"
 		},		

@@ -1,6 +1,6 @@
 <?  layout("../layout/default.html") { ?>
-<link rel="stylesheet" href="${root}Static/js/ztree/css/zTreeStyle/zTreeStyle.css"  type="text/css">
-<script type="text/javascript" src="${root}Static/js/ztree/js/jquery.ztree.all-3.5.min.js"></script>
+<link rel="stylesheet" href="${root}/Static/js/ztree/css/zTreeStyle/zTreeStyle.css"  type="text/css">
+<script type="text/javascript" src="${root}/Static/js/ztree/js/jquery.ztree.all-3.5.min.js"></script>
 <div class="admin-panel">
 	<div class="tab">
 		<div class="tab-head">
@@ -66,7 +66,7 @@
 	</div>
 </div>
 <script>
-$.get("${root}Static/js/icon.js", function(data){
+$.get("${root}/Static/js/icon.js", function(data){
 
 eval("var list = "+data+";");
 for (var i = 0; i < list.length; i++) {
@@ -128,7 +128,7 @@ $('.icon_list').delegate('.icon_list_item','click', function(event) {
 			}
 		}
 		$(document).ready(function(){
-			$.get("${root}System/getres", function(nodes){
+			$.get("${root}/System/getres", function(nodes){
 				var treeObj = $.fn.zTree.init($("#treeDemo"), setting, nodes);
 				<?if(data.res_id!=0){?>
 				var node = treeObj.getNodeByParam("id", ${data.res_id}, null);

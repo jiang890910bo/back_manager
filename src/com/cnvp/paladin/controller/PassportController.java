@@ -26,7 +26,7 @@ public class PassportController extends BaseController {
 	public void logout() {
 		Subject subject = SecurityUtils.getSubject();
 		subject.logout();
-		redirect("login");
+		redirect("/Passport/login");
 	}
 	public void dologin() {
 		Subject subject = SecurityUtils.getSubject(); 

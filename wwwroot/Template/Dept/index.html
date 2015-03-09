@@ -1,10 +1,10 @@
 <?  layout("../layout/default.html") { ?>
-<script type="text/javascript" src="${root}Static/js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="${root}/Static/js/jquery.tmpl.js"></script>
 <form method="post" action="123123213/deleteAll">
 <div class="admin-panel">		
     <div class="panel">
     	<div class="panel-head">
-            <h3 class="float-left"><b>部门列表</b> <a href="${root}Dept/create" class="button  button-little bg-blue  icon-plus"> 添加一级部门</a></h3>
+            <h3 class="float-left"><b>部门列表</b> <a href="${root}/Dept/create" class="button  button-little bg-blue  icon-plus"> 添加一级部门</a></h3>
             <div class="toolbar">                    
             </div>
             <div class="clearfix"></div>
@@ -21,9 +21,9 @@
 <ul class="dept-item" deptid="\${id}" loadflg="0">
     <li class="dept-item-info"  {%if haschild==true%}child="1"{%/if%}>
 		<a class="{%if haschild==true%}icon-angle-down{%/if%}" onclick="toggle(\${id})" href="javascript:;"></a>
-		<a href="${ControllerKey}/update/\${id}">\${cname}</a>&nbsp;&nbsp;
-		<a class="icon-plus text-blue hidden" href="${ControllerKey}/create/\${id}"> </a>
-		<a class="icon-trash-o text-red hidden" onclick="return checkDel(\${id})" href="${ControllerKey}/delete/\${id}"> </a>
+		<a href="${root}${ControllerKey}/update/\${id}">\${cname}</a>&nbsp;&nbsp;
+		<a class="icon-plus text-blue hidden" href="${root}${ControllerKey}/create/\${id}"> </a>
+		<a class="icon-trash-o text-red hidden" onclick="return checkDel(\${id})" href="${root}${ControllerKey}/delete/\${id}"> </a>
     </li>
 </ul>
 </script>
@@ -48,7 +48,7 @@ var showChildren = function(data,pid){
 			showChildren(data,row.id);
 	});
 }
-$.get("${ControllerKey}/getlist",function(json){
+$.get("${root}${ControllerKey}/getlist",function(json){
 	showChildren(json.data,0);
 },"JSON");
 $(".panel-body").delegate(".dept-item-info", "mouseover", function(){

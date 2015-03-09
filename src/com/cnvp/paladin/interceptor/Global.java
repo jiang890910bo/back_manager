@@ -4,12 +4,14 @@ import com.cnvp.paladin.kit.PropertyKit;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
 import com.jfinal.core.Controller;
+import com.jfinal.core.JFinal;
 
 public class Global implements Interceptor {
 	public void intercept(ActionInvocation ai) {
 		
 		Controller ctrl=ai.getController();		
-		ctrl.setAttr("root",ctrl.getRequest().getContextPath()+"/");		
+		String cp = JFinal.me().getContextPath();
+		ctrl.setAttr("root",("".equals(cp) || "/".equals(cp)) ? "" : cp);		
 		ctrl.setAttr("action",ai.getActionKey());
 		ctrl.setAttr("app_name",PropertyKit.get("app_name"));
 		ctrl.setAttr("ControllerKey",ai.getControllerKey());

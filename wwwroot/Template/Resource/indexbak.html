@@ -1,10 +1,10 @@
 <?  layout("../layout/default.html") { ?>
 
-<link rel="stylesheet" href="${root}Static/js/jstree/themes/default/style.min.css" />
+<link rel="stylesheet" href="${root}/Static/js/jstree/themes/default/style.min.css" />
 <div class="admin-panel">   
     <div class="panel">
       <div class="panel-head">
-            <h3 class="float-left"><b>资源管理</b> <a href="${root}Resource/create" class="button  button-little bg-blue  icon-plus"> 添加分组</a></h3>
+            <h3 class="float-left"><b>资源管理</b> <a href="${root}/Resource/create" class="button  button-little bg-blue  icon-plus"> 添加分组</a></h3>
             <div class="toolbar">                    
             </div>
             <div class="clearfix"></div>
@@ -15,7 +15,7 @@
         
     </div>
 </div>
-<script src="${root}Static/js/jstree/jstree.min.js"></script>
+<script src="${root}/Static/js/jstree/jstree.min.js"></script>
 <script>
 $(function () {
   // 6 create an instance when the DOM is ready
@@ -25,7 +25,7 @@ $(function () {
       "animation" : 0,
       'data':{
           'url':function(node){
-              return node.id === '#'? '${root}Resource/getlist':'${root}Resource/getlist/'+node.id;
+              return node.id === '#'? '${root}/Resource/getlist':'${root}/Resource/getlist/'+node.id;
           }
       },
       'themes' : {
@@ -41,7 +41,7 @@ $(function () {
   			"action": function (data) {
   			  var inst = $.jstree.reference(data.reference),
   			  node = inst.get_node(data.reference); 
-  			  location.href="${root}Resource/create/"+node.id;
+  			  location.href="${root}/Resource/create/"+node.id;
   			}
   		
   		},		
@@ -51,7 +51,7 @@ $(function () {
   			'action': function (data) {
   			  var inst = $.jstree.reference(data.reference),
   			  node = inst.get_node(data.reference); 
-  			  location.href="${root}Resource/update/"+node.id;
+  			  location.href="${root}/Resource/update/"+node.id;
   			}		
   		}
   	}

@@ -9,6 +9,7 @@ import com.cnvp.paladin.model.SysRes;
 import com.cnvp.paladin.model.SysUser;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
+import com.jfinal.core.JFinal;
 
 public class Shiro implements Interceptor {
 
@@ -24,7 +25,10 @@ public class Shiro implements Interceptor {
 		if (!currentUser.isAuthenticated()) {
 			// 判断是否登陆
 			System.err.println("会话超时or未登录");
-			ai.getController().redirect("/Passport/login?from="+ai.getController().getRequest().getRequestURL());
+			String cp = JFinal.me().getContextPath();
+			cp =  ("".equals(cp) || "/".equals(cp)) ? null : cp;
+			String url = cp+"/Passport/login?from="+ai.getController().getRequest().getRequestURL();
+			ai.getController().redirect(url);
 		} else {
 			SysUser user = (SysUser) currentUser.getPrincipal();
 			// 根据ak读取权限代码

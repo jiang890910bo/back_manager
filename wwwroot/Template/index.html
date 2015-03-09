@@ -6,23 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
     <title>${app_name!}</title>
-    <link rel="stylesheet" href="${root}Static/css/pintuer.css">
-    <link rel="stylesheet" href="${root}Static/css/admin.css">
-    <script src="${root}Static/js/jquery.js"></script>
-    <script src="${root}Static/js/pintuer.js"></script>
-    <script src="${root}Static/js/respond.js"></script>
-    <script src="${root}Static/js/admin.js"></script>
+    <link rel="stylesheet" href="${root}/Static/css/pintuer.css">
+    <link rel="stylesheet" href="${root}/Static/css/admin.css">
+    <script src="${root}/Static/js/jquery.js"></script>
+    <script src="${root}/Static/js/pintuer.js"></script>
+    <script src="${root}/Static/js/respond.js"></script>
+    <script src="${root}/Static/js/admin.js"></script>
 </head>
 
 <body class="index-body">
 <div class="admin_logo">
-    <div class="logo"><a target="mainFrame" href="/" ><img src="${root}Static/images/logo.png" alt="后台管理系统" /></a></div>
+    <div class="logo"><a target="mainFrame" href="/" ><img src="${root}/Static/images/logo.png" alt="后台管理系统" /></a></div>
 </div>
 <div class="admin_nav">
     <div class="admin-navbar">
         <span class="float-right">
-        	<a class="button button-little bg-main" href="${root}Static/http://www.pintuer.com" target="_blank">前台首页</a>
-            <a class="button button-little bg-yellow" href="${root}Passport/logout">注销登录</a>
+        	<a class="button button-little bg-main" href="${root}/Static/http://www.pintuer.com" target="_blank">前台首页</a>
+            <a class="button button-little bg-yellow" href="${root}/Passport/logout">注销登录</a>
         </span>
         <ul class="nav nav-inline admin-nav">
             <div class="icon-caret-left admin_left_btn"></div>
@@ -35,7 +35,7 @@
                 <ul class="admin-nav-ii">
                     <?for(sub in nav.children){ ?>
 	            		<? if(@sub.getRes().get("code_route")!=null)if(shiro.hasPermission(@sub.getRes().get("code_route"))){?>
-	                    <li><a target="${sub.target}" href="<? isEmpty(sub.url)==false?print(sub.url):print(@sub.getRes().get("ak")); ?>"  class="${sub.icon}"> ${sub.title}</a></li>
+	                    <li><a target="${sub.target}" href="<? isEmpty(sub.url)==false?print(root+sub.url):print(root+@sub.getRes().get("ak")); ?>"  class="${sub.icon}"> ${sub.title}</a></li>
 	                    <?} ?>
                     <?} ?>
                 </ul>
@@ -48,7 +48,7 @@
     <div class="admin-bread">
         <span>您好：${shiro.getUser("cname")}，欢迎使用！</span>
         <ul class="bread">
-            <li><a target="mainFrame" href="${root}Static/index.html" class="icon-home"> 开始</a></li>
+            <li><a target="mainFrame" href="${root}/Static/index.html" class="icon-home"> 开始</a></li>
             <li>后台首页</li>
         </ul>
     </div>

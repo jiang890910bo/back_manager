@@ -28,6 +28,10 @@
 
 2、项目导入Eclipse，按照JFinal手册中的方式配置java Applcation，使用jetty启动项目。
 
+3、默认账号密码：superadmin/asdasd
+
+注意：还未能很好的支持二级路径的部署，比如http://localhost/paladin/，很多路径需要优化，还请各位看官，部署在根目录。
+
 ##交流
 QQ群：240452848
 

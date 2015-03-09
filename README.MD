@@ -1,3 +1,5 @@
+
+
 ##Paladin是啥？
 
 它是一个以JFinal为底层的java`基础后台框架`。
@@ -19,6 +21,12 @@
 * 刚入门JFinal的同学，可以拿过去做个参考
 
 * 各种大牛，看过、路过，给点指导，求虐求喷
+
+##部署方式
+
+1、还原数据库文件；在app.properties中修改数据库配置
+
+2、项目导入Eclipse，按照JFinal手册中的方式配置java Applcation，使用jetty启动项目。
 
 ##交流
 QQ群：240452848

@@ -26,7 +26,7 @@ public class Shiro implements Interceptor {
 			// 判断是否登陆
 			System.err.println("会话超时or未登录");
 			String cp = JFinal.me().getContextPath();
-			cp =  ("".equals(cp) || "/".equals(cp)) ? null : cp;
+			cp =  ("".equals(cp) || "/".equals(cp)) ? "" : cp;
 			String url = cp+"/Passport/login?from="+ai.getController().getRequest().getRequestURL();
 			ai.getController().redirect(url);
 		} else {

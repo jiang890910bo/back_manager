@@ -1,12 +1,10 @@
-
-
 ##Paladin是啥？
 
 它是一个以JFinal为底层的java`基础后台框架`。
 
 结合了以下第三方组件：
 
-`Beetl`、`Druid`、`Shiro`、`Ehcache`（JFinal自带工具类）。
+`Beetl`、`Druid`、`Shiro`、`Ehcache`（JFinal自带有工具类）。
 
 界面使用的[`拼图`](http://www.pintuer.com/)的后台模板，自己做了些优化和更改。
 
@@ -26,11 +24,10 @@
 
 1、还原数据库文件；在app.properties中修改数据库配置
 
-2、项目导入Eclipse，按照JFinal手册中的方式配置java Applcation，使用jetty启动项目。
+2、项目导入Eclipse，按照JFinal手册中的方式配置Java Applcation，使用jetty启动项目。
 
-3、默认账号密码：superadmin/asdasd
+3、默认账号/密码：superadmin/asdasd
 
-注意：还未能很好的支持二级路径的部署，比如http://localhost/paladin/，很多路径需要优化，还请各位看官，部署在根目录。
 
 ##交流
 QQ群：240452848
@@ -38,6 +35,8 @@ QQ群：240452848
 欢迎大家前来交流，给予宝贵的建议。
 
 希望能在社区的力量下（高人指点、建议；喷子鄙视、虐待）下，逐步完善，让众人受益。
+
+`感觉现在项目的难度不是很高，功能、代码、操作，都还有改进的空间；外加个人精力有限，所以号召各路大神多多提交Pull Requests，发挥下余热！`
 
 ##目前初步已经完成的功能，很多还需要完善、改进
 * 基础功能

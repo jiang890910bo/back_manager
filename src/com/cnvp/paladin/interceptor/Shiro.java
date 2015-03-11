@@ -15,10 +15,11 @@ public class Shiro implements Interceptor {
 
 	@Override
 	public void intercept(ActionInvocation ai) {		
-		/* TODO 继续完善权限控制体系
-		 * 1、按照“权限代码”构建权限目录树
-		 * 2、针对固定的权限，添加actionKey
-		 * 3、shiro拦截器中，根据actionKey在数据库中查找“权限代码”，并进行验证
+		/* 继续完善权限控制体系
+		 * 1、配置资源代码，绑定actionKey
+		 * 2、把所有actionKey=>code_route放入缓存
+		 * 3、shiro拦截器中，根据actionKey在缓存中找到code_route
+		 * 4、根据code_route用shiro内置方法进行验证
 		 * */
 		// 获取Shiro Subject
 		Subject currentUser = SecurityUtils.getSubject();

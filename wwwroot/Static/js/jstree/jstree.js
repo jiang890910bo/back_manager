@@ -2219,7 +2219,7 @@
 			if(!obj) { return false; }
 			if(obj.id === '#') { return this.redraw(true); }
 			node = this.get_node(node, true);
-			if(!node || !node.length) { return false; } // TODO: quick toggle
+			if(!node || !node.length) { return false; } 
 
 			node.children('.jstree-children').remove();
 			node = node[0];
@@ -5812,7 +5812,6 @@
 		 */
 		touch : true
 	};
-	// TODO: now check works by checking for each node individually, how about max_children, unique, etc?
 	$.jstree.plugins.dnd = function (options, parent) {
 		this.bind = function () {
 			parent.bind.call(this);

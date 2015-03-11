@@ -150,5 +150,5 @@ public class MysqlBuilder {
 			sql.append(" order by "+ this.order);
 		return sql.toString();
 	}
-	//TODO 继续完善SQL生成相关函数
+	//TODO 继续完善SQL生成相关函数，形成类似YII中的criteria
 }

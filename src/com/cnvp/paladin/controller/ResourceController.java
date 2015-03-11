@@ -12,7 +12,7 @@ import com.jfinal.core.JFinal;
 import com.jfinal.kit.JsonKit;
 
 public class ResourceController extends BaseController {
-	//TODO 完善资源表单高级配置：actionKey选择、类型选择等……
+	
 	public void index(){
 		render("index.html");
 	}

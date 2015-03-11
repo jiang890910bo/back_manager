@@ -57,7 +57,7 @@ public class ShiroDbRealm extends AuthorizingRealm{
     	}
     	SysUser userInDb = user.get(0);
     	SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-    	//TODO 根据用户获取角色=>根据角色获取权限
+    	//根据用户获取权限
     	List<String> code_routes = userInDb.getRes();
     	info.addStringPermissions(code_routes);
     	return info;

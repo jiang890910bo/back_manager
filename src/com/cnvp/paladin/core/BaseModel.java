@@ -61,7 +61,7 @@ public class BaseModel<M extends BaseModel> extends Model<M>{
 	public List<M> findAll(){
 		return find("select * from "+getTableName());
 	}
-	//TODO findAll 待完善暂时无法正常非使用
+	//TODO 由于MysqlBuilder暂未完善，请勿使用
 	public List<M> findAll(MysqlBuilder sqlBuilder){
 		sqlBuilder.tableName = getTableName();
 		if (sqlBuilder.params.size()==0) 
@@ -69,7 +69,7 @@ public class BaseModel<M extends BaseModel> extends Model<M>{
 		else			
 			return find(sqlBuilder.buildSql(),sqlBuilder.params);
 	}
-	//TODO deleteAll 待完善暂时无法正常非使用
+
 	public Integer deleteAll(){		
 		return Db.update("delete from "+ getTableName());
 	}

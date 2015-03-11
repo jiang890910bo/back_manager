@@ -11,10 +11,7 @@ public class BaseController extends Controller {
 		return this.getAttr("ControllerKey");
 	}
 	protected boolean isPost(){		
-		if("post".equals(getRequest().getMethod().toLowerCase()))
-			return true;
-		else
-			return false;
+		return "post".equals(getRequest().getMethod().toLowerCase());
 	}
 	protected void goBack() {
 		goBack(-1);

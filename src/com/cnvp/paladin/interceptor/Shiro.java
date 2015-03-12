@@ -10,7 +10,12 @@ import com.cnvp.paladin.model.SysUser;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
 import com.jfinal.core.JFinal;
-
+/**
+ * 停用JFinal中的shiro拦截器，用AuthorizationFilter4Shiro替代
+ * 直接在shiro的Filter其中注册AuthorizationFilter4Shiro
+ * 这样可以结合shiro.ini做灵活的配置，同时也可以使用shiro的其他默认拦截器
+ */
+@Deprecated
 public class Shiro implements Interceptor {
 
 	@Override

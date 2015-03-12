@@ -1,12 +1,10 @@
 package com.cnvp.paladin.core;
 
 import com.alibaba.druid.filter.stat.StatFilter;
-//import com.cnvp.handler.RewriteHandler;
 import com.cnvp.paladin.handler.CookieHandler;
 import com.cnvp.paladin.handler.RewriteHandler;
 import com.cnvp.paladin.handler.SessionHandler;
 import com.cnvp.paladin.interceptor.Global;
-import com.cnvp.paladin.interceptor.Shiro;
 import com.cnvp.paladin.kit.ConfigKit;
 import com.cnvp.paladin.kit.PropertyKit;
 import com.cnvp.paladin.plugin.AutoTableBindPlugin;
@@ -19,12 +17,11 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
-import com.jfinal.ext.plugin.shiro.ShiroPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 public class appConfig extends JFinalConfig {
-	private Routes routes;
+	
     public static DruidPlugin dp;
 	/**
 	 * 配置常量
@@ -79,7 +76,7 @@ public class appConfig extends JFinalConfig {
 	 * 配置全局拦截器
 	 */
 	public void configInterceptor(Interceptors me) {
-		me.add(new Shiro());
+//		me.add(new Shiro());
 		me.add(new Global());
 	}
 

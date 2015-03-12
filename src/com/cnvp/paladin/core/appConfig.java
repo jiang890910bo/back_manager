@@ -73,7 +73,6 @@ public class appConfig extends JFinalConfig {
 //		me.add(new SqlInXmlPlugin());
 
 		me.add(new EhCachePlugin()); 
-		me.add(new ShiroPlugin(routes));
 	}
 
 	/**

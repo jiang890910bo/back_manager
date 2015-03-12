@@ -18,8 +18,12 @@ public class AuthorizationFilter4Shiro extends AuthorizationFilter {
 
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request,ServletResponse response, Object mappedValue) throws Exception {
+		//-----------------登陆认证------------------
 		HttpServletRequest req = (HttpServletRequest) request;
 		Subject currentUser = getSubject(request, response);
+		if (!currentUser.isAuthenticated())
+			return false;
+		//-----------------权限认证-------------
 		SysUser user = (SysUser) currentUser.getPrincipal();
 		// 根据ak读取权限代码
 		Map<String,String> ak_coderoutes = SysRes.dao.getAk_CodeRoutes();

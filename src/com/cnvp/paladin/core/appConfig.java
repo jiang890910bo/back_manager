@@ -21,7 +21,7 @@ import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 public class appConfig extends JFinalConfig {
-	
+	private Routes routes;
     public static DruidPlugin dp;
 	/**
 	 * 配置常量

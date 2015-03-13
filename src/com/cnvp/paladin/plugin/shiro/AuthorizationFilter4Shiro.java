@@ -21,6 +21,7 @@ public class AuthorizationFilter4Shiro extends AuthorizationFilter {
 		//-----------------登陆认证------------------
 		HttpServletRequest req = (HttpServletRequest) request;
 		Subject currentUser = getSubject(request, response);
+		setLoginUrl(createLoginURL(req));	
 		if (!currentUser.isAuthenticated())
 			return false;
 		//-----------------权限认证-------------
@@ -40,6 +41,18 @@ public class AuthorizationFilter4Shiro extends AuthorizationFilter {
 		}else{
 			return false;
 		}
+	}
+
+	private String createLoginURL(HttpServletRequest req) {
+		StringBuffer fromURL = req.getRequestURL();
+		String loginUrl = getLoginUrl();
+		int i = loginUrl.indexOf("?");
+		if (i!=-1) {
+			loginUrl = loginUrl.substring(0, i);
+		}
+		if (fromURL.length()>0)
+			loginUrl +="?from="+fromURL;
+		return loginUrl;
 	}
 
 	private String getActionKey(HttpServletRequest request) {

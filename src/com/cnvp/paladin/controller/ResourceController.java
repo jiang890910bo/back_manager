@@ -21,6 +21,7 @@ public class ResourceController extends BaseController {
 		if(isPost()){
 			SysRes model =getModel(SysRes.class,"sysres");
 			if(model.save()){
+				refreshCodeRoute();
 				Map<String, Object> r = new HashMap<String, Object>();
 				r.put("success", true);
 				r.put("data", model.toNodeData());
@@ -37,6 +38,7 @@ public class ResourceController extends BaseController {
 		if(isPost()){
 			SysRes model = getModel(SysRes.class,"sysres").set("id",id);
 			if(model.update()){
+				refreshCodeRoute();
 				Map<String, Object> r = new HashMap<String, Object>();
 				r.put("success", true);
 				r.put("data", model.toNodeData());
@@ -77,6 +79,10 @@ public class ResourceController extends BaseController {
 		renderJson(nodes);
 	}
 	public void refresh(){
+		refreshCodeRoute();
+		redirect(getControllerKey());
+	}
+	private void refreshCodeRoute() {
 		List<SysRes> reslist = SysRes.dao.findAll();
 		Iterator<SysRes> it = reslist.iterator();
 		while (it.hasNext()) {
@@ -91,6 +97,5 @@ public class ResourceController extends BaseController {
 			model.set("code_route", code_route);
 			model.update();
 		}
-		redirect(getControllerKey());
 	}
 }

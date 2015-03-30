@@ -7,23 +7,31 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.jfinal.handler.Handler;
+
 /**
  * session参数填入到request
- * @author 刘声凤
- *  2012-9-4 下午10:22:19
+ * 
+ * @author 刘声凤 2012-9-4 下午10:22:19
  */
 public class SessionHandler extends Handler {
 
 	@Override
 	public void handle(String target, HttpServletRequest request,
 			HttpServletResponse response, boolean[] isHandled) {
-		HttpSession session=request.getSession();
-		Enumeration<String> atts=session.getAttributeNames();
-		while(atts.hasMoreElements()==true){
-			String an=atts.nextElement();
+		HttpSession session = request.getSession();
+		Enumeration<String> atts = session.getAttributeNames();
+		while (atts.hasMoreElements() == true) {
+			String an = atts.nextElement();
 			request.setAttribute(an, session.getAttribute(an));
 		}
-	     nextHandler.handle(target, request, response, isHandled);
+
+		int index = target.indexOf(";jsessionid".toUpperCase());
+
+		if (index != -1) {
+			target = target.substring(0, index);
+		}
+		
+		nextHandler.handle(target, request, response, isHandled);
 	}
 
 }

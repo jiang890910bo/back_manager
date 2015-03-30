@@ -34,8 +34,9 @@ public class ResourceController extends BaseController {
 		render("form.html");
 	}
 	public void update(){
-		Integer id = getParaToInt(0);
+		
 		if(isPost()){
+			Integer id = getParaToInt("sysres.id");
 			SysRes model = getModel(SysRes.class,"sysres").set("id",id);
 			if(model.update()){
 				refreshCodeRoute();
@@ -45,10 +46,12 @@ public class ResourceController extends BaseController {
 				renderJavascript(JsonKit.toJson(r));
 				return;
 			}				
+		}else{
+			Integer id = getParaToInt(0);
+			setAttr("aks", JFinal.me().getAllActionKeys());
+			setAttr("data", SysRes.dao.findById(id).addParentCode());
+			render("form.html");
 		}
-		setAttr("aks", JFinal.me().getAllActionKeys());
-		setAttr("data", SysRes.dao.findById(id).addParentCode());
-		render("form.html");
 	}
 	public void delete(){
 		int id = getParaToInt();

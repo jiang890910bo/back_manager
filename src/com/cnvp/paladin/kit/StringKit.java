@@ -53,10 +53,15 @@ public class StringKit extends StrKit{
 			for (int i = 1; i < m.groupCount()+1; i++) {
 				strArr.add(m.group(i));
 			}
-		}		 
-		String[] result = new String[strArr.size()];
-		result = (String[]) strArr.toArray(result);
-		return result;
+		}
+		if (strArr.size()==0)
+			return new String[]{typeFromDb,""};
+		else{
+			String[] result = new String[strArr.size()];
+			result = (String[]) strArr.toArray(result);
+			System.out.println(result);
+			return result;
+		}
 		
 	}
 	public static String implode(ArrayList<String> strArr, String separator){

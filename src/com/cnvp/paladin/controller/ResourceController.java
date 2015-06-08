@@ -10,6 +10,7 @@ import com.cnvp.paladin.core.BaseController;
 import com.cnvp.paladin.model.SysRes;
 import com.jfinal.core.JFinal;
 import com.jfinal.kit.JsonKit;
+import com.jfinal.plugin.ehcache.CacheKit;
 
 public class ResourceController extends BaseController {
 	
@@ -83,6 +84,8 @@ public class ResourceController extends BaseController {
 	}
 	public void refresh(){
 		refreshCodeRoute();
+		CacheKit.remove("system", "ak_coderoutes");
+		SysRes.dao.getAk_CodeRoutes();
 		redirect(getControllerKey());
 	}
 	private void refreshCodeRoute() {
